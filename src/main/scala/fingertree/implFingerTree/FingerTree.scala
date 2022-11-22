@@ -3,8 +3,9 @@ package fingertree.implFingerTree
 import fingertree.IFingerTree
 import node.INode
 import empty.IEmpty
+import empty.implEmpty.Empty
 
-class FingerTree[A](treeHead: IEmpty) extends IFingerTree[A] {
+class FingerTree[A](treeHead: IEmpty = Empty()) extends IFingerTree[A] {
   override def append(entry: A): FingerTree[A] = ???
 
   override def remove(entry: A): IFingerTree[A] = ??? 
@@ -15,7 +16,7 @@ class FingerTree[A](treeHead: IEmpty) extends IFingerTree[A] {
 
   override def head: A = ???
   override def last: A = ???
-  override def toString(): String = "FingerTree"
+  override def toString(): String = treeHead.toString
 
 
 }
