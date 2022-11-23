@@ -4,7 +4,7 @@ import deep.IDeep
 import digit.IDigit
 import empty.IEmpty
 
-final case class Deep[A](one: IDigit[A], two: IEmpty, three: IDigit[A])
+final case class Deep[A](one: IDigit[A], two: IEmpty[A], three: IDigit[A])
     extends IDeep[A]:
   override def +:(entry: A): Deep[A] = this.copy(three = three.+:(entry))
 
