@@ -14,7 +14,7 @@ class SpecDigits3 extends AnyWordSpec with Matchers {
       "return a new Digit with 2 elements" in {
         val newDigit = digit.+:(7)
 
-        newDigit should be(Digit4[Int](10, 9, 8, 7))
+        newDigit should be(Some(Digit4[Int](10, 9, 8, 7)))
       }
     }
     "calling toString" should {

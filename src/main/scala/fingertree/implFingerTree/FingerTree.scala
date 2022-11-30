@@ -11,7 +11,7 @@ import deep.implDeep.Deep
 
 final case class FingerTree[A](treeHead: IEmpty[A] | ISingle[A] | IDeep[A] = Empty[A]()) extends IFingerTree[A] {
   override def append(entry: A): FingerTree[A] = 
-    treeHead match 
+    treeHead match // FIXME better case check
       case Empty[A]() => this.copy(treeHead.asInstanceOf[IEmpty[A]].+:(entry))
       case Single[A](one) => this.copy(treeHead.asInstanceOf[ISingle[A]].+:(entry))
       case Deep[A](one, two, three) => this.copy(treeHead.asInstanceOf[IDeep[A]].+:(entry))
