@@ -12,11 +12,16 @@ class SpecDigits4 extends AnyWordSpec with Matchers {
 
     "adding a new element" should {
       "triggers a sys error" in {
-        val res = digit.+:(5)
-
-        res should be(None)
+        try {
+          val res = digit.:+(5)
+          fail()
+        } catch {
+          case ex: UnsupportedOperationException => 
+            ex.getMessage() should be("Digit4 is already max sized. Can´t be appended!")
+        }
       }
     }
+
     "calling toString" should {
       "be presented right" in {
         digit.toString should be("Digit( 10, 9, 8, 7 )")

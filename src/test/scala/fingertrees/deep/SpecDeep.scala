@@ -19,23 +19,24 @@ class SpecDeep extends AnyWordSpec with Matchers {
     "adding a new element" should {
       "return a Deep with 2 Digits on right when 1 Digit before" in {
 
-        val newDeep = deep.+:(8)
+        val newDeep = deep.:+(8)
 
         newDeep should be(Deep[Int](Digit1(10), Empty(), Digit2(9, 8)))
       }
       "return a Deep with 3 Digits on right when 2 Digits before" in {
 
-        val newDeep = deep.+:(8).+:(7)
+        val newDeep = deep.:+(8).:+(7)
 
         newDeep should be(Deep[Int](Digit1(10), Empty(), Digit3(9, 8, 7)))
       }
       "return a Deep with 4 Digits on right when 3 Digits before" in {
 
-        val newDeep = deep.+:(8).+:(7).+:(6)
+        val newDeep = deep.:+(8).:+(7).:+(6)
 
         newDeep should be(Deep[Int](Digit1(10), Empty(), Digit4(9, 8, 7, 6)))
       }
     }
+
     "calling toString" should {
       "be presented right" in {
         deep.toString should be("Deep( Digit( 10 ), Empty(), Digit( 9 ) )")

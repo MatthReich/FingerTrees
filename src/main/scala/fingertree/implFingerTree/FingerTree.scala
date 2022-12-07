@@ -8,14 +8,11 @@ import single.ISingle
 import single.implSingle.Single
 import deep.IDeep
 import deep.implDeep.Deep
+import fingertree.implFingerTree.ITreeComponent
 
-final case class FingerTree[A](treeHead: IEmpty[A] | ISingle[A] | IDeep[A] = Empty[A]()) extends IFingerTree[A] {
-  override def append(entry: A): FingerTree[A] = 
-    treeHead match // FIXME better case check
-      case Empty[A]() => this.copy(treeHead.asInstanceOf[IEmpty[A]].+:(entry))
-      case Single[A](one) => this.copy(treeHead.asInstanceOf[ISingle[A]].+:(entry))
-      case Deep[A](one, two, three) => this.copy(treeHead.asInstanceOf[IDeep[A]].+:(entry))
-      case _ => this.copy() // TODO error handling
+final case class FingerTree[A](treeHead: ITreeComponent[A]
+ = Empty()) extends IFingerTree[A] {
+  override def append(entry: A): FingerTree[A] = this.copy(treeHead = treeHead.:+(entry))
 
   override def remove(entry: A): IFingerTree[A] = ??? 
 

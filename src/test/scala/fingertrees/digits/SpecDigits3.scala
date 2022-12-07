@@ -12,11 +12,12 @@ class SpecDigits3 extends AnyWordSpec with Matchers {
 
     "adding a new element" should {
       "return a new Digit with 2 elements" in {
-        val newDigit = digit.+:(7)
+        val newDigit = digit.:+(7)
 
-        newDigit should be(Some(Digit4[Int](10, 9, 8, 7)))
+        newDigit should be(Digit4[Int](10, 9, 8, 7))
       }
     }
+
     "calling toString" should {
       "be presented right" in {
         digit.toString should be("Digit( 10, 9, 8 )")

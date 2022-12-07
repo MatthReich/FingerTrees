@@ -4,11 +4,10 @@ lazy val root = project
   .in(file("."))
   .settings(
     name := "FingerTrees",
-    version := "0.0.0",
+    version := "1.0.0",
 
     scalaVersion := scala3Version,
 
     libraryDependencies += "org.scalactic" %% "scalactic" % "3.2.14",
     libraryDependencies += "org.scalatest" %% "scalatest" % "3.2.14" % "test"
-
   )

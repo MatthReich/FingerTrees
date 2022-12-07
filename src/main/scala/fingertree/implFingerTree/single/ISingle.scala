@@ -2,10 +2,10 @@ package single
 
 import deep.IDeep
 import node.INode
+import fingertree.implFingerTree.ITreeComponent
 
-trait ISingle[A] {
-  def one: A | INode[A]
+trait ISingle[A] extends ITreeComponent[A]{
+  def entry: A | INode[A]
 
-  def +:(entry: A | INode[A]): IDeep[A]
   def toString: String
 }

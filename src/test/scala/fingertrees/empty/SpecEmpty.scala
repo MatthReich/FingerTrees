@@ -12,15 +12,16 @@ class SpecEmpty extends AnyWordSpec with Matchers {
 
   "An Empty" when {
 
-    val empty: IEmpty[Int] = Empty[Int]()
+    val empty: IEmpty = Empty()
 
     "adding a new element" should {
-      "return a Deep with 2 Digit 1 and Empty" in {
-        val newEmpty = empty.+:(10)
+      "return a Single" in {
+        val newEmpty = empty.:+(10)
 
         newEmpty should be(Single(10))
       }
     }
+
     "calling toString" should {
       "be presented right" in {
         empty.toString should be("Empty()")

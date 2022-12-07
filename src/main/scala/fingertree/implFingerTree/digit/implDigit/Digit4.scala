@@ -10,7 +10,7 @@ import single.ISingle
 import empty.IEmpty
 import node.INode
 
-final case class Digit4[A](one: A  | INode[A], two: A  | INode[A], three: A | INode[A], four: A  | INode[A]) extends IDigit[A]:
-    override def +:(entry: A | INode[A]): Option[IDigit[A]] = None
+final case class Digit4[A](one: A, two: A, three: A, four: A) extends IDigit[A]:
+    override def :+[A1 >: A](newEntry: A1): IDigit[A1] = throw new UnsupportedOperationException("Digit4 is already max sized. Can´t be appended!")
 
     override def toString: String = String.format("Digit( %s, %s, %s, %s )", one.toString(), two.toString(), three.toString(), four.toString())

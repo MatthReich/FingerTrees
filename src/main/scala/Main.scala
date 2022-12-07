@@ -9,10 +9,8 @@ import fingertree.implFingerTree.FingerTree
   var fingerTree = FingerTree[Int]()
 
   println(0 + ": " + fingerTree.toString())
-  for (i <- Range(1, 31))
+  for (i <- Range(1, 40))
     fingerTree = fingerTree.append(i)
     println(i + ": " + fingerTree.toString())
 
   println("finished")
-
-// Empty -> Single(Value) -> Deep(Digit1 Empty Digit1) -> Deep(digit1234 Empty Digit 1) -> Deep(Digit2, )

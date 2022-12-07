@@ -2,17 +2,17 @@ package fingertrees
 
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
-import scala.collection.View.Single
 import fingertree.implFingerTree.FingerTree
+import fingertree.implFingerTree.ITreeComponent
 
 class SpecFingerTree extends AnyWordSpec with Matchers {
 
-  "A Single" when {
+  "A FingerTree" when {
 
     val fingerTree: FingerTree[Int] = FingerTree()
 
     "calling toString" should {
-      "be presented right" in {
+      "be presented right when only created" in {
         fingerTree.toString should be("Empty()")
       }
     }
