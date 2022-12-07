@@ -12,7 +12,12 @@ import fingertree.implFingerTree.ITreeComponent
 
 final case class FingerTree[A](treeHead: ITreeComponent[A]
  = Empty()) extends IFingerTree[A] {
-  override def append(entry: A): FingerTree[A] = this.copy(treeHead = treeHead.:+(entry))
+  override def append(entries: A*): FingerTree[A] = 
+    var tmp = treeHead
+    for (entry <- entries) {
+      tmp = tmp.:+[A](entry)
+    }
+    this.copy(treeHead = tmp)
 
   override def remove(entry: A): IFingerTree[A] = ??? 
 

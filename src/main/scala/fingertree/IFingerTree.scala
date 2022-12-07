@@ -5,7 +5,7 @@ import fingertree.implFingerTree.ITreeComponent
 trait IFingerTree[A] {
   def treeHead: ITreeComponent[A]
 
-  def append(entry: A): IFingerTree[A]
+  def append(entrys: A*): IFingerTree[A]
   def remove(entry: A): IFingerTree[A]
 
   def getIndex(entry: A): Int
