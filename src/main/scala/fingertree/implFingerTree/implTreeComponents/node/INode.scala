@@ -1,5 +1,5 @@
 package node
 
-trait INode[A] {
+trait INode[+A] {
   def toString: String
 }

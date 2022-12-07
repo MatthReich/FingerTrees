@@ -8,7 +8,7 @@ import fingertree.implFingerTree.ITreeComponent
 
 trait IDeep[+A] extends ITreeComponent[A] {
   def prefix: IDigit[A]
-  def tree: ITreeComponent[IDigit[A]]
+  def tree: ITreeComponent[INode[A]]
   def suffix: IDigit[A]
 
   def toString: String

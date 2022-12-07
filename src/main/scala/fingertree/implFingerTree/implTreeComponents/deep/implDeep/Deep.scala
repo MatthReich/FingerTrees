@@ -14,16 +14,16 @@ import empty.implEmpty.Empty
 import fingertree.implFingerTree.ITreeComponent
 import digit.implDigit.Digit3
 
-final case class Deep[+A](prefix: IDigit[A], tree: ITreeComponent[IDigit[A]], suffix: IDigit[A]) extends IDeep[A], ITreeComponent[A]:
+final case class Deep[+A](prefix: IDigit[A], tree: ITreeComponent[INode[A]], suffix: IDigit[A]) extends IDeep[A], ITreeComponent[A]:
 
   override  def :+[A1 >: A](newEntry: A1): ITreeComponent[A1] = {
     suffix match {
-      case Digit4(g, f, e, d) =>
-        val treeNew     = tree.:+[IDigit[A1]](Digit3(g, f, e))
-        val suffix      = Digit2(d, newEntry)
+      case Digit4(one, two, three, four) =>
+        val treeNew     = tree.:+[INode[A1]](Node3(one, two, three))
+        val suffix      = Digit2(four, newEntry)
         Deep(prefix, treeNew, suffix)
-      case partial =>
-        Deep(prefix, tree, partial :+ newEntry)
+      case partialDigit =>
+        Deep(prefix, tree, partialDigit :+ newEntry)
     }
   }
 
