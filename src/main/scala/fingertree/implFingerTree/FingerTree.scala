@@ -14,9 +14,7 @@ final case class FingerTree[A](treeHead: ITreeComponent[A]
  = Empty()) extends IFingerTree[A] {
   override def append(entries: A*): FingerTree[A] = 
     var tmp = treeHead
-    for (entry <- entries) {
-      tmp = tmp.:+[A](entry)
-    }
+    entries.toSeq.foreach((e) => { tmp = tmp.:+[A](e) })
     this.copy(treeHead = tmp)
 
   override def remove(entry: A): IFingerTree[A] = ??? 
