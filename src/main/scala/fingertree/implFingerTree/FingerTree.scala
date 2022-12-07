@@ -11,7 +11,7 @@ import deep.implDeep.Deep
 import fingertree.implFingerTree.ITreeComponent
 
 final case class FingerTree[A](treeHead: ITreeComponent[A]
- = Empty()) extends IFingerTree[A] {
+ = Empty()) extends IFingerTree[A]:
   override def append(entries: A*): FingerTree[A] = 
     var tmp = treeHead
     entries.toSeq.foreach((e) => { tmp = tmp.:+[A](e) })
@@ -26,4 +26,4 @@ final case class FingerTree[A](treeHead: ITreeComponent[A]
   override def head: A = ???
   override def last: A = ???
   override def toString(): String = treeHead.toString
-}
+

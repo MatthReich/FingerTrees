@@ -4,8 +4,8 @@ import deep.IDeep
 import node.INode
 import fingertree.implFingerTree.ITreeComponent
 
-trait ISingle[A] extends ITreeComponent[A]{
+trait ISingle[A] extends ITreeComponent[A]:
   def entry: A | INode[A]
 
   def toString: String
-}
+

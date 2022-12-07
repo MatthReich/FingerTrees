@@ -2,7 +2,7 @@ package fingertree
 
 import fingertree.implFingerTree.ITreeComponent
 
-trait IFingerTree[A] {
+trait IFingerTree[A]:
   def treeHead: ITreeComponent[A]
 
   def append(entries: A*): IFingerTree[A]
@@ -16,4 +16,4 @@ trait IFingerTree[A] {
   def last: A
 
   def toString: String
-}
+
