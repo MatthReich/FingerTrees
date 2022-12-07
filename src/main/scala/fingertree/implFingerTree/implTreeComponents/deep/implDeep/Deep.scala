@@ -27,9 +27,4 @@ final case class Deep[+A](prefix: IDigit[A], tree: ITreeComponent[INode[A]], suf
     }
   }
 
-  override def toString: String = String.format(
-    "Deep( %s, %s, %s )",
-    prefix.toString,
-    tree.toString,
-    suffix.toString
-  )
+  override def toString: String = s"Deep( ${prefix.toString}, ${tree.toString}, ${suffix.toString} )"

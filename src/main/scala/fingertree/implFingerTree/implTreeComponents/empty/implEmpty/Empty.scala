@@ -9,7 +9,7 @@ final case class Empty() extends IEmpty, ITreeComponent[Nothing]:
     
     override def :+[A1](newEntry: A1): ITreeComponent[A1] = Single(newEntry)   
 
-    override def toString: String = "Empty()"
+    override def toString: String = s"Empty()"
 
 
 

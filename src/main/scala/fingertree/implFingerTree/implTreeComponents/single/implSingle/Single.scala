@@ -16,4 +16,4 @@ final case class Single[A](entry: A) extends ISingle[A], ITreeComponent[A]:
       val suffix  = Digit1[A1](newEntry)
       Deep(prefix, Empty(), suffix)
 
-  override def toString: String = String.format("Single( %s )", entry.toString())
+  override def toString: String = s"Single( ${entry.toString()} )"
