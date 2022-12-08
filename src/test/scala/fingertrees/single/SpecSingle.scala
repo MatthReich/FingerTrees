@@ -20,6 +20,13 @@ class SpecSingle extends AnyWordSpec with Matchers {
         newSingle should be(Deep[Int](Digit1(10), Empty(), Digit1(9)))
       }
     }
+
+    "checking size" should {
+      "be 1 when only 1 Value is stored" in {
+        single.size should be(1)
+      }
+    }
+
     "calling toString" should {
       "be presented right" in {
         single.toString should be("Single( 10 )")

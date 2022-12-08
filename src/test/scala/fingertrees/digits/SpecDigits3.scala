@@ -18,6 +18,12 @@ class SpecDigits3 extends AnyWordSpec with Matchers {
       }
     }
 
+    "checking size" should {
+      "be 3 when only 3 Value are stored" in {
+        digit.size should be(3)
+      }
+    }
+
     "calling toString" should {
       "be presented right" in {
         digit.toString should be("Digit( 10, 9, 8 )")

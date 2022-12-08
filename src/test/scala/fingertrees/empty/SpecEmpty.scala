@@ -22,6 +22,12 @@ class SpecEmpty extends AnyWordSpec with Matchers {
       }
     }
 
+    "checking size" should {
+      "give back 0" in {
+        empty.size should be(0)
+      }
+    }
+
     "calling toString" should {
       "be presented right" in {
         empty.toString should be("Empty()")

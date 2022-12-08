@@ -9,8 +9,11 @@ import fingertree.implFingerTree.FingerTree
   var fingerTree = FingerTree[Int]()
 
   println(0 + ": " + fingerTree.toString())
-  for (i <- Range(1, 40))
+  println(0 + ": size = " + fingerTree.length)
+
+  for (i <- Range(1, 50))
     fingerTree = fingerTree.append(i)
     println(i + ": " + fingerTree.toString())
+    println(i + ": size = " + fingerTree.length)
 
   println("finished")

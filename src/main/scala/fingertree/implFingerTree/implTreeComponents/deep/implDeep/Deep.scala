@@ -27,4 +27,6 @@ final case class Deep[+A](prefix: IDigit[A], tree: ITreeComponent[INode[A]], suf
     }
   }
 
+  override def size: Int = prefix.size + tree.size + suffix.size
+
   override def toString: String = s"Deep( ${prefix.toString}, ${tree.toString}, ${suffix.toString} )"

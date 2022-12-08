@@ -17,13 +17,10 @@ final case class FingerTree[A](treeHead: ITreeComponent[A]
     entries.toSeq.foreach((e) => { tmp = tmp.:+[A](e) })
     this.copy(treeHead = tmp)
 
-  override def remove(entry: A): IFingerTree[A] = ??? 
-
-  override def getIndex(entry: A): Int = ???
-  override def get(index: Int): A = ???
-  override def set(index: Int, entry: A): IFingerTree[A] = ???
-
   override def head: A = ???
   override def last: A = ???
+
+  override def length: Int = treeHead.size
+
   override def toString(): String = treeHead.toString
 

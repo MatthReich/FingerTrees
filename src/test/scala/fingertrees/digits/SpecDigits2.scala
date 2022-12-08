@@ -20,6 +20,12 @@ class SpecDigits2 extends AnyWordSpec with Matchers {
       }
     }
 
+    "checking size" should {
+      "be 2 when only 2 Value are stored" in {
+        digit.size should be(2)
+      }
+    }
+
     "calling toString" should {
       "be presented right" in {
         digit.toString should be("Digit( 10, 9 )")

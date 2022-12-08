@@ -9,6 +9,7 @@ import empty.implEmpty.Empty
 import digit.implDigit.Digit2
 import digit.implDigit.Digit3
 import digit.implDigit.Digit4
+import node.implNode.Node3
 
 class SpecDeep extends AnyWordSpec with Matchers {
 
@@ -34,6 +35,23 @@ class SpecDeep extends AnyWordSpec with Matchers {
         val newDeep = deep.:+(8).:+(7).:+(6)
 
         newDeep should be(Deep[Int](Digit1(10), Empty(), Digit4(9, 8, 7, 6)))
+      }
+
+      "return a Deep with Digit1 as prefix, Digit2 as suffix and as tree a Single with Node3" in {
+        val newDeep = deep.:+(8).:+(7).:+(6).:+(5)
+        newDeep should be(Deep[Int](Digit1(10), Single(Node3(9, 8, 7)), Digit2(6, 5)))
+      }
+    }
+
+    "checking size" should {
+      "be 2 when only 2 Digits and 1 Empty" in {
+        deep.size should be(2)
+      }
+
+      "be 6 when 1 Digit left, 1 Single with Node3 middle and 2 Digits right" in {
+        val newDeep =  deep.:+(8).:+(7).:+(6).:+(5)
+
+        newDeep.size should be(6)
       }
     }
 

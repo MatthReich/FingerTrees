@@ -22,6 +22,12 @@ class SpecDigits4 extends AnyWordSpec with Matchers {
       }
     }
 
+    "checking size" should {
+      "be 4 when only 4 Value are stored" in {
+        digit.size should be(4)
+      }
+    }
+
     "calling toString" should {
       "be presented right" in {
         digit.toString should be("Digit( 10, 9, 8, 7 )")
