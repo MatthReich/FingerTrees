@@ -14,13 +14,10 @@ final case class FingerTree[A](treeHead: ITreeComponent[A]
  = Empty()) extends IFingerTree[A]:
   override def append(entries: A*): FingerTree[A] = 
     var tmp = treeHead
-    entries.toSeq.foreach((e) => { tmp = tmp.:+[A](e) })
+    entries.toSeq.foreach((e) => { tmp = tmp.:+(e) })
     this.copy(treeHead = tmp)
 
-  override def head: A = ???
-  override def last: A = ???
-
-  override def length: Int = treeHead.size
+  override def size: Int = treeHead.size
 
   override def toString(): String = treeHead.toString
 

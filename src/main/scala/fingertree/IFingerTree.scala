@@ -7,9 +7,7 @@ trait IFingerTree[A]:
 
   def append(entries: A*): IFingerTree[A]
  
-  def head: A
-  def last: A
-  def length: Int
+  def size: Int
 
   def toString: String
 
