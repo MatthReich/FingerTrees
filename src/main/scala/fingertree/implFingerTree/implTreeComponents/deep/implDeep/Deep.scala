@@ -20,7 +20,7 @@ final case class Deep[+A](
     suffix: IDigit[A]
 ) extends IDeep[A],
       ITreeComponent[A]:
-  override def :+[A1 >: A](newEntry: A1): ITreeComponent[A1] =
+  override def :+[B >: A](newEntry: B): ITreeComponent[B] =
     suffix match {
       case Digit4(entry1, entry2, entry3, entry4) =>
         val treeNew = deep :+ Node3(entry1, entry2, entry3)

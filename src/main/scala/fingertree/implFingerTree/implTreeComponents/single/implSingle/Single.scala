@@ -10,8 +10,8 @@ import fingertree.implFingerTree.ITreeComponent
 import digit.IDigit
 
 final case class Single[A](entry: A) extends ISingle[A], ITreeComponent[A]:
-  override def :+[A1 >: A](newEntry: A1): ITreeComponent[A1] =
-    Deep(Digit1[A](entry), Empty(), Digit1[A1](newEntry))
+  override def :+[B >: A](newEntry: B): ITreeComponent[B] =
+    Deep(Digit1[A](entry), Empty(), Digit1[B](newEntry))
 
   override def size: Int =
     entry match

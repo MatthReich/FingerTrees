@@ -13,15 +13,13 @@ import fingertree.implFingerTree.ITreeComponent
 
 final case class Digit4[A](entry1: A, entry2: A, entry3: A, entry4: A)
     extends IDigit[A]:
-  override def :+[A1 >: A](newEntry: A1): IDigit[A1] =
+  override def :+[B >: A](newEntry: B): IDigit[B] =
     throw new UnsupportedOperationException(
       "Digit4 is already max sized. Can´t be appended!"
     )
 
   override def size: Int =
-    measureSize(entry1) + measureSize(entry2) + measureSize(
-      entry3
-    ) + measureSize(entry4)
+    measureSize(entry1) + measureSize(entry2) + measureSize(entry3) + measureSize(entry4)
 
   private def measureSize(entry: A): Int =
     entry match

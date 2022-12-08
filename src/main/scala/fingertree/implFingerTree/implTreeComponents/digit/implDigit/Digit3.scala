@@ -7,7 +7,7 @@ import node.INode
 import fingertree.implFingerTree.ITreeComponent
 
 final case class Digit3[A](entry1: A, entry2: A, entry3: A) extends IDigit[A]:
-  override def :+[A1 >: A](newEntry: A1): IDigit[A1] =
+  override def :+[B >: A](newEntry: B): IDigit[B] =
     Digit4(entry1, entry2, entry3, newEntry)
 
   override def size: Int =
