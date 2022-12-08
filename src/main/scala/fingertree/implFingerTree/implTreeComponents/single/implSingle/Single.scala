@@ -10,17 +10,14 @@ import fingertree.implFingerTree.ITreeComponent
 import digit.IDigit
 
 final case class Single[A](entry: A) extends ISingle[A], ITreeComponent[A]:
-
   override def :+[A1 >: A](newEntry: A1): ITreeComponent[A1] =
-      val prefix  = Digit1[A](entry)
-      val suffix  = Digit1[A1](newEntry)
-      Deep(prefix, Empty(), suffix)
+    Deep(Digit1[A](entry), Empty(), Digit1[A1](newEntry))
 
-  override def size: Int = 
+  override def size: Int =
     entry match
       case component: ITreeComponent[A] => component.size
-      case digit: IDigit[A] => digit.size
-      case node: INode[A] => node.size
-      case _ => 1
+      case digit: IDigit[A]             => digit.size
+      case node: INode[A]               => node.size
+      case _                            => 1
 
   override def toString: String = s"Single( ${entry.toString()} )"

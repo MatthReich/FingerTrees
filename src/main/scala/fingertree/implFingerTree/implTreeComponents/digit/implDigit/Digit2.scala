@@ -6,17 +6,18 @@ import deep.implDeep.Deep
 import node.INode
 import fingertree.implFingerTree.ITreeComponent
 
-final case class Digit2[A](one: A , two: A) extends IDigit[A]:
-    
-    override def :+[A1 >: A](newEntry: A1): IDigit[ A1] = Digit3(one, two, newEntry)
+final case class Digit2[A](entry1: A, entry2: A) extends IDigit[A]:
+  override def :+[A1 >: A](newEntry: A1): IDigit[A1] =
+    Digit3(entry1, entry2, newEntry)
 
-    override def size: Int =  measureSize(one) + measureSize(two)
+  override def size: Int = measureSize(entry1) + measureSize(entry2)
 
-    private def measureSize(entry: A): Int =
+  private def measureSize(entry: A): Int =
     entry match
       case component: ITreeComponent[A] => component.size
-      case digit: IDigit[A] => digit.size
-      case node: INode[A] => node.size
-      case _ => 1
+      case digit: IDigit[A]             => digit.size
+      case node: INode[A]               => node.size
+      case _                            => 1
 
-    override def toString: String = s"Digit( ${one.toString}, ${two.toString} )"
+  override def toString: String =
+    s"Digit( ${entry1.toString}, ${entry2.toString} )"

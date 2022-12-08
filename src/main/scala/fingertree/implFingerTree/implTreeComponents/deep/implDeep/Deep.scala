@@ -14,19 +14,23 @@ import empty.implEmpty.Empty
 import fingertree.implFingerTree.ITreeComponent
 import digit.implDigit.Digit3
 
-final case class Deep[+A](prefix: IDigit[A], tree: ITreeComponent[INode[A]], suffix: IDigit[A]) extends IDeep[A], ITreeComponent[A]:
-
-  override  def :+[A1 >: A](newEntry: A1): ITreeComponent[A1] = {
+final case class Deep[+A](
+    prefix: IDigit[A],
+    deep: ITreeComponent[INode[A]],
+    suffix: IDigit[A]
+) extends IDeep[A],
+      ITreeComponent[A]:
+  override def :+[A1 >: A](newEntry: A1): ITreeComponent[A1] =
     suffix match {
-      case Digit4(one, two, three, four) =>
-        val treeNew     = tree.:+[INode[A1]](Node3(one, two, three))
-        val suffix      = Digit2(four, newEntry)
+      case Digit4(entry1, entry2, entry3, entry4) =>
+        val treeNew = deep :+ Node3(entry1, entry2, entry3)
+        val suffix = Digit2(entry4, newEntry)
         Deep(prefix, treeNew, suffix)
       case partialDigit =>
-        Deep(prefix, tree, partialDigit :+ newEntry)
+        Deep(prefix, deep, partialDigit :+ newEntry)
     }
-  }
 
-  override def size: Int = prefix.size + tree.size + suffix.size
+  override def size: Int = prefix.size + deep.size + suffix.size
 
-  override def toString: String = s"Deep( ${prefix.toString}, ${tree.toString}, ${suffix.toString} )"
+  override def toString: String =
+    s"Deep( ${prefix.toString}, ${deep.toString}, ${suffix.toString} )"
