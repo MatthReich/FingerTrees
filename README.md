@@ -1,6 +1,6 @@
 # FingerTrees
 
-[![Scala CI](https://github.com/MatthReich/FingerTrees/actions/workflows/scala.yml/badge.svg?branch=master)](https://github.com/MatthReich/FingerTrees/actions/workflows/scala.yml) [![Coverage Status](https://coveralls.io/repos/github/MatthReich/FingerTrees/badge.svg?branch=master)](https://coveralls.io/github/MatthReich/FingerTrees?branch=master)
+[![Build Status](https://app.travis-ci.com/MatthReich/FingerTrees.svg?branch=master)](https://app.travis-ci.com/MatthReich/FingerTrees) [![Coverage Status](https://coveralls.io/repos/github/MatthReich/FingerTrees/badge.svg?branch=master)](https://coveralls.io/github/MatthReich/FingerTrees?branch=master)
 
 FingerTrees sind eine Datenstruktur.
 
