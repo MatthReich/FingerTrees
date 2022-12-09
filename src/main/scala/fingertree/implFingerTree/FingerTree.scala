@@ -17,6 +17,18 @@ final case class FingerTree[A](treeHead: ITreeComponent[A] = Empty())
     entries.toSeq.foreach(e => tmp = tmp :+ e)
     this.copy(treeHead = tmp)
 
+  override def prepend(entries: A*): IFingerTree[A] = ???
+
+  override def concat(tree: A): IFingerTree[A] = ???
+
   override def size: Int = treeHead.size
+
+  override def leftHead: A = ???
+
+  override def rightHead: A = ???
+
+  override def leftTail: A = ???
+
+  override def rightTail: A = ???
 
   override def toString(): String = treeHead.toString
