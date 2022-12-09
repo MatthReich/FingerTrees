@@ -16,6 +16,12 @@ class SpecNode3 extends AnyWordSpec with Matchers {
       }
     }
 
+    "checking if its empty" should {
+      "be false" in {
+        node.isEmpty should be(false)
+      }
+    }
+
     "accessing head" should {
       "return right head element" in {
         node.head should be(Some(10))

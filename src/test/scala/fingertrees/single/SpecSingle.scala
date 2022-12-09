@@ -35,6 +35,12 @@ class SpecSingle extends AnyWordSpec with Matchers {
       }
     }
 
+    "checking if its empty" should {
+      "be false" in {
+        single.isEmpty should be(false)
+      }
+    }
+
     "accessing head" should {
       "return right head element" in {
         single.head should be(Some(10))

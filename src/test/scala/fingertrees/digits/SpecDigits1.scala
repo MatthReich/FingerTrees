@@ -13,7 +13,6 @@ class SpecDigits1 extends AnyWordSpec with Matchers {
 
     "appending a new element" should {
       "return a new Digit with 2 elements" in {
-
         val newDigit = digit.:+(9)
 
         newDigit should be(Digit2[Int](10, 9))
@@ -22,7 +21,6 @@ class SpecDigits1 extends AnyWordSpec with Matchers {
 
     "prepending a new element" should {
       "return a new Digit with 2 elements" in {
-
         val newDigit = digit.+:(9)
 
         newDigit should be(Digit2[Int](9, 10))
@@ -32,6 +30,12 @@ class SpecDigits1 extends AnyWordSpec with Matchers {
     "checking size" should {
       "be 1 when only 1 Value is stored" in {
         digit.size should be(1)
+      }
+    }
+
+    "checking if its empty" should {
+      "be false" in {
+        digit.isEmpty should be(false)
       }
     }
 

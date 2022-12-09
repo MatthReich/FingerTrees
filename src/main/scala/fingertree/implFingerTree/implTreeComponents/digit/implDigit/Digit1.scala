@@ -17,6 +17,8 @@ final case class Digit1[A](entry: A) extends IDigit[A]:
     case node: INode[A]               => node.size
     case _                            => 1
 
+  override def isEmpty: Boolean = false
+
   override def head: Option[A] =
     entry match
       case component: ITreeComponent[A] => component.head

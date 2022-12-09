@@ -16,6 +16,8 @@ final case class Digit3[A](entry1: A, entry2: A, entry3: A) extends IDigit[A]:
   override def size: Int =
     measureSize(entry1) + measureSize(entry2) + measureSize(entry3)
 
+  override def isEmpty: Boolean = false
+
   override def head: Option[A] =
     entry1 match
       case component: ITreeComponent[A] => component.head

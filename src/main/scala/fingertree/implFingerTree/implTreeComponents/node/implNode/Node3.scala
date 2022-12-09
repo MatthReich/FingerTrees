@@ -8,6 +8,8 @@ final case class Node3[A](entry1: A, entry2: A, entry3: A) extends INode[A]:
   override def size: Int =
     measureSize(entry1) + measureSize(entry2) + measureSize(entry3)
 
+  override def isEmpty: Boolean = false
+
   override def head: Option[A] =
     entry1 match
       case component: ITreeComponent[A] => component.head

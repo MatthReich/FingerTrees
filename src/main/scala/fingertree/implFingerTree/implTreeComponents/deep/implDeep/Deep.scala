@@ -42,6 +42,8 @@ final case class Deep[+A](
 
   override def size: Int = prefix.size + deep.size + suffix.size
 
+  override def isEmpty: Boolean = false
+
   override def head: Option[A] = prefix.head
 
   override def last: Option[A] = suffix.last

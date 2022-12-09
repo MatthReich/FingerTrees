@@ -36,6 +36,12 @@ class SpecDigits3 extends AnyWordSpec with Matchers {
       }
     }
 
+    "checking if its empty" should {
+      "be false" in {
+        digit.isEmpty should be(false)
+      }
+    }
+
     "accessing head" should {
       "return right head element" in {
         digit.head should be(Some(10))
@@ -47,6 +53,7 @@ class SpecDigits3 extends AnyWordSpec with Matchers {
         digit.last should be(Some(8))
       }
     }
+
     "calling toString" should {
       "be presented right" in {
         digit.toString should be("Digit( 10, 9, 8 )")

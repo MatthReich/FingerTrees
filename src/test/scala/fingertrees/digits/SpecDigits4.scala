@@ -16,8 +16,10 @@ class SpecDigits4 extends AnyWordSpec with Matchers {
           val res = digit.:+(5)
           fail()
         } catch {
-          case ex: UnsupportedOperationException => 
-            ex.getMessage() should be("Digit4 is already max sized. Can´t be appended!")
+          case ex: UnsupportedOperationException =>
+            ex.getMessage() should be(
+              "Digit4 is already max sized. Can´t be appended!"
+            )
         }
       }
     }
@@ -28,8 +30,10 @@ class SpecDigits4 extends AnyWordSpec with Matchers {
           val res = digit.+:(5)
           fail()
         } catch {
-          case ex: UnsupportedOperationException => 
-            ex.getMessage() should be("Digit4 is already max sized. Can´t be prepended!")
+          case ex: UnsupportedOperationException =>
+            ex.getMessage() should be(
+              "Digit4 is already max sized. Can´t be prepended!"
+            )
         }
       }
     }
@@ -37,6 +41,12 @@ class SpecDigits4 extends AnyWordSpec with Matchers {
     "checking size" should {
       "be 4 when only 4 Value are stored" in {
         digit.size should be(4)
+      }
+    }
+
+    "checking if its empty" should {
+      "be false" in {
+        digit.isEmpty should be(false)
       }
     }
 
@@ -51,7 +61,7 @@ class SpecDigits4 extends AnyWordSpec with Matchers {
         digit.last should be(Some(7))
       }
     }
-    
+
     "calling toString" should {
       "be presented right" in {
         digit.toString should be("Digit( 10, 9, 8, 7 )")

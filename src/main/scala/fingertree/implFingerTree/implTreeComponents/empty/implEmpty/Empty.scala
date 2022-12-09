@@ -12,6 +12,8 @@ final case class Empty() extends IEmpty, ITreeComponent[Nothing]:
 
   override def size: Int = 0
 
+  override def isEmpty: Boolean = true
+
   override def head: Option[Nothing] = None
 
   override def last: Option[Nothing] = None

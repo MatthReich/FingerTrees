@@ -10,9 +10,15 @@ class SpecNode2 extends AnyWordSpec with Matchers {
 
     val node: Node2[Int] = Node2(10, 9)
 
-    "checking site" should {
+    "checking size" should {
       "return 2" in {
         node.size should be(2)
+      }
+    }
+
+    "checking if its empty" should {
+      "be false" in {
+        node.isEmpty should be(false)
       }
     }
 

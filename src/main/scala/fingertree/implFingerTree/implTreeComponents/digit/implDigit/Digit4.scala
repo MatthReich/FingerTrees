@@ -26,6 +26,8 @@ final case class Digit4[A](entry1: A, entry2: A, entry3: A, entry4: A)
   override def size: Int =
     measureSize(entry1) + measureSize(entry2) + measureSize(entry3) + measureSize(entry4)
 
+  override def isEmpty: Boolean = false
+
   override def head: Option[A] =
     entry1 match
       case component: ITreeComponent[A] => component.head

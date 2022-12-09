@@ -23,6 +23,8 @@ final case class Single[A](entry: A) extends ISingle[A], ITreeComponent[A]:
       case node: INode[A]               => node.size
       case _                            => 1
 
+  override def isEmpty: Boolean = false
+
   override def head: Option[A] =
     entry match
       case component: ITreeComponent[A] => component.head

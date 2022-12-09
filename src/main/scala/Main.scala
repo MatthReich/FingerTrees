@@ -10,14 +10,14 @@ import fingertree.implFingerTree.FingerTree
 
   println(0 + ": " + fingerTree.toString())
   println(
-    0 + ": size = " + fingerTree.size + "; head: " + fingerTree.head + "; last: " + fingerTree.last
+    0 + ": size = " + fingerTree.size + "; isEmpty: " + fingerTree.isEmpty + "; head: " + fingerTree.head + "; last: " + fingerTree.last
   )
 
-  for (i <- Range(1, 50))
+  for (i <- Range(1, 25))
     fingerTree = fingerTree.append(i)
     println(i + ": " + fingerTree.toString())
     println(
-      i + ": size = " + fingerTree.size + "; head: " + fingerTree.head + "; last " + fingerTree.last
+      i + ": size = " + fingerTree.size + "; isEmpty: " + fingerTree.isEmpty + "; head: " + fingerTree.head + "; last " + fingerTree.last
     )
 
   println("finished")

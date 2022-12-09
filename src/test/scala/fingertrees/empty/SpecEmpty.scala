@@ -36,6 +36,12 @@ class SpecEmpty extends AnyWordSpec with Matchers {
       }
     }
 
+    "checking if its empty" should {
+      "be false" in {
+        empty.isEmpty should be(true)
+      }
+    }
+
     "accessing head" should {
       "return right head element" in {
         empty.head should be(None)
