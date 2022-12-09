@@ -10,6 +10,12 @@ class SpecNode2 extends AnyWordSpec with Matchers {
 
     val node: Node2[Int] = Node2(10, 9)
 
+    "checking site" should {
+      "return 2" in {
+        node.size should be(2)
+      }
+    }
+
     "calling toString" should {
       "be presented right when only created" in {
         node.toString should be("Node( 10, 9 )")
