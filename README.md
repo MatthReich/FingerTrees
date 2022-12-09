@@ -33,3 +33,5 @@ Die Verwendung von `B >: A` bedeutet, ...
 [https://en.wikipedia.org/wiki/Finger_tree](https://en.wikipedia.org/wiki/Finger_tree)
 
 [https://docs.scala-lang.org/scala3/book/introduction.html](https://docs.scala-lang.org/scala3/book/introduction.html)
+
+[https://andrew.gibiansky.com/blog/haskell/finger-trees/](https://andrew.gibiansky.com/blog/haskell/finger-trees/)
