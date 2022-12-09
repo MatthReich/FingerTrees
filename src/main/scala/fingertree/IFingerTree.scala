@@ -14,8 +14,8 @@ trait IFingerTree[A]:
   def isEmpty: Boolean
   def head: Option[A]
   def last: Option[A]
-  def leftTail: A // TODO alles außer linkes Element?
-  def rightTail: A
+  def leftTail: Option[A] // TODO alles außer linkes Element?
+  def rightTail: Option[A]
   // TODO at index?
 
   def toString: String

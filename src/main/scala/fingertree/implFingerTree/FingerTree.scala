@@ -32,8 +32,8 @@ final case class FingerTree[A](treeHead: ITreeComponent[A] = Empty())
 
   override def last: Option[A] = treeHead.last
 
-  override def leftTail: A = ???
+  override def leftTail: Option[A] = ???
 
-  override def rightTail: A = ???
+  override def rightTail: Option[A] = ???
 
   override def toString(): String = treeHead.toString
