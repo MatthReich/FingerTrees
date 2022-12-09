@@ -1,5 +1,7 @@
 # FingerTrees
 
+[![Scala CI](https://github.com/MatthReich/FingerTrees/actions/workflows/scala.yml/badge.svg?branch=master)](https://github.com/MatthReich/FingerTrees/actions/workflows/scala.yml)
+
 FingerTrees sind eine Datenstruktur.
 
 ## Benutzung
