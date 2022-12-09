@@ -40,6 +40,18 @@ class SpecDigits4 extends AnyWordSpec with Matchers {
       }
     }
 
+    "accessing head" should {
+      "return right head element" in {
+        digit.head should be(Some(10))
+      }
+    }
+
+    "accessing last" should {
+      "return right last element" in {
+        digit.last should be(Some(7))
+      }
+    }
+    
     "calling toString" should {
       "be presented right" in {
         digit.toString should be("Digit( 10, 9, 8, 7 )")

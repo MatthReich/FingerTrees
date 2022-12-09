@@ -35,6 +35,18 @@ class SpecSingle extends AnyWordSpec with Matchers {
       }
     }
 
+    "accessing head" should {
+      "return right head element" in {
+        single.head should be(Some(10))
+      }
+    }
+
+    "accessing last" should {
+      "return right last element" in {
+        single.last should be(Some(10))
+      }
+    }
+
     "calling toString" should {
       "be presented right" in {
         single.toString should be("Single( 10 )")

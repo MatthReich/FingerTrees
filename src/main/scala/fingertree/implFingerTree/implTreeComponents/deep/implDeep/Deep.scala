@@ -42,5 +42,9 @@ final case class Deep[+A](
 
   override def size: Int = prefix.size + deep.size + suffix.size
 
+  override def head: Option[A] = prefix.head
+
+  override def last: Option[A] = suffix.last
+
   override def toString: String =
     s"Deep( ${prefix.toString}, ${deep.toString}, ${suffix.toString} )"

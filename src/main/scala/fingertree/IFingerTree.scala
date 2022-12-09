@@ -12,9 +12,10 @@ trait IFingerTree[A]:
 
   def size: Int
   def isEmpty: Boolean
-  def leftHead: A
-  def rightHead: A
+  def head: Option[A]
+  def last: Option[A]
   def leftTail: A // TODO alles außer linkes Element?
   def rightTail: A
+  // TODO at index
 
   def toString: String

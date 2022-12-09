@@ -36,6 +36,18 @@ class SpecEmpty extends AnyWordSpec with Matchers {
       }
     }
 
+    "accessing head" should {
+      "return right head element" in {
+        empty.head should be(None)
+      }
+    }
+
+    "accessing last" should {
+      "return right last element" in {
+        empty.last should be(None)
+      }
+    }
+
     "calling toString" should {
       "be presented right" in {
         empty.toString should be("Empty()")

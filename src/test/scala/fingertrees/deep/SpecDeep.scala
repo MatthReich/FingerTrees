@@ -74,6 +74,18 @@ class SpecDeep extends AnyWordSpec with Matchers {
       }
     }
 
+    "accessing head" should {
+      "return right head element" in {
+        deep.head should be(Some(10))
+      }
+    }
+
+    "accessing last" should {
+      "return right last element" in {
+        deep.last should be(Some(9))
+      }
+    }
+
     "calling toString" should {
       "be presented right" in {
         deep.toString should be("Deep( Digit( 10 ), Empty(), Digit( 9 ) )")

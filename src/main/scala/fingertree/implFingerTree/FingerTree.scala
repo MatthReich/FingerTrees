@@ -28,9 +28,9 @@ final case class FingerTree[A](treeHead: ITreeComponent[A] = Empty())
 
   override def isEmpty: Boolean = ???
 
-  override def leftHead: A = ???
+  override def head: Option[A] = treeHead.head
 
-  override def rightHead: A = ???
+  override def last: Option[A] = treeHead.last
 
   override def leftTail: A = ???
 

@@ -1,6 +1,5 @@
 package fingertrees.nodes
 
-
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
 import node.implNode.Node3
@@ -14,6 +13,18 @@ class SpecNode3 extends AnyWordSpec with Matchers {
     "checking size" should {
       "be 3" in {
         node.size should be(3)
+      }
+    }
+
+    "accessing head" should {
+      "return right head element" in {
+        node.head should be(Some(10))
+      }
+    }
+
+    "accessing last" should {
+      "return right last element" in {
+        node.last should be(Some(8))
       }
     }
 
