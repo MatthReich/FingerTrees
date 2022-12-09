@@ -10,6 +10,9 @@ final case class Digit2[A](entry1: A, entry2: A) extends IDigit[A]:
   override def :+[B >: A](newEntry: B): IDigit[B] =
     Digit3(entry1, entry2, newEntry)
 
+  override def +:[B >: A](newEntry: B): IDigit[B] =
+    Digit3(newEntry, entry1, entry2)
+
   override def size: Int = measureSize(entry1) + measureSize(entry2)
 
   private def measureSize(entry: A): Int =

@@ -8,6 +8,8 @@ import fingertree.implFingerTree.ITreeComponent
 final case class Empty() extends IEmpty, ITreeComponent[Nothing]:
   override def :+[B](newEntry: B): ITreeComponent[B] = Single(newEntry)
 
+  override def +:[B](newEntry: B): ITreeComponent[B] = Single(newEntry)
+
   override def size: Int = 0
 
   override def toString: String = s"Empty()"

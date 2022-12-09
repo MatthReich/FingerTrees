@@ -10,7 +10,7 @@ class SpecDigits4 extends AnyWordSpec with Matchers {
 
     val digit: Digit4[Int] = Digit4(10, 9, 8, 7)
 
-    "adding a new element" should {
+    "appending a new element" should {
       "triggers a sys error" in {
         try {
           val res = digit.:+(5)
@@ -18,6 +18,18 @@ class SpecDigits4 extends AnyWordSpec with Matchers {
         } catch {
           case ex: UnsupportedOperationException => 
             ex.getMessage() should be("Digit4 is already max sized. Can´t be appended!")
+        }
+      }
+    }
+
+    "prepending a new element" should {
+      "triggers a sys error" in {
+        try {
+          val res = digit.+:(5)
+          fail()
+        } catch {
+          case ex: UnsupportedOperationException => 
+            ex.getMessage() should be("Digit4 is already max sized. Can´t be prepended!")
         }
       }
     }

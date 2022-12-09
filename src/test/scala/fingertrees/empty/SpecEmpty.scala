@@ -14,9 +14,17 @@ class SpecEmpty extends AnyWordSpec with Matchers {
 
     val empty: IEmpty = Empty()
 
-    "adding a new element" should {
+    "appending a new element" should {
       "return a Single" in {
         val newEmpty = empty.:+(10)
+
+        newEmpty should be(Single(10))
+      }
+    }
+
+    "prepending a new element" should {
+      "return a Single" in {
+        val newEmpty = empty.+:(10)
 
         newEmpty should be(Single(10))
       }

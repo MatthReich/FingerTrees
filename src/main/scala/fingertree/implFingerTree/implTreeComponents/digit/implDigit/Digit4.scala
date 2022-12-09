@@ -18,6 +18,11 @@ final case class Digit4[A](entry1: A, entry2: A, entry3: A, entry4: A)
       "Digit4 is already max sized. Can´t be appended!"
     )
 
+  override def +:[B >: A](newEntry: B): IDigit[B] =
+    throw new UnsupportedOperationException(
+      "Digit4 is already max sized. Can´t be prepended!"
+    )
+
   override def size: Int =
     measureSize(entry1) + measureSize(entry2) + measureSize(entry3) + measureSize(entry4)
 

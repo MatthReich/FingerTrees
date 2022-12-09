@@ -23,11 +23,21 @@ final case class Deep[+A](
   override def :+[B >: A](newEntry: B): ITreeComponent[B] =
     suffix match {
       case Digit4(entry1, entry2, entry3, entry4) =>
-        val treeNew = deep :+ Node3(entry1, entry2, entry3)
-        val suffix = Digit2(entry4, newEntry)
-        Deep(prefix, treeNew, suffix)
+        val newDeep = deep.:+[INode[A]](Node3(entry1, entry2, entry3))
+        val newSuffix = Digit2(entry4, newEntry)
+        Deep(prefix, newDeep, newSuffix)
       case partialDigit =>
         Deep(prefix, deep, partialDigit :+ newEntry)
+    }
+
+  override def +:[B >: A](newEntry: B): ITreeComponent[B] =
+    prefix match {
+      case Digit4(entry1, entry2, entry3, entry4) =>
+        val newPrefix = Digit2(newEntry, entry1)
+        val newDeep = deep.+:[INode[A]](Node3(entry2, entry3, entry4))
+        Deep(newPrefix, newDeep, suffix)
+      case partialDigits =>
+        Deep(newEntry +: partialDigits, deep, suffix)
     }
 
   override def size: Int = prefix.size + deep.size + suffix.size

@@ -8,6 +8,7 @@ trait IFingerTree[A]:
   def append(entries: A*): IFingerTree[A]
   def prepend(entries: A*): IFingerTree[A]
   def concat(tree: A): IFingerTree[A]
+  // TODO remove / pop gewünscht?
 
   def size: Int
   def isEmpty: Boolean

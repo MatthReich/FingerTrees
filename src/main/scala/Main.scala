@@ -12,7 +12,7 @@ import fingertree.implFingerTree.FingerTree
   println(0 + ": size = " + fingerTree.size)
 
   for (i <- Range(1, 50))
-    fingerTree = fingerTree.append(i)
+    fingerTree = fingerTree.prepend(i)
     println(i + ": " + fingerTree.toString())
     println(i + ": size = " + fingerTree.size)
 

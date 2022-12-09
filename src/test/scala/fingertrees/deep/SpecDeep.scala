@@ -17,29 +17,48 @@ class SpecDeep extends AnyWordSpec with Matchers {
 
     val deep: Deep[Int] = Deep(Digit1(10), Empty(), Digit1(9))
 
-    "adding a new element" should {
+    "appending a new element" should {
+
+      val deepAppending: Deep[Int] = Deep(Digit1(10), Empty(), Digit1(9))
+
       "return a Deep with 2 Digits on right when 1 Digit before" in {
 
-        val newDeep = deep.:+(8)
+        val newDeep = deepAppending.:+(8)
 
         newDeep should be(Deep[Int](Digit1(10), Empty(), Digit2(9, 8)))
       }
       "return a Deep with 3 Digits on right when 2 Digits before" in {
 
-        val newDeep = deep.:+(8).:+(7)
+        val newDeep = deepAppending.:+(8).:+(7)
 
         newDeep should be(Deep[Int](Digit1(10), Empty(), Digit3(9, 8, 7)))
       }
       "return a Deep with 4 Digits on right when 3 Digits before" in {
 
-        val newDeep = deep.:+(8).:+(7).:+(6)
+        val newDeep = deepAppending.:+(8).:+(7).:+(6)
 
         newDeep should be(Deep[Int](Digit1(10), Empty(), Digit4(9, 8, 7, 6)))
       }
 
       "return a Deep with Digit1 as prefix, Digit2 as suffix and as tree a Single with Node3" in {
-        val newDeep = deep.:+(8).:+(7).:+(6).:+(5)
+        val newDeep = deepAppending.:+(8).:+(7).:+(6).:+(5)
         newDeep should be(Deep[Int](Digit1(10), Single(Node3(9, 8, 7)), Digit2(6, 5)))
+      }
+    }
+
+    "prepending a new element" should {
+
+      val deepPrepending: Deep[Int] = Deep(Digit1(9), Empty(), Digit1(10))
+
+      "return a Deep( Digit2 Empty Digit1 ) structure after prepending 1 element" in {
+
+        val newDeep = deepPrepending.+:(8)
+
+        newDeep should be(Deep[Int](Digit2(8, 9), Empty(), Digit1(10)))
+      }
+      "return a Deep( Digit2 Single(Node3) Digit1 ) structure after prepending to Digit4" in {
+        val newDeep = deepPrepending.+:(8).+:(7).+:(6).+:(5)
+        newDeep should be(Deep[Int](Digit2(5, 6), Single(Node3(7, 8, 9)), Digit1(10)))
       }
     }
 

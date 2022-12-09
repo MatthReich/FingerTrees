@@ -13,11 +13,19 @@ class SpecSingle extends AnyWordSpec with Matchers {
 
     val single: Single[Int] = Single(10)
 
-    "adding a new element" should {
-      "return a Deep with 2 Digit 1 and Empty when only a value inside" in {
+    "appending a new element" should {
+      "return a Deep( Digit1 Empty Digit1 ) structure where the right Digit is the new entry" in {
         val newSingle = single.:+(9)
 
         newSingle should be(Deep[Int](Digit1(10), Empty(), Digit1(9)))
+      }
+    }
+
+    "prepending a new element" should {
+      "return a Deep( Digit1 Empty Digit1 ) structure where the left Digit is the new entry" in {
+        val newSingle = single.+:(9)
+
+        newSingle should be(Deep[Int](Digit1(9), Empty(), Digit1(10)))
       }
     }
 

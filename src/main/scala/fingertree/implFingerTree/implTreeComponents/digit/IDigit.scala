@@ -5,6 +5,7 @@ import node.INode
 
 trait IDigit[+A]:
   def :+[B >: A](newEntry: B): IDigit[B]
+  def +:[B >: A](newEntry: B): IDigit[B]
   
   def size: Int
 
