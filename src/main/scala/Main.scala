@@ -21,7 +21,4 @@ import fingertree.implFingerTree.FingerTree
       i + ": size = " + fingerTree.size + "; isEmpty: " + fingerTree.isEmpty + "; head: " + fingerTree.head + "; last " + fingerTree.last
     )
 
-  val newTree = fingerTree.concat(fingerTree.append(3))
-  println(newTree.toString())
-
   println("finished")
