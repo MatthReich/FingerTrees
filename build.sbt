@@ -12,4 +12,4 @@ lazy val root = project
     libraryDependencies += "org.scalatest" %% "scalatest" % "3.2.14" % "test"
   )
 
-coverageExcludedPackages := "<empty>;.*Main;.*I[A-Z].*"
+coverageExcludedPackages := "<empty>;.*Main;.*I"
