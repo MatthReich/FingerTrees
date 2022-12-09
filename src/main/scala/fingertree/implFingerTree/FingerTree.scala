@@ -23,6 +23,8 @@ final case class FingerTree[A](treeHead: ITreeComponent[A] = Empty())
 
   override def size: Int = treeHead.size
 
+  override def isEmpty: Boolean = ???
+
   override def leftHead: A = ???
 
   override def rightHead: A = ???

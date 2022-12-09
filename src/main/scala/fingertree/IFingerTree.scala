@@ -10,6 +10,7 @@ trait IFingerTree[A]:
   def concat(tree: A): IFingerTree[A]
 
   def size: Int
+  def isEmpty: Boolean
   def leftHead: A
   def rightHead: A
   def leftTail: A // TODO alles außer linkes Element?
