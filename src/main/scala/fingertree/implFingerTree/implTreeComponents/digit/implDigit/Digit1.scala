@@ -33,4 +33,6 @@ final case class Digit1[A](entry: A) extends IDigit[A]:
       case node: INode[A]               => node.last
       case _                            => Some(entry)
 
+  override def toList: List[A] = entry :: Nil
+
   override def toString: String = s"Digit( ${entry.toString} )"

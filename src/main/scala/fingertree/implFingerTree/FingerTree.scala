@@ -22,7 +22,7 @@ final case class FingerTree[A](treeHead: ITreeComponent[A] = Empty())
     entries.toSeq.foreach(e => tmp = tmp.+:[A](e))
     this.copy(treeHead = tmp)
 
-  override def concat(tree: A): FingerTree[A] = ???
+  override def concat(tree: IFingerTree[A]): FingerTree[A] = this.copy(treeHead = treeHead ++ tree.treeHead)
 
   override def size: Int = treeHead.size
 

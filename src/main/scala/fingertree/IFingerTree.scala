@@ -7,7 +7,7 @@ trait IFingerTree[A]:
 
   def append(entries: A*): IFingerTree[A] // TODO wegen append/prepend auf Digit4 auf Try[Success | Failure] umstellen?
   def prepend(entries: A*): IFingerTree[A]
-  def concat(tree: A): IFingerTree[A]
+  def concat(tree: IFingerTree[A]): IFingerTree[A]
   // TODO remove / pop gewünscht?
 
   def size: Int

@@ -16,6 +16,8 @@ final case class Single[A](entry: A) extends ISingle[A], ITreeComponent[A]:
   override def +:[B >: A](newEntry: B): ITreeComponent[B] =
     Deep(Digit1[B](newEntry), Empty(), Digit1[A](entry))
 
+  override def ++[B >: A](treeToConcat: ITreeComponent[B]): ITreeComponent[B] = entry +: treeToConcat
+
   override def size: Int =
     entry match
       case component: ITreeComponent[A] => component.size

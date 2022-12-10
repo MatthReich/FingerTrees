@@ -12,5 +12,6 @@ trait IDigit[+A]:
   def head: Option[A]
   def last: Option[A]
 
+  def toList: List[A]
   def toString: String
 
