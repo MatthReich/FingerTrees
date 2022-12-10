@@ -2,6 +2,8 @@
 
 [![Build Status](https://app.travis-ci.com/MatthReich/FingerTrees.svg?branch=master)](https://app.travis-ci.com/MatthReich/FingerTrees) [![Coverage Status](https://coveralls.io/repos/github/MatthReich/FingerTrees/badge.svg?branch=master)](https://coveralls.io/github/MatthReich/FingerTrees?branch=master)
 
+> Aufgrund der Scala-Version können über das `build.sbt` Klassen, wie zum Beispiel die `Main.scala`, nicht ausgeschlossen werden. Siehe auch [scoverage](https://index.scala-lang.org/scoverage/sbt-scoverage)
+
 FingerTrees sind eine Datenstruktur.
 
 ## Benutzung
