@@ -21,14 +21,12 @@ final case class Digit2[A](entry1: A, entry2: A) extends IDigit[A]:
     entry1 match
       case component: ITreeComponent[A] => component.head
       case digit: IDigit[A]             => digit.head
-      case node: INode[A]               => node.head
       case _                            => Some(entry1)
 
   override def last: Option[A] =
     entry2 match
       case component: ITreeComponent[A] => component.last
       case digit: IDigit[A]             => digit.last
-      case node: INode[A]               => node.last
       case _                            => Some(entry2)
 
   override def toList: List[A] = entry1 :: entry2 :: Nil
@@ -40,5 +38,4 @@ final case class Digit2[A](entry1: A, entry2: A) extends IDigit[A]:
     entry match
       case component: ITreeComponent[A] => component.size
       case digit: IDigit[A]             => digit.size
-      case node: INode[A]               => node.size
       case _                            => 1

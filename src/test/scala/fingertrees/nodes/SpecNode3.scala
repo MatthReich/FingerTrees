@@ -22,18 +22,6 @@ class SpecNode3 extends AnyWordSpec with Matchers {
       }
     }
 
-    "accessing head" should {
-      "return right head element" in {
-        node.head should be(Some(10))
-      }
-    }
-
-    "accessing last" should {
-      "return right last element" in {
-        node.last should be(Some(8))
-      }
-    }
-
     "calling toString" should {
       "be presented right when only created" in {
         node.toString should be("Node( 10, 9, 8 )")

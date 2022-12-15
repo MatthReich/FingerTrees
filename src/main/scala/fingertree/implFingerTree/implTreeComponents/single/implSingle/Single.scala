@@ -31,14 +31,12 @@ final case class Single[A](entry: A) extends ISingle[A], ITreeComponent[A]:
     entry match
       case component: ITreeComponent[A] => component.head
       case digit: IDigit[A]             => digit.head
-      case node: INode[A]               => node.head
       case _                            => Some(entry)
 
   override def last: Option[A] =
     entry match
       case component: ITreeComponent[A] => component.last
       case digit: IDigit[A]             => digit.last
-      case node: INode[A]               => node.last
       case _                            => Some(entry)
 
   override def init: Option[ITreeComponent[A]] = Some(Empty())
