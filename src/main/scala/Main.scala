@@ -13,6 +13,7 @@ import fingertree.implFingerTree.FingerTree
   for (i <- Range(1, 51))
     fingerTree = fingerTree.append(i)
     println(i + ": " + fingerTree.toString())
+    println(fingerTree.size)
 
   var fingerTreeToConcat = FingerTree[Int]()
   for (i <- Range(1, 10))

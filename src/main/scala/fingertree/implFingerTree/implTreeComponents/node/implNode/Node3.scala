@@ -17,4 +17,5 @@ final case class Node3[A](entry1: A, entry2: A, entry3: A) extends INode[A]:
     entry match
       case component: ITreeComponent[A] => component.size
       case digit: IDigit[A]             => digit.size
+      case node: INode[A]               => node.size
       case _                            => 1
