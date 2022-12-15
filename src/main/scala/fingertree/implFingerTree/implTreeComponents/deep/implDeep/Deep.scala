@@ -55,6 +55,10 @@ final case class Deep[+A](
 
   override def last: Option[A] = suffix.last
 
+  override def init: Option[ITreeComponent[A]] = ???
+
+  override def tail: Option[ITreeComponent[A]] = ???
+
   override def toString: String =
     s"Deep( ${prefix.toString}, ${deep.toString}, ${suffix.toString} )"
 

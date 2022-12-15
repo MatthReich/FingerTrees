@@ -41,4 +41,8 @@ final case class Single[A](entry: A) extends ISingle[A], ITreeComponent[A]:
       case node: INode[A]               => node.last
       case _                            => Some(entry)
 
+  override def init: Option[ITreeComponent[A]] = Some(Empty())
+  
+  override def tail: Option[ITreeComponent[A]] = Some(Empty())
+
   override def toString: String = s"Single( ${entry.toString()} )"

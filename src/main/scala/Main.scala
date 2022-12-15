@@ -9,32 +9,24 @@ import fingertree.implFingerTree.FingerTree
   var fingerTree = FingerTree[Int]()
 
   println(0 + ": " + fingerTree.toString())
-  println(
-    0 + ": size = " + fingerTree.size + "; isEmpty: " + fingerTree.isEmpty + "; head: " + fingerTree.head + "; last: " + fingerTree.last
-  )
 
-  for (i <- Range(1, 10))
+  for (i <- Range(1, 51))
     fingerTree = fingerTree.append(i)
     println(i + ": " + fingerTree.toString())
-    println(
-      i + ": size = " + fingerTree.size + "; isEmpty: " + fingerTree.isEmpty + "; head: " + fingerTree.head + "; last " + fingerTree.last
-    )
 
   var fingerTreeToConcat = FingerTree[Int]()
   for (i <- Range(1, 10))
     fingerTreeToConcat = fingerTreeToConcat.prepend(i)
 
-  println(fingerTreeToConcat.toString())
   val selfConcat = fingerTree.concat(fingerTree)
-  val prepConcat = fingerTree.concat(fingerTreeToConcat)
-
   println(
-    "self: " + selfConcat
+    "selfConcat: " + selfConcat
       .toString() + "\nsize: " + selfConcat.size
   )
 
+  val prepConcat = fingerTree.concat(fingerTreeToConcat)
   println(
-    "self: " + prepConcat
+    "prepConcat: " + prepConcat
       .toString() + "\nsize: " + prepConcat.size
   )
 

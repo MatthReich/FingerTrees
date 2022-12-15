@@ -20,4 +20,8 @@ final case class Empty() extends IEmpty, ITreeComponent[Nothing]:
 
   override def last: Option[Nothing] = None
 
+  override def init: Option[ITreeComponent[Nothing]] = None
+  
+  override def tail: Option[ITreeComponent[Nothing]] = None
+
   override def toString: String = s"Empty()"

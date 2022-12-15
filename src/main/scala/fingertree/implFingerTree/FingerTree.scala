@@ -14,15 +14,16 @@ final case class FingerTree[A](treeHead: ITreeComponent[A] = Empty())
     extends IFingerTree[A]:
   override def append(entries: A*): FingerTree[A] =
     var tmp = treeHead
-    entries.toSeq.foreach(e => tmp = tmp.:+[A](e))
+    entries.foreach(e => tmp = tmp.:+[A](e))
     this.copy(treeHead = tmp)
 
   override def prepend(entries: A*): FingerTree[A] =
     var tmp = treeHead
-    entries.toSeq.foreach(e => tmp = tmp.+:[A](e))
+    entries.foreach(e => tmp = tmp.+:[A](e))
     this.copy(treeHead = tmp)
 
-  override def concat(tree: IFingerTree[A]): FingerTree[A] = this.copy(treeHead = treeHead ++ tree.treeHead)
+  override def concat(tree: IFingerTree[A]): FingerTree[A] =
+    this.copy(treeHead = treeHead ++ tree.treeHead)
 
   override def size: Int = treeHead.size
 
@@ -32,8 +33,14 @@ final case class FingerTree[A](treeHead: ITreeComponent[A] = Empty())
 
   override def last: Option[A] = treeHead.last
 
-  override def leftTail: Option[A] = ???
+  override def init: Option[IFingerTree[A]] =
+    treeHead.init match
+      case Some(init) => Some(this.copy(treeHead = init))
+      case None       => None
 
-  override def rightTail: Option[A] = ???
+  override def tail: Option[IFingerTree[A]] =
+    treeHead.tail match
+      case Some(tail) => Some(this.copy(treeHead = tail))
+      case None       => None
 
   override def toString(): String = treeHead.toString

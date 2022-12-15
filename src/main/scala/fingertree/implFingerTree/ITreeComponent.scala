@@ -9,3 +9,5 @@ trait ITreeComponent[+A]:
   def isEmpty: Boolean
   def head: Option[A]
   def last: Option[A]
+  def init: Option[ITreeComponent[A]]
+  def tail: Option[ITreeComponent[A]]
