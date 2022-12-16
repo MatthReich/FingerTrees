@@ -8,6 +8,9 @@ import empty.implEmpty.Empty
 import node.INode
 import fingertree.implFingerTree.ITreeComponent
 import digit.IDigit
+import fingertree.implFingerTree.implTreeComponents.view.implView.implViewLeftCons.ViewLeftCons
+import view.IView
+import view.implView.IViewLeft
 
 final case class Single[A](entry: A) extends ISingle[A], ITreeComponent[A]:
   override def :+[B >: A](newEntry: B): ITreeComponent[B] =
@@ -42,5 +45,7 @@ final case class Single[A](entry: A) extends ISingle[A], ITreeComponent[A]:
   override def init: Option[ITreeComponent[A]] = Some(Empty())
   
   override def tail: Option[ITreeComponent[A]] = Some(Empty())
+
+  override def viewLeft: IViewLeft[A] = ViewLeftCons(Some(entry), Empty())
 
   override def toString: String = s"Single( ${entry.toString()} )"

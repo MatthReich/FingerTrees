@@ -40,7 +40,12 @@ final case class Digit4[A](entry1: A, entry2: A, entry3: A, entry4: A)
       case digit: IDigit[A]             => digit.last
       case _                            => Some(entry4)
 
+  override def tail: Option[IDigit[A]] = Some(Digit3(entry2, entry3, entry4))
+
   override def toList: List[A] = entry1 :: entry2 :: entry3 :: entry4 :: Nil
+
+  override def toTreeComponent: ITreeComponent[A] =
+    Deep(Digit2(entry1, entry2), Empty(), Digit2(entry3, entry4))
 
   override def toString: String =
     s"Digit( ${entry1.toString}, ${entry2.toString}, ${entry3.toString}, ${entry4.toString} )"

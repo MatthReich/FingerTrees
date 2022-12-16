@@ -14,6 +14,9 @@ import empty.implEmpty.Empty
 import fingertree.implFingerTree.ITreeComponent
 import digit.implDigit.Digit3
 import node.nodeImpl.Node2
+import fingertree.implFingerTree.implTreeComponents.view.implView.implViewLeftCons.ViewLeftCons
+import view.IView
+import view.implView.IViewLeft
 
 final case class Deep[+A](
     prefix: IDigit[A],
@@ -57,7 +60,7 @@ final case class Deep[+A](
 
   override def init: Option[ITreeComponent[A]] = ???
 
-  override def tail: Option[ITreeComponent[A]] = ???
+  override def tail: Option[ITreeComponent[A]] = Some(viewLeft.tail)
 
   override def toString: String =
     s"Deep( ${prefix.toString}, ${deep.toString}, ${suffix.toString} )"
@@ -106,3 +109,13 @@ final case class Deep[+A](
       case entry1 :: entry2 :: entry3 :: tail =>
         Node3(entry1, entry2, entry3) :: createNodeCombinations(tail)
     }
+
+  override def viewLeft: IViewLeft[A] = ViewLeftCons(prefix.head, deepLeft(prefix.tail, deep, suffix))
+  
+  private def deepLeft[A](pr: Option[IDigit[A]], tr: ITreeComponent[INode[A]], sf: IDigit[A]): ITreeComponent[A] = 
+    pr match
+      case None =>    
+        tr.viewLeft match 
+          case ViewLeftCons[A](a, tr1) => Deep(Digit1(a.get), tr1, sf) // FIXME some.get
+          case _ => sf.toTreeComponent
+      case Some(newPrefix) => Deep(newPrefix, tr, sf)

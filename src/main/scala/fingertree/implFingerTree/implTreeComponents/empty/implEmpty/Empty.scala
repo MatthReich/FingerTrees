@@ -4,6 +4,9 @@ import empty.IEmpty
 import single.ISingle
 import single.implSingle.Single
 import fingertree.implFingerTree.ITreeComponent
+import view.IView
+import fingertree.implFingerTree.implTreeComponents.view.implView.implViewLeftCons.ViewLeftCons
+import view.implView.IViewLeft
 
 final case class Empty() extends IEmpty, ITreeComponent[Nothing]:
   override def :+[B](newEntry: B): ITreeComponent[B] = Single(newEntry)
@@ -23,5 +26,7 @@ final case class Empty() extends IEmpty, ITreeComponent[Nothing]:
   override def init: Option[ITreeComponent[Nothing]] = None
   
   override def tail: Option[ITreeComponent[Nothing]] = None
+
+  override def viewLeft: IViewLeft[Nothing] = ViewLeftCons(None, this)
 
   override def toString: String = s"Empty()"
