@@ -43,8 +43,8 @@ final case class Deep[+A](
 
   override def ++[B >: A](treeToConcat: ITreeComponent[B]): ITreeComponent[B] =
     treeToConcat match
-      case Empty()               => this
-      case Single(entry)           => this :+ entry
+      case Empty()           => this
+      case Single(entry)     => this :+ entry
       case newDeep: IDeep[A] => concatDeep[B](this, Nil, newDeep)
 
   override def size: Int = prefix.size + deep.size + suffix.size
@@ -78,16 +78,6 @@ final case class Deep[+A](
     val newSuffix = deepToConcat.suffix
     Deep(newPrefix, newDeep, newSuffix)
 
-  private def createNodeCombinations[A](entriesAsList: List[A]): List[INode[A]] =
-    (entriesAsList: @unchecked) match {
-      case entry1 :: entry2 :: Nil => Node2(entry1, entry2) :: Nil
-      case entry1 :: entry2 :: entry3 :: Nil =>
-        Node3(entry1, entry2, entry3) :: Nil
-      case entry1 :: entry2 :: entry3 :: entry4 :: Nil =>
-        Node2(entry1, entry2) :: Node2(entry3, entry4) :: Nil
-      case entry1 :: entry2 :: entry3 :: tail =>
-        Node3(entry1, entry2, entry3) :: createNodeCombinations(tail)
-    }
   private def concatNewDeep[A](
       left: ITreeComponent[A],
       concatList: List[A],
@@ -104,4 +94,15 @@ final case class Deep[+A](
         concatDeep[A](leftDeep, concatList, rightDeep)
     }
 
-    // TODO check syntax of scala 3 lists, vergleich mit paper das nutzen von listen verwenden will ob das gleich beschrieben ist
+  private def createNodeCombinations[A](
+      entriesAsList: List[A]
+  ): List[INode[A]] =
+    (entriesAsList: @unchecked) match {
+      case entry1 :: entry2 :: Nil => Node2(entry1, entry2) :: Nil
+      case entry1 :: entry2 :: entry3 :: Nil =>
+        Node3(entry1, entry2, entry3) :: Nil
+      case entry1 :: entry2 :: entry3 :: entry4 :: Nil =>
+        Node2(entry1, entry2) :: Node2(entry3, entry4) :: Nil
+      case entry1 :: entry2 :: entry3 :: tail =>
+        Node3(entry1, entry2, entry3) :: createNodeCombinations(tail)
+    }
