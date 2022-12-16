@@ -11,6 +11,8 @@ import digit.IDigit
 import fingertree.implFingerTree.implTreeComponents.view.implView.implViewLeftCons.ViewLeftCons
 import view.IView
 import view.implView.IViewLeft
+import view.implView.IViewRight
+import view.implView.implViewRightCons.ViewRightCons
 
 final case class Single[A](entry: A) extends ISingle[A], ITreeComponent[A]:
   override def :+[B >: A](newEntry: B): ITreeComponent[B] =
@@ -43,6 +45,8 @@ final case class Single[A](entry: A) extends ISingle[A], ITreeComponent[A]:
       case _                            => Some(entry)
 
   override def init: Option[ITreeComponent[A]] = Some(Empty())
+
+  override def viewRight: IViewRight[A] = ViewRightCons(Some(entry), Empty())
   
   override def tail: Option[ITreeComponent[A]] = Some(Empty())
 

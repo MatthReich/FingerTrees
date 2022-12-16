@@ -17,6 +17,8 @@ import node.nodeImpl.Node2
 import fingertree.implFingerTree.implTreeComponents.view.implView.implViewLeftCons.ViewLeftCons
 import view.IView
 import view.implView.IViewLeft
+import view.implView.IViewRight
+import view.implView.implViewRightCons.ViewRightCons
 
 final case class Deep[+A](
     prefix: IDigit[A],
@@ -58,9 +60,14 @@ final case class Deep[+A](
 
   override def last: Option[A] = suffix.last
 
-  override def init: Option[ITreeComponent[A]] = ???
+  override def init: Option[ITreeComponent[A]] = Some(viewRight.init)
 
+  override def viewRight: IViewRight[A] =
+    ViewRightCons(suffix.last, deepRight(prefix, deep, suffix.init))
   override def tail: Option[ITreeComponent[A]] = Some(viewLeft.tail)
+
+  override def viewLeft: IViewLeft[A] =
+    ViewLeftCons(prefix.head, deepLeft(prefix.tail, deep, suffix))
 
   override def toString: String =
     s"Deep( ${prefix.toString}, ${deep.toString}, ${suffix.toString} )"
@@ -110,12 +117,28 @@ final case class Deep[+A](
         Node3(entry1, entry2, entry3) :: createNodeCombinations(tail)
     }
 
-  override def viewLeft: IViewLeft[A] = ViewLeftCons(prefix.head, deepLeft(prefix.tail, deep, suffix))
-  
-  private def deepLeft[A](pr: Option[IDigit[A]], tr: ITreeComponent[INode[A]], sf: IDigit[A]): ITreeComponent[A] = 
+  private def deepRight[A](
+      pr: IDigit[A],
+      tr: ITreeComponent[INode[A]],
+      sf: Option[IDigit[A]]
+  ): ITreeComponent[A] =
+    sf match
+      case None =>
+        tr.viewRight match
+          case ViewRightCons[A](a, tr1) =>
+            Deep(pr, tr1, Digit1(a.get)) // FIXME some.get
+          case _ => pr.toTreeComponent
+      case Some(newSuffix) => Deep(pr, tr, newSuffix)
+
+  private def deepLeft[A](
+      pr: Option[IDigit[A]],
+      tr: ITreeComponent[INode[A]],
+      sf: IDigit[A]
+  ): ITreeComponent[A] =
     pr match
-      case None =>    
-        tr.viewLeft match 
-          case ViewLeftCons[A](a, tr1) => Deep(Digit1(a.get), tr1, sf) // FIXME some.get
+      case None =>
+        tr.viewLeft match
+          case ViewLeftCons[A](a, tr1) =>
+            Deep(Digit1(a.get), tr1, sf) // FIXME some.get
           case _ => sf.toTreeComponent
       case Some(newPrefix) => Deep(newPrefix, tr, sf)

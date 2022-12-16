@@ -40,6 +40,8 @@ final case class Digit4[A](entry1: A, entry2: A, entry3: A, entry4: A)
       case digit: IDigit[A]             => digit.last
       case _                            => Some(entry4)
 
+  override def init: Option[IDigit[A]] = Some(Digit3(entry1, entry2, entry3))
+
   override def tail: Option[IDigit[A]] = Some(Digit3(entry2, entry3, entry4))
 
   override def toList: List[A] = entry1 :: entry2 :: entry3 :: entry4 :: Nil

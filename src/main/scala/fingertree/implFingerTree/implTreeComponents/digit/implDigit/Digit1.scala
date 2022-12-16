@@ -32,6 +32,8 @@ final case class Digit1[A](entry: A) extends IDigit[A]:
       case digit: IDigit[A]             => digit.last
       case _                            => Some(entry)
 
+  override def init: Option[IDigit[A]] = None
+  
   override def tail: Option[IDigit[A]] = None
 
   override def toList: List[A] = entry :: Nil

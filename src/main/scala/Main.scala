@@ -30,6 +30,8 @@ import fingertree.implFingerTree.FingerTree
       .toString() + "\nsize: " + prepConcat.size + s" ( ${fingerTree.size} + ${fingerTreeToConcat.size} )"
   )
 
+  println(prepConcat.init)
+
   println(prepConcat.tail)
 
   println("finished")

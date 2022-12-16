@@ -2,6 +2,7 @@ package fingertree.implFingerTree
 
 import view.IView
 import view.implView.IViewLeft
+import view.implView.IViewRight
 
 trait ITreeComponent[+A]:
   def :+[B >: A](newEntry: B): ITreeComponent[B]
@@ -16,3 +17,4 @@ trait ITreeComponent[+A]:
   def tail: Option[ITreeComponent[A]]
 
   def viewLeft: IViewLeft[A]
+  def viewRight: IViewRight[A]
