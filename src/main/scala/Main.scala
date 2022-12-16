@@ -13,22 +13,21 @@ import fingertree.implFingerTree.FingerTree
   for (i <- Range(1, 51))
     fingerTree = fingerTree.append(i)
     println(i + ": " + fingerTree.toString())
-    println(fingerTree.size)
 
   var fingerTreeToConcat = FingerTree[Int]()
-  for (i <- Range(1, 10))
+  for (i <- Range(1, 11))
     fingerTreeToConcat = fingerTreeToConcat.prepend(i)
 
   val selfConcat = fingerTree.concat(fingerTree)
   println(
-    "selfConcat: " + selfConcat
-      .toString() + "\nsize: " + selfConcat.size
+    "selfConcat:\n" + selfConcat
+      .toString() + "\nsize: " + selfConcat.size + s" ( ${fingerTree.size} + ${fingerTree.size} )"
   )
 
   val prepConcat = fingerTree.concat(fingerTreeToConcat)
   println(
-    "prepConcat: " + prepConcat
-      .toString() + "\nsize: " + prepConcat.size
+    "prepConcat:\n" + prepConcat
+      .toString() + "\nsize: " + prepConcat.size + s" ( ${fingerTree.size} + ${fingerTreeToConcat.size} )"
   )
 
   println("finished")
