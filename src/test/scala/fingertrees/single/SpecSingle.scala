@@ -192,6 +192,12 @@ class SpecSingle extends AnyWordSpec with Matchers {
       }
     }
 
+    "calling toString" should {
+      "be presented right" in {
+        single.toString should be("Single( 10 )")
+      }
+    }
+
     "viewRight" should {
       "return the own entry as last and empty as init" in {
         single.viewRight should be(Some(ViewRightCons(10, Empty())))
@@ -201,12 +207,6 @@ class SpecSingle extends AnyWordSpec with Matchers {
     "viewLeft" should {
       "return the own entry as head and empty as tail" in {
         single.viewLeft should be(Some(ViewLeftCons(10, Empty())))
-      }
-    }
-
-    "calling toString" should {
-      "be presented right" in {
-        single.toString should be("Single( 10 )")
       }
     }
   }
