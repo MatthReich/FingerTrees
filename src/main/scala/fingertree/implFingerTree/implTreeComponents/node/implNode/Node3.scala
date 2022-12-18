@@ -4,7 +4,7 @@ import node.INode
 import fingertree.implFingerTree.ITreeComponent
 import digit.IDigit
 
-final case class Node3[A](entry1: A, entry2: A, entry3: A) extends INode[A]:
+case class Node3[A](entry1: A, entry2: A, entry3: A) extends INode[A]:
   override def size: Int =
     measureSize(entry1) + measureSize(entry2) + measureSize(entry3)
 

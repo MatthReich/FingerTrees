@@ -15,12 +15,18 @@ import node.INode
 import node.implNode.Node3
 import view.implView.implViewRightCons.ViewRightCons
 import view.implView.implViewLeftCons.ViewLeftCons
+import org.mockito.Mockito.mock;
+import org.mockito.Mockito.when;
 
 class SpecSingle extends AnyWordSpec with Matchers {
 
   "A Single" when {
 
     val single: ISingle[Int] = Single[Int](10)
+    val mockedEmpty = mock(classOf[Empty])
+    val mockedDigit = mock(classOf[Digit1[Int]])
+    val mockedNode = mock(classOf[Node3[Int]])
+    val mockedDeep = mock(classOf[Deep[Int]])
 
     "appending a new element" should {
       "return a Deep( Digit1 Empty Digit1 ) structure where the right Digit is the new entry" in {
@@ -70,33 +76,29 @@ class SpecSingle extends AnyWordSpec with Matchers {
       }
 
       "be 0 when an Empty is stored" in {
-        val single: ISingle[IEmpty] = Single(Empty())
-
-        // @TODO mock empty.size
+        when(mockedEmpty.size) thenReturn 0
+        val single: ISingle[IEmpty] = Single(mockedEmpty)
 
         single.size should be(0)
       }
 
       "be 1 when Digit1 is stored" in {
-        val single: ISingle[IDigit[Int]] = Single(Digit1(10))
-
-        // @TODO mock digit.size
+        when(mockedDigit.size) thenReturn 1
+        val single: ISingle[IDigit[Int]] = Single(mockedDigit)
 
         single.size should be(1)
       }
 
       "be 2 when Deep( Digit1 Empty Digit1 ) is stored" in {
-        val single: ISingle[IDeep[Int]] = Single(Deep(Digit1(10), Empty(), Digit1(9)))
-
-        // @TODO mock Deep.size
+        when(mockedDeep.size) thenReturn 2
+        val single: ISingle[IDeep[Int]] = Single(mockedDeep)
 
         single.size should be(2)
       }
 
       "be 3 when Node3 is stored" in {
-        val single: ISingle[INode[Int]] = Single(Node3(10, 9, 8))
-
-        // @TODO Mock Node3.size
+        when(mockedNode.size) thenReturn 3
+        val single: ISingle[INode[Int]] = Single(mockedNode)
 
         single.size should be(3)
       }
@@ -114,25 +116,22 @@ class SpecSingle extends AnyWordSpec with Matchers {
       }
 
       "return None when Empty is stored" in {
-        val single: ISingle[IEmpty] = Single(Empty())
-
-        // @TODO mock empty.head
+        when(mockedEmpty.head) thenReturn None
+        val single: ISingle[IEmpty] = Single(mockedEmpty)
 
         single.head should be(None)
       }
 
       "return head of Digit when Digit1 is stored" in {
-        val single: ISingle[IDigit[Int]] = Single(Digit1(10))
-
-        // @TODO mock digit.head
+        when(mockedDigit.head) thenReturn Some(10)
+        val single: ISingle[IDigit[Int]] = Single(mockedDigit)
 
         single.head should be(Some(10))
       }
 
       "return head of Deep when Deep( Digit1 Empty Digit1 ) is stored" in {
-        val single: ISingle[IDeep[Int]] = Single(Deep(Digit1(10), Empty(), Digit1(9)))
-
-        // @TODO mock Deep.head
+        when(mockedDeep.head) thenReturn Some(10)
+        val single: ISingle[IDeep[Int]] = Single(mockedDeep)
 
         single.head should be(Some(10))
       }
@@ -140,8 +139,7 @@ class SpecSingle extends AnyWordSpec with Matchers {
       "return Node3 when Node3 is stored" in {
         val single: ISingle[INode[Int]] = Single(Node3(10, 9, 8))
 
-        // @TODO Mock Node3.head
-        // @TODO was soll hier passieren?
+        // @TODO was soll hier passieren? => Maybe None zurück geben
 
         single.head should be(Some(Node3(10, 9, 8)))
       }
@@ -153,25 +151,22 @@ class SpecSingle extends AnyWordSpec with Matchers {
       }
 
       "return None when Empty is stored" in {
-        val single: ISingle[IEmpty] = Single(Empty())
-
-        // @TODO mock empty.last
+        when(mockedEmpty.last) thenReturn None
+        val single: ISingle[IEmpty] = Single(mockedEmpty)
 
         single.last should be(None)
       }
 
       "return last of Digit when Digit1 is stored" in {
-        val single: ISingle[IDigit[Int]] = Single(Digit1(10))
-
-        // @TODO mock digit.last
+        when(mockedDigit.last) thenReturn Some(10)
+        val single: ISingle[IDigit[Int]] = Single(mockedDigit)
 
         single.last should be(Some(10))
       }
 
       "return last of Deep when Deep( Digit1 Empty Digit1 ) is stored" in {
-        val single: ISingle[IDeep[Int]] = Single(Deep(Digit1(10), Empty(), Digit1(9)))
-
-        // @TODO mock Deep.last
+        when(mockedDeep.last) thenReturn Some(9)
+        val single: ISingle[IDeep[Int]] = Single(mockedDeep)
 
         single.last should be(Some(9))
       }
@@ -179,8 +174,7 @@ class SpecSingle extends AnyWordSpec with Matchers {
       "return Node3 when Node3 is stored" in {
         val single: ISingle[INode[Int]] = Single(Node3(10, 9, 8))
 
-        // @TODO Mock Node3.last
-        // @TODO was soll hier passieren?
+        // @TODO was soll hier passieren? => Maybe none ausgeben
 
         single.head should be(Some(Node3(10, 9, 8)))
       }

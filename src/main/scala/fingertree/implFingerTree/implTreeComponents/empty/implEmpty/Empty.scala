@@ -10,7 +10,7 @@ import view.implView.IViewRight
 import view.implView.implViewLeftCons.ViewLeftCons
 import view.implView.implViewRightCons.ViewRightCons
 
-final case class Empty() extends IEmpty, ITreeComponent[Nothing]:
+case class Empty() extends IEmpty, ITreeComponent[Nothing]:
   override def :+[B](newEntry: B): ITreeComponent[B] = Single(newEntry)
 
   override def +:[B](newEntry: B): ITreeComponent[B] = Single(newEntry)

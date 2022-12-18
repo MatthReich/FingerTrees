@@ -20,7 +20,7 @@ import view.implView.IViewRight
 import view.implView.implViewLeftCons.ViewLeftCons
 import view.implView.implViewRightCons.ViewRightCons
 
-final case class Deep[+A](
+case class Deep[+A](
     prefix: IDigit[A],
     deep: ITreeComponent[INode[A]],
     suffix: IDigit[A]

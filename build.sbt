@@ -5,11 +5,14 @@ lazy val root = project
   .settings(
     name := "FingerTrees",
     version := "1.0.0",
-
     scalaVersion := scala3Version,
 
-    libraryDependencies += "org.scalactic" %% "scalactic" % "3.2.14",
-    libraryDependencies += "org.scalatest" %% "scalatest" % "3.2.14" % "test"
+    /** test dependencies */
+    libraryDependencies ++= Seq(
+      "org.scalatest" %% "scalatest" % "3.2.14" % "test",
+      "org.scalactic" %% "scalactic" % "3.2.14",
+       "org.scalatestplus" %% "mockito-4-6" % "3.2.14.0" % "test"
+    )
   )
 
-coverageExcludedPackages := "<empty>;Main.*"
+coverageExcludedPackages := "<empty>;Main.scala"

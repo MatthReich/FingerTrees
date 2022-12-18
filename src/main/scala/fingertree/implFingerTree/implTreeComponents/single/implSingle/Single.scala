@@ -14,7 +14,7 @@ import view.implView.IViewRight
 import view.implView.implViewLeftCons.ViewLeftCons
 import view.implView.implViewRightCons.ViewRightCons
 
-final case class Single[A](entry: A) extends ISingle[A], ITreeComponent[A]:
+case class Single[A](entry: A) extends ISingle[A] with ITreeComponent[A]:
   override def :+[B >: A](newEntry: B): ITreeComponent[B] =
     Deep(Digit1[A](entry), Empty(), Digit1[B](newEntry))
 

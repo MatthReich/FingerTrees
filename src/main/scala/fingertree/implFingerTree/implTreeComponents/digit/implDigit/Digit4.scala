@@ -11,7 +11,7 @@ import empty.IEmpty
 import node.INode
 import fingertree.implFingerTree.ITreeComponent
 
-final case class Digit4[A](entry1: A, entry2: A, entry3: A, entry4: A)
+case class Digit4[A](entry1: A, entry2: A, entry3: A, entry4: A)
     extends IDigit[A]:
   override def :+[B >: A](newEntry: B): IDigit[B] =
     throw new UnsupportedOperationException(
