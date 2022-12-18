@@ -1,17 +1,17 @@
 package single.implSingle
 
 import single.ISingle
+import empty.implEmpty.Empty
 import deep.IDeep
 import deep.implDeep.Deep
+import digit.IDigit
 import digit.implDigit.Digit1
-import empty.implEmpty.Empty
 import node.INode
 import fingertree.implFingerTree.ITreeComponent
-import digit.IDigit
-import fingertree.implFingerTree.implTreeComponents.view.implView.implViewLeftCons.ViewLeftCons
 import view.IView
 import view.implView.IViewLeft
 import view.implView.IViewRight
+import view.implView.implViewLeftCons.ViewLeftCons
 import view.implView.implViewRightCons.ViewRightCons
 
 final case class Single[A](entry: A) extends ISingle[A], ITreeComponent[A]:
@@ -21,7 +21,8 @@ final case class Single[A](entry: A) extends ISingle[A], ITreeComponent[A]:
   override def +:[B >: A](newEntry: B): ITreeComponent[B] =
     Deep(Digit1[B](newEntry), Empty(), Digit1[A](entry))
 
-  override def ++[B >: A](treeToConcat: ITreeComponent[B]): ITreeComponent[B] = entry +: treeToConcat
+  override def ++[B >: A](treeToConcat: ITreeComponent[B]): ITreeComponent[B] =
+    entry +: treeToConcat
 
   override def size: Int =
     entry match
@@ -47,7 +48,7 @@ final case class Single[A](entry: A) extends ISingle[A], ITreeComponent[A]:
   override def init: Option[ITreeComponent[A]] = Some(Empty())
 
   override def viewRight: IViewRight[A] = ViewRightCons(Some(entry), Empty())
-  
+
   override def tail: Option[ITreeComponent[A]] = Some(Empty())
 
   override def viewLeft: IViewLeft[A] = ViewLeftCons(Some(entry), Empty())
