@@ -7,6 +7,9 @@ import deep.implDeep.Deep
 import digit.implDigit.Digit1
 import empty.implEmpty.Empty
 import empty.IEmpty
+import org.mockito.Mockito.mock;
+import org.mockito.Mockito.when;
+import single.ISingle
 
 class SpecEmpty extends AnyWordSpec with Matchers {
 
@@ -27,6 +30,16 @@ class SpecEmpty extends AnyWordSpec with Matchers {
         val newEmpty = empty.+:(10)
 
         newEmpty should be(Single(10))
+      }
+    }
+
+    "concating TreeComponents" should {
+      "return the given Tree" in {
+        val singleToConcat: ISingle[Int] = Single[Int](10)
+
+        val concated = empty ++ singleToConcat
+
+        concated should be(Single(10))
       }
     }
 
@@ -54,9 +67,33 @@ class SpecEmpty extends AnyWordSpec with Matchers {
       }
     }
 
+    "getting init" should {
+      "return None" in {
+        empty.init should be(None)
+      }
+    }
+
+    "getting tail" should {
+      "return None" in {
+        empty.tail should be(None)
+      }
+    }
+
     "calling toString" should {
       "be presented right" in {
         empty.toString should be("Empty()")
+      }
+    }
+
+    "viewRight" should {
+      "return None" in {
+        empty.viewRight should be(None)
+      }
+    }
+
+    "viewLeft" should {
+      "return None" in {
+        empty.viewLeft should be(None)
       }
     }
   }
