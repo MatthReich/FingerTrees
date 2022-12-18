@@ -1,4 +1,4 @@
 package view
 
 trait IView:
-    def isEmpty: Boolean
+  def isEmpty: Boolean

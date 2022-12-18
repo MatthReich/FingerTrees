@@ -7,7 +7,7 @@ import fingertree.implFingerTree.ITreeComponent
 trait IDigit[+A]:
   def :+[B >: A](newEntry: B): IDigit[B]
   def +:[B >: A](newEntry: B): IDigit[B]
-  
+
   def size: Int
   def isEmpty: Boolean = false
   def head: Option[A]
@@ -18,4 +18,3 @@ trait IDigit[+A]:
   def toList: List[A]
   def toTreeComponent: ITreeComponent[A]
   def toString: String
-

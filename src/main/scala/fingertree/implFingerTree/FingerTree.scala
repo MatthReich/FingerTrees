@@ -35,12 +35,12 @@ final case class FingerTree[A](treeHead: ITreeComponent[A] = Empty())
 
   override def init: Option[IFingerTree[A]] =
     treeHead.init match
-      case Some(init) => Some(this.copy(treeHead = init))
       case None       => None
+      case Some(init) => Some(this.copy(treeHead = init))
 
   override def tail: Option[IFingerTree[A]] =
     treeHead.tail match
-      case Some(tail) => Some(this.copy(treeHead = tail))
       case None       => None
+      case Some(tail) => Some(this.copy(treeHead = tail))
 
   override def toString(): String = treeHead.toString

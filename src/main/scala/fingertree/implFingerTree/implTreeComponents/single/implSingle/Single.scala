@@ -26,31 +26,35 @@ final case class Single[A](entry: A) extends ISingle[A], ITreeComponent[A]:
 
   override def size: Int =
     entry match
-      case component: ITreeComponent[A] => component.size
-      case digit: IDigit[A]             => digit.size
-      case node: INode[A]               => node.size
-      case _                            => 1
+      case component: ITreeComponent[A] @unchecked => component.size
+      case digit: IDigit[A] @unchecked             => digit.size
+      case node: INode[A] @unchecked               => node.size
+      case _                                       => 1
 
   override def isEmpty: Boolean = false
 
   override def head: Option[A] =
     entry match
-      case component: ITreeComponent[A] => component.head
-      case digit: IDigit[A]             => digit.head
-      case _                            => Some(entry)
+      case component: ITreeComponent[A] @unchecked => component.head
+      case digit: IDigit[A] @unchecked             => digit.head
+      case _                                       => Some(entry)
 
   override def last: Option[A] =
     entry match
-      case component: ITreeComponent[A] => component.last
-      case digit: IDigit[A]             => digit.last
-      case _                            => Some(entry)
+      case component: ITreeComponent[A] @unchecked => component.last
+      case digit: IDigit[A] @unchecked             => digit.last
+      case _                                       => Some(entry)
 
   override def init: Option[ITreeComponent[A]] = Some(Empty())
 
-  override def viewRight: IViewRight[A] = ViewRightCons(Some(entry), Empty())
-
   override def tail: Option[ITreeComponent[A]] = Some(Empty())
 
-  override def viewLeft: IViewLeft[A] = ViewLeftCons(Some(entry), Empty())
-
   override def toString: String = s"Single( ${entry.toString()} )"
+
+  override def viewRight: Option[IViewRight[A]] = Some(
+    ViewRightCons(entry, Empty())
+  )
+
+  override def viewLeft: Option[IViewLeft[A]] = Some(
+    ViewLeftCons(entry, Empty())
+  )

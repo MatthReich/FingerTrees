@@ -16,5 +16,5 @@ trait ITreeComponent[+A]:
   def init: Option[ITreeComponent[A]]
   def tail: Option[ITreeComponent[A]]
 
-  def viewLeft: IViewLeft[A]
-  def viewRight: IViewRight[A]
+  def viewLeft: Option[IViewLeft[A]]
+  def viewRight: Option[IViewRight[A]]

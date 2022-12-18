@@ -29,10 +29,12 @@ final case class Empty() extends IEmpty, ITreeComponent[Nothing]:
 
   override def init: Option[ITreeComponent[Nothing]] = None
 
-  override def viewRight: IViewRight[Nothing] = ViewRightCons(None, this)
-
+  
   override def tail: Option[ITreeComponent[Nothing]] = None
-
-  override def viewLeft: IViewLeft[Nothing] = ViewLeftCons(None, this)
-
+  
+  
   override def toString: String = s"Empty()"
+  
+  override def viewRight: Option[IViewRight[Nothing]] = None
+
+  override def viewLeft: Option[IViewLeft[Nothing]] = None

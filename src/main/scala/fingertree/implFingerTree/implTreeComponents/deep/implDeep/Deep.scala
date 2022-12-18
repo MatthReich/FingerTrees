@@ -48,9 +48,9 @@ final case class Deep[+A](
 
   override def ++[B >: A](treeToConcat: ITreeComponent[B]): ITreeComponent[B] =
     treeToConcat match
-      case Empty()           => this
-      case Single(entry)     => this :+ entry
-      case newDeep: IDeep[A] => concatDeep[B](this, Nil, newDeep)
+      case Empty()                 => this
+      case Single(entry)           => this :+ entry
+      case newDeep @ Deep(_, _, _) => concatDeep[B](this, Nil, newDeep)
 
   override def size: Int = prefix.size + deep.size + suffix.size
 
@@ -60,17 +60,28 @@ final case class Deep[+A](
 
   override def last: Option[A] = suffix.last
 
-  override def init: Option[ITreeComponent[A]] = Some(viewRight.init)
+  override def init: Option[ITreeComponent[A]] = viewRight match
+    case Some(viewRightRes: IViewRight[A]) => Some(viewRightRes.init)
+    case None                              => None
 
-  override def viewRight: IViewRight[A] =
-    ViewRightCons(suffix.last, deepRight(prefix, deep, suffix.init))
-  override def tail: Option[ITreeComponent[A]] = Some(viewLeft.tail)
-
-  override def viewLeft: IViewLeft[A] =
-    ViewLeftCons(prefix.head, deepLeft(prefix.tail, deep, suffix))
+  override def tail: Option[ITreeComponent[A]] = viewLeft match
+    case None                            => None
+    case Some(viewLeftRes: IViewLeft[A]) => Some(viewLeftRes.tail)
 
   override def toString: String =
     s"Deep( ${prefix.toString}, ${deep.toString}, ${suffix.toString} )"
+
+  override def viewRight: Option[IViewRight[A]] =
+    suffix.last match
+      case None => None
+      case Some(last) =>
+        Some(ViewRightCons(last, deepRight(prefix, deep, suffix.init)))
+
+  override def viewLeft: Option[IViewLeft[A]] =
+    prefix.head match
+      case None => None
+      case Some(head) =>
+        Some(ViewLeftCons(head, deepLeft(prefix.tail, deep, suffix)))
 
   private def concatDeep[A](
       thisDeep: IDeep[A],
@@ -118,27 +129,27 @@ final case class Deep[+A](
     }
 
   private def deepRight[A](
-      pr: IDigit[A],
-      tr: ITreeComponent[INode[A]],
-      sf: Option[IDigit[A]]
+      prefix: IDigit[A],
+      deep: ITreeComponent[INode[A]],
+      suffix: Option[IDigit[A]]
   ): ITreeComponent[A] =
-    sf match
+    suffix match
       case None =>
-        tr.viewRight match
-          case ViewRightCons[A](a, tr1) =>
-            Deep(pr, tr1, Digit1(a.get)) // FIXME some.get
-          case _ => pr.toTreeComponent
-      case Some(newSuffix) => Deep(pr, tr, newSuffix)
+        deep.viewRight match
+          case Some(_ @ViewRightCons[A](newSuffix, newDeep)) =>
+            Deep(prefix, newDeep, Digit1(newSuffix))
+          case _ => prefix.toTreeComponent
+      case Some(newSuffix) => Deep(prefix, deep, newSuffix)
 
   private def deepLeft[A](
-      pr: Option[IDigit[A]],
-      tr: ITreeComponent[INode[A]],
-      sf: IDigit[A]
+      prefix: Option[IDigit[A]],
+      deep: ITreeComponent[INode[A]],
+      suffix: IDigit[A]
   ): ITreeComponent[A] =
-    pr match
+    prefix match
       case None =>
-        tr.viewLeft match
-          case ViewLeftCons[A](a, tr1) =>
-            Deep(Digit1(a.get), tr1, sf) // FIXME some.get
-          case _ => sf.toTreeComponent
-      case Some(newPrefix) => Deep(newPrefix, tr, sf)
+        deep.viewLeft match
+          case Some(_ @ViewLeftCons[A](newPrefix, newDeep)) =>
+            Deep(Digit1(newPrefix), newDeep, suffix)
+          case _ => suffix.toTreeComponent
+      case Some(newPrefix) => Deep(newPrefix, deep, suffix)
