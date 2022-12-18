@@ -1,4 +1,4 @@
-package fingertree.implFingerTree.implTreeComponents.view.implView.implViewLeftCons
+package view.implView.implViewLeftCons
 
 import digit.IDigit
 import fingertree.implFingerTree.ITreeComponent

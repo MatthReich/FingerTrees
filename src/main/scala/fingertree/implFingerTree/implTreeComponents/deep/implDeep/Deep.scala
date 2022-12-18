@@ -1,23 +1,23 @@
 package deep.implDeep
 
 import deep.IDeep
-import digit.IDigit
 import empty.IEmpty
 import single.ISingle
 import node.INode
-import node.implNode.Node3
-import single.implSingle.Single
-import digit.implDigit.Digit4
-import digit.implDigit.Digit2
-import digit.implDigit.Digit1
-import empty.implEmpty.Empty
-import fingertree.implFingerTree.ITreeComponent
-import digit.implDigit.Digit3
 import node.nodeImpl.Node2
-import fingertree.implFingerTree.implTreeComponents.view.implView.implViewLeftCons.ViewLeftCons
+import node.implNode.Node3
+import empty.implEmpty.Empty
+import single.implSingle.Single
+import digit.IDigit
+import digit.implDigit.Digit1
+import digit.implDigit.Digit2
+import digit.implDigit.Digit3
+import digit.implDigit.Digit4
+import fingertree.implFingerTree.ITreeComponent
 import view.IView
 import view.implView.IViewLeft
 import view.implView.IViewRight
+import view.implView.implViewLeftCons.ViewLeftCons
 import view.implView.implViewRightCons.ViewRightCons
 
 final case class Deep[+A](
