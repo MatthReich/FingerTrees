@@ -45,7 +45,6 @@ class SpecDigits2 extends AnyWordSpec with Matchers {
       }
     }
 
-
     "checking size" should {
       "be 2 when 2 Values are stored" in {
         digit.size should be(2)
@@ -53,7 +52,8 @@ class SpecDigits2 extends AnyWordSpec with Matchers {
 
       "be 0 when 2 Empty are stored" in {
         when(mockedEmpty.size) thenReturn 0
-        val digit: IDigit[ITreeComponent[Nothing]] = Digit2(mockedEmpty, mockedEmpty)
+        val digit: IDigit[ITreeComponent[Nothing]] =
+          Digit2(mockedEmpty, mockedEmpty)
 
         digit.size should be(0)
       }
@@ -68,7 +68,8 @@ class SpecDigits2 extends AnyWordSpec with Matchers {
       "be 3 when Deep( Digit1 Empty Digit1 ) and Single are stored" in {
         when(mockedDeep.size) thenReturn 2
         when(mockedSingle.size) thenReturn 1
-        val digit: IDigit[ITreeComponent[Int]] = Digit2(mockedDeep, mockedSingle)
+        val digit: IDigit[ITreeComponent[Int]] =
+          Digit2(mockedDeep, mockedSingle)
 
         digit.size should be(3)
       }
@@ -94,7 +95,8 @@ class SpecDigits2 extends AnyWordSpec with Matchers {
 
       "return None when 2 Empty are stored" in {
         when(mockedEmpty.head) thenReturn None
-        val digit: IDigit[ITreeComponent[Int]] = Digit2(mockedEmpty, mockedEmpty)
+        val digit: IDigit[ITreeComponent[Int]] =
+          Digit2(mockedEmpty, mockedEmpty)
 
         digit.head should be(None)
       }
@@ -109,7 +111,8 @@ class SpecDigits2 extends AnyWordSpec with Matchers {
       "return head of Deep when Deep( Digit1 Empty Digit1 ) and Single are stored" in {
         when(mockedDeep.head) thenReturn Some(10)
         when(mockedSingle.head) thenReturn Some(9)
-        val digit: IDigit[ITreeComponent[Int]] = Digit2(mockedDeep, mockedSingle)
+        val digit: IDigit[ITreeComponent[Int]] =
+          Digit2(mockedDeep, mockedSingle)
 
         digit.head should be(Some(10))
       }
@@ -130,7 +133,8 @@ class SpecDigits2 extends AnyWordSpec with Matchers {
 
       "return None when 2 Empty are stored" in {
         when(mockedEmpty.last) thenReturn None
-        val digit: IDigit[ITreeComponent[Int]] = Digit2(mockedEmpty, mockedEmpty)
+        val digit: IDigit[ITreeComponent[Int]] =
+          Digit2(mockedEmpty, mockedEmpty)
 
         digit.last should be(None)
       }
@@ -144,7 +148,8 @@ class SpecDigits2 extends AnyWordSpec with Matchers {
 
       "return last of Deep when 2 Deep( Digit1 Empty Digit1 ) are stored" in {
         when(mockedDeep.last) thenReturn Some(9)
-        val digit: IDigit[ITreeComponent[Int]] = Digit2(Deep(Digit1(11), Empty(), Digit1(10)), mockedDeep)
+        val digit: IDigit[ITreeComponent[Int]] =
+          Digit2(Deep(Digit1(11), Empty(), Digit1(10)), mockedDeep)
 
         digit.last should be(Some(9))
       }
@@ -159,7 +164,7 @@ class SpecDigits2 extends AnyWordSpec with Matchers {
     }
 
     "getting init" should {
-      "return Some( Empty )" in {
+      "return Some( Digit1 )" in {
         digit.init should be(Some(Digit1(10)))
       }
     }
@@ -177,11 +182,11 @@ class SpecDigits2 extends AnyWordSpec with Matchers {
     }
 
     "calling toTreeComponent" should {
-      "return Single" in {
+      "return Deep( Digit1 Empty Digit1 )" in {
         digit.toTreeComponent should be(Deep(Digit1(10), Empty(), Digit1(9)))
       }
     }
-  
+
     "calling toString" should {
       "be presented right" in {
         digit.toString should be("Digit( 10, 9 )")

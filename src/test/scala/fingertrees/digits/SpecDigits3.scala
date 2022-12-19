@@ -1,20 +1,20 @@
 package fingertrees.digits
 
-import org.scalatest.matchers.should.Matchers
-import org.scalatest.wordspec.AnyWordSpec
-import digit.implDigit.Digit3
-import digit.implDigit.Digit4
-import org.mockito.Mockito.mock
-import org.mockito.Mockito.when
-import empty.implEmpty.Empty
-import node.implNode.Node3
 import deep.implDeep.Deep
 import digit.IDigit
-import fingertree.implFingerTree.ITreeComponent
-import node.INode
-import single.implSingle.Single
 import digit.implDigit.Digit1
 import digit.implDigit.Digit2
+import digit.implDigit.Digit3
+import digit.implDigit.Digit4
+import empty.implEmpty.Empty
+import fingertree.implFingerTree.ITreeComponent
+import node.INode
+import node.implNode.Node3
+import org.mockito.Mockito.mock
+import org.mockito.Mockito.when
+import org.scalatest.matchers.should.Matchers
+import org.scalatest.wordspec.AnyWordSpec
+import single.implSingle.Single
 
 class SpecDigits3 extends AnyWordSpec with Matchers {
 
@@ -53,14 +53,16 @@ class SpecDigits3 extends AnyWordSpec with Matchers {
 
       "be 0 when 3 Empty are stored" in {
         when(mockedEmpty.size) thenReturn 0
-        val digit: IDigit[ITreeComponent[Nothing]] = Digit3(mockedEmpty, mockedEmpty, mockedEmpty)
+        val digit: IDigit[ITreeComponent[Nothing]] =
+          Digit3(mockedEmpty, mockedEmpty, mockedEmpty)
 
         digit.size should be(0)
       }
 
       "be 3 when 3 Digit1 are stored" in {
         when(mockedDigit.size) thenReturn 1
-        val digit: IDigit[IDigit[Int]] = Digit3(mockedDigit, mockedDigit, mockedDigit)
+        val digit: IDigit[IDigit[Int]] =
+          Digit3(mockedDigit, mockedDigit, mockedDigit)
 
         digit.size should be(3)
       }
@@ -68,14 +70,16 @@ class SpecDigits3 extends AnyWordSpec with Matchers {
       "be 4 when Deep( Digit1 Empty Digit1 ) and 2 Single are stored" in {
         when(mockedDeep.size) thenReturn 2
         when(mockedSingle.size) thenReturn 1
-        val digit: IDigit[ITreeComponent[Int]] = Digit3(mockedSingle, mockedDeep, mockedSingle)
+        val digit: IDigit[ITreeComponent[Int]] =
+          Digit3(mockedSingle, mockedDeep, mockedSingle)
 
         digit.size should be(4)
       }
 
       "be 9 when 3 Node3 are stored" in {
         when(mockedNode.size) thenReturn 3
-        val digit: IDigit[INode[Int]] = Digit3(mockedNode, mockedNode, mockedNode)
+        val digit: IDigit[INode[Int]] =
+          Digit3(mockedNode, mockedNode, mockedNode)
 
         digit.size should be(9)
       }
@@ -94,14 +98,16 @@ class SpecDigits3 extends AnyWordSpec with Matchers {
 
       "return None when 3 Empty are stored" in {
         when(mockedEmpty.head) thenReturn None
-        val digit: IDigit[ITreeComponent[Int]] = Digit3(mockedEmpty, mockedEmpty, mockedEmpty)
+        val digit: IDigit[ITreeComponent[Int]] =
+          Digit3(mockedEmpty, mockedEmpty, mockedEmpty)
 
         digit.head should be(None)
       }
 
       "return head of first Digit when 3 Digit1 are stored" in {
         when(mockedDigit.head) thenReturn Some(10)
-        val digit: IDigit[IDigit[Int]] = Digit3(mockedDigit, Digit1(9), Digit1(9))
+        val digit: IDigit[IDigit[Int]] =
+          Digit3(mockedDigit, Digit1(9), Digit1(9))
 
         digit.head should be(Some(10))
       }
@@ -109,13 +115,15 @@ class SpecDigits3 extends AnyWordSpec with Matchers {
       "return head of Deep when Deep( Digit1 Empty Digit1 ) and 2 Single are stored" in {
         when(mockedDeep.head) thenReturn Some(10)
         when(mockedSingle.head) thenReturn Some(9)
-        val digit: IDigit[ITreeComponent[Int]] = Digit3(mockedDeep, mockedSingle, mockedSingle)
+        val digit: IDigit[ITreeComponent[Int]] =
+          Digit3(mockedDeep, mockedSingle, mockedSingle)
 
         digit.head should be(Some(10))
       }
 
       "return Node3 when 2 Node3 are stored" in {
-        val digit: IDigit[INode[Int]] = Digit3(mockedNode, Node3(7, 6, 5), Node3(4, 3, 2))
+        val digit: IDigit[INode[Int]] =
+          Digit3(mockedNode, Node3(7, 6, 5), Node3(4, 3, 2))
 
         // @TODO was soll hier passieren? => Maybe None zurück geben
 
@@ -130,27 +138,34 @@ class SpecDigits3 extends AnyWordSpec with Matchers {
 
       "return None when 3 Empty are stored" in {
         when(mockedEmpty.last) thenReturn None
-        val digit: IDigit[ITreeComponent[Int]] = Digit3(mockedEmpty, mockedEmpty, mockedEmpty)
+        val digit: IDigit[ITreeComponent[Int]] =
+          Digit3(mockedEmpty, mockedEmpty, mockedEmpty)
 
         digit.last should be(None)
       }
 
       "return last of Digit when 3 Digit1 are stored" in {
         when(mockedDigit.last) thenReturn Some(10)
-        val digit: IDigit[IDigit[Int]] = Digit3(Digit1(9), Digit1(8), mockedDigit)
+        val digit: IDigit[IDigit[Int]] =
+          Digit3(Digit1(9), Digit1(8), mockedDigit)
 
         digit.last should be(Some(10))
       }
 
       "return last of Deep when 3 Deep( Digit1 Empty Digit1 ) are stored" in {
         when(mockedDeep.last) thenReturn Some(9)
-        val digit: IDigit[ITreeComponent[Int]] = Digit3(Deep(Digit1(11), Empty(), Digit1(10)), Deep(Digit1(5), Empty(), Digit1(4)), mockedDeep)
+        val digit: IDigit[ITreeComponent[Int]] = Digit3(
+          Deep(Digit1(11), Empty(), Digit1(10)),
+          Deep(Digit1(5), Empty(), Digit1(4)),
+          mockedDeep
+        )
 
         digit.last should be(Some(9))
       }
 
       "return Node3 when 3 Node3 are stored" in {
-        val digit: IDigit[INode[Int]] = Digit3(mockedNode, mockedNode, mockedNode)
+        val digit: IDigit[INode[Int]] =
+          Digit3(mockedNode, mockedNode, mockedNode)
 
         // @TODO was soll hier passieren? => Maybe none ausgeben
 
@@ -159,29 +174,28 @@ class SpecDigits3 extends AnyWordSpec with Matchers {
     }
 
     "getting init" should {
-      "return Some( Empty )" in {
+      "return Some( Digit2 )" in {
         digit.init should be(Some(Digit2(10, 9)))
       }
     }
 
     "getting tail" should {
-      "return Some( Digit1 )" in {
+      "return Some( Digit2 )" in {
         digit.tail should be(Some(Digit2(9, 8)))
       }
     }
 
     "calling toList" should {
-      "return List with 2 Elements" in {
+      "return List with 3 Elements" in {
         digit.toList should be(List(10, 9, 8))
       }
     }
 
     "calling toTreeComponent" should {
-      "return Single" in {
+      "return Deep ( Digit2 Empty Digit1 )" in {
         digit.toTreeComponent should be(Deep(Digit2(10, 9), Empty(), Digit1(8)))
       }
     }
-  
 
     "calling toString" should {
       "be presented right" in {
