@@ -14,7 +14,7 @@ case class Node2[A](entry1: A, entry2: A) extends INode[A]:
 
   private def measureSize(entry: A): Int =
     entry match
-      case component: ITreeComponent[A] => component.size
-      case digit: IDigit[A]             => digit.size
-      case node: INode[A]               => node.size
-      case _                            => 1
+      case component: ITreeComponent[A] @unchecked => component.size
+      case digit: IDigit[A] @unchecked             => digit.size
+      case node: INode[A] @unchecked               => node.size
+      case _                                       => 1
