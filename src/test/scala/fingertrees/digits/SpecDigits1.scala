@@ -81,12 +81,6 @@ class SpecDigits1 extends AnyWordSpec with Matchers {
     }
 
     "accessing head" should {
-      "return right head element" in {
-        digit.head should be(Some(10))
-      }
-    }
-
-    "accessing head" should {
       "return own entry when a value is stored" in {
         digit.head should be(Some(10))
       }
@@ -122,12 +116,6 @@ class SpecDigits1 extends AnyWordSpec with Matchers {
     }
 
     "accessing last" should {
-      "return right last element" in {
-        digit.last should be(Some(10))
-      }
-    }
-
-    "accessing last" should {
       "return own entry when a value is stored" in {
         digit.last should be(Some(10))
       }
@@ -158,18 +146,18 @@ class SpecDigits1 extends AnyWordSpec with Matchers {
 
         // @TODO was soll hier passieren? => Maybe none ausgeben
 
-        digit.head should be(Some(Node3(10, 9, 8)))
+        digit.last should be(Some(Node3(10, 9, 8)))
       }
     }
 
     "getting init" should {
-      "return Some( Empty )" in {
+      "return None" in {
         digit.init should be(None)
       }
     }
 
     "getting tail" should {
-      "return Some( Empty )" in {
+      "return None" in {
         digit.tail should be(None)
       }
     }

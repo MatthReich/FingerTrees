@@ -20,15 +20,15 @@ case class Digit2[A](entry1: A, entry2: A) extends IDigit[A]:
 
   override def head: Option[A] =
     entry1 match
-      case component: ITreeComponent[A] => component.head
-      case digit: IDigit[A]             => digit.head
-      case _                            => Some(entry1)
+      case component: ITreeComponent[A] @unchecked => component.head
+      case digit: IDigit[A] @unchecked             => digit.head
+      case _                                       => Some(entry1)
 
   override def last: Option[A] =
     entry2 match
-      case component: ITreeComponent[A] => component.last
-      case digit: IDigit[A]             => digit.last
-      case _                            => Some(entry2)
+      case component: ITreeComponent[A] @unchecked => component.last
+      case digit: IDigit[A] @unchecked             => digit.last
+      case _                                       => Some(entry2)
 
   override def init: Option[IDigit[A]] = Some(Digit1(entry1))
 
@@ -44,7 +44,7 @@ case class Digit2[A](entry1: A, entry2: A) extends IDigit[A]:
 
   private def measureSize(entry: A): Int =
     entry match
-      case component: ITreeComponent[A] => component.size
-      case digit: IDigit[A]             => digit.size
-      case node: INode[A]               => node.size
-      case _                            => 1
+      case component: ITreeComponent[A] @unchecked => component.size
+      case digit: IDigit[A] @unchecked             => digit.size
+      case node: INode[A] @unchecked               => node.size
+      case _                                       => 1
