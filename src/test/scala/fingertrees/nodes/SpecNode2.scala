@@ -46,14 +46,14 @@ class SpecNode2 extends AnyWordSpec with Matchers {
         node.size should be(1)
       }
 
-      "be 2 when 2 Deep( Digit1 Empty Digit1 ) are stored" in {
+      "be 4 when 2 Deep( Digit1 Empty Digit1 ) are stored" in {
         when(mockedDeep.size) thenReturn 2
         val node: INode[ITreeComponent[Int]] = Node2(mockedDeep, mockedDeep)
 
         node.size should be(4)
       }
 
-      "be 3 when Node3 is stored" in {
+      "be 6 when 2 Node3 is stored" in {
         when(mockedNode.size) thenReturn 3
         val node: INode[INode[Int]] = Node2(mockedNode, mockedNode)
 
