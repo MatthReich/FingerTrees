@@ -15,8 +15,9 @@ import node.INode
 import node.implNode.Node3
 import view.implView.implViewRightCons.ViewRightCons
 import view.implView.implViewLeftCons.ViewLeftCons
-import org.mockito.Mockito.mock;
-import org.mockito.Mockito.when;
+import org.mockito.Mockito.mock
+import org.mockito.Mockito.when
+import fingertree.implFingerTree.ITreeComponent
 
 class SpecSingle extends AnyWordSpec with Matchers {
 
@@ -77,7 +78,7 @@ class SpecSingle extends AnyWordSpec with Matchers {
 
       "be 0 when an Empty is stored" in {
         when(mockedEmpty.size) thenReturn 0
-        val single: ISingle[IEmpty] = Single(mockedEmpty)
+        val single: ISingle[ITreeComponent[Nothing]] = Single(mockedEmpty)
 
         single.size should be(0)
       }
@@ -91,7 +92,7 @@ class SpecSingle extends AnyWordSpec with Matchers {
 
       "be 2 when Deep( Digit1 Empty Digit1 ) is stored" in {
         when(mockedDeep.size) thenReturn 2
-        val single: ISingle[IDeep[Int]] = Single(mockedDeep)
+        val single: ISingle[ITreeComponent[Int]] = Single(mockedDeep)
 
         single.size should be(2)
       }
