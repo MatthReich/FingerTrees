@@ -150,8 +150,11 @@ class SpecDeep extends AnyWordSpec with Matchers {
     }
 
     "viewRight" should {
-      "return the own entry as last and empty as init" in {
-        deep.viewRight should be(Some(ViewRightCons(10, Empty())))
+      "return None when no head of prefix exists" in {
+        when(mockedDigit.last) thenReturn None
+        val deep: IDeep[Int] = Deep(mockedDigit, Empty(), mockedDigit)
+  
+        deep.viewRight should be(None)
       }
     }
 
