@@ -60,27 +60,26 @@ class SpecDigits2 extends AnyWordSpec with Matchers {
 
       "be 2 when 2 Digit1 are stored" in {
         when(mockedDigit.size) thenReturn 1
-        val single: IDigit[IDigit[Int]] = Digit2(mockedDigit, mockedDigit)
+        val digit: IDigit[IDigit[Int]] = Digit2(mockedDigit, mockedDigit)
 
-        single.size should be(2)
+        digit.size should be(2)
       }
 
       "be 3 when Deep( Digit1 Empty Digit1 ) and Single are stored" in {
         when(mockedDeep.size) thenReturn 2
         when(mockedSingle.size) thenReturn 1
-        val single: IDigit[ITreeComponent[Int]] = Digit2(mockedDeep, mockedSingle)
+        val digit: IDigit[ITreeComponent[Int]] = Digit2(mockedDeep, mockedSingle)
 
-        single.size should be(3)
+        digit.size should be(3)
       }
 
       "be 6 when 2 Node3 are stored" in {
         when(mockedNode.size) thenReturn 3
-        val single: IDigit[INode[Int]] = Digit2(mockedNode, mockedNode)
+        val digit: IDigit[INode[Int]] = Digit2(mockedNode, mockedNode)
 
-        single.size should be(6)
+        digit.size should be(6)
       }
     }
-
 
     "checking if its empty" should {
       "be false" in {
@@ -150,7 +149,7 @@ class SpecDigits2 extends AnyWordSpec with Matchers {
         digit.last should be(Some(9))
       }
 
-      "return Node3 when Node3 is stored" in {
+      "return Node3 when 2 Node3 are stored" in {
         val digit: IDigit[INode[Int]] = Digit2(Node3(10, 9, 8), Node3(7, 6, 5))
 
         // @TODO was soll hier passieren? => Maybe none ausgeben
