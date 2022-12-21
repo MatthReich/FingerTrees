@@ -9,7 +9,7 @@ trait IDigit[+A]:
   def +:[B >: A](newEntry: B): IDigit[B]
 
   def size: Int
-  def isEmpty: Boolean = false
+  def isEmpty: Boolean
   def head: Option[A]
   def last: Option[A]
   def init: Option[IDigit[A]]
