@@ -92,12 +92,138 @@ class SpecDeep extends AnyWordSpec with Matchers {
         concated should be(Deep(Digit1(10), Empty(), Digit2(9, 8)))
       }
 
-      "return a Deep( Digit1 Single( Node2 ) Digit1 ) when concating a Deep where Digit2 has as first entry the old singe entry" in {
+      "return a Deep( Digit1 Single( Node2 ) Digit1 ) when having a Deep with Empty" in {
         val deepToConcat: IDeep[Int] = Deep(Digit1(8), Empty(), Digit1(7))
 
         val concated = deep ++ deepToConcat
 
         concated should be(Deep(Digit1(10), Single(Node2(9, 8)), Digit1(7)))
+      }
+
+      "return a Deep( Digit1, Deep( Digit1( Node2 ), Empty, Digit1( Node2 )), Digit1) when concating a Deep with Empty" in {
+        val deep: IDeep[Int] = Deep(Digit1(10), Single(Node2(9, 8)), Digit1(7))
+        val deepToConcat: IDeep[Int] = Deep(Digit1(6), Empty(), Digit1(5))
+
+        val concated = deep ++ deepToConcat
+
+        concated should be(
+          Deep(
+            Digit1(10),
+            Deep(Digit1(Node2(9, 8)), Empty(), Digit1(Node2(7, 6))),
+            Digit1(5)
+          )
+        )
+      }
+
+      "return a Deep( Digit1, Deep( Digit1( Node2 ), Empty, Digit1( Node2 )), Digit1) when having a Deep with Single" in {
+        val deep: IDeep[Int] = Deep(Digit1(10), Single(Node2(9, 8)), Digit1(7))
+        val deepToConcat: IDeep[Int] =
+          Deep(Digit1(6), Single(Node2(5, 4)), Digit1(3))
+
+        val concated = deep ++ deepToConcat
+
+        concated should be(
+          Deep(
+            Digit1(10),
+            Deep(
+              Digit2(Node2(9, 8), Node2(7, 6)),
+              Empty(),
+              Digit1(Node2(5, 4))
+            ),
+            Digit1(3)
+          )
+        )
+      }
+
+      "return a Deep( Digit1, Deep( Digit1( Node2 )), Empty, Digit3( Node2, Node2, Node2 )), Digit1) when concating a Deep with Single" in {
+        val deep: IDeep[Int] = Deep(
+          Digit1(10),
+          Deep(Digit1(Node2(9, 8)), Empty(), Digit1(Node2(7, 6))),
+          Digit1(5)
+        )
+        val deepToConcat: IDeep[Int] =
+          Deep(Digit1(4), Single(Node2(3, 2)), Digit1(1))
+
+        val concated = deep ++ deepToConcat
+
+        concated should be(
+          Deep(
+            Digit1(10),
+            Deep(
+              Digit1(Node2(9, 8)),
+              Empty(),
+              Digit3(Node2(7, 6), Node2(5, 4), Node2(3, 2))
+            ),
+            Digit1(1)
+          )
+        )
+      }
+
+      "return a Deep( Digit1, Deep( Digit1( Node2 ), Single( Node3( Node2, Node2, Node2)), Digit1( Node2)), Digit1) when having two Deeps" in {
+        val deep: IDeep[Int] = Deep(
+          Digit1(10),
+          Deep(Digit1(Node2(9, 8)), Empty(), Digit1(Node2(7, 6))),
+          Digit1(5)
+        )
+
+        val concated = deep ++ deep
+
+        concated should be(
+          Deep(
+            Digit1(10),
+            Deep(
+              Digit1(Node2(9, 8)),
+              Single(Node3(Node2(7, 6), Node2(5, 10), Node2(9, 8))),
+              Digit1(Node2(7, 6))
+            ),
+            Digit1(5)
+          )
+        )
+      }
+
+      "return a Deep( Digit1, Single( Node2 ), Digit1 ) when concating 2 suffix and prefix" in {
+        val deepToConcat: IDeep[Int] = Deep(Digit1(8), Empty(), Digit1(7))
+
+        val concated = deep ++ deepToConcat
+
+        concated should be(Deep(Digit1(10), Single(Node2(9, 8)), Digit1(7)))
+      }
+
+      "return a Deep( Digit1, Single( Node3 ), Digit1 ) when concating 3 suffix and prefix" in {
+        val deepToConcat: IDeep[Int] = Deep(Digit2(8, 7), Empty(), Digit1(6))
+
+        val concated = deep ++ deepToConcat
+
+        concated should be(Deep(Digit1(10), Single(Node3(9, 8, 7)), Digit1(6)))
+      }
+
+      "return a Deep( Digit1, Deep( Digit1( Node2 ), Empty, Digit1( Node2 )) when concating 4 suffix and prefix" in {
+        val deepToConcat: IDeep[Int] = Deep(Digit3(8, 7, 6), Empty(), Digit1(5))
+
+        val concated = deep ++ deepToConcat
+
+        concated should be(
+          Deep(
+            Digit1(10),
+            Deep(Digit1(Node2(9, 8)), Empty(), Digit1(Node2(7, 6))),
+            Digit1(5)
+          )
+        )
+      }
+
+      "return a Deep( Digit1, Deep( Digit1( Node3 ), Empty, Digit1( Node2 )), Digit1 ) when concating more then 4 suffix and prefix" in {
+        val deepToConcat: IDeep[Int] =
+          Deep(Digit4(8, 7, 6, 5), Empty(), Digit1(4))
+
+        val concated = deep ++ deepToConcat
+
+        concated should be(
+          Deep(
+            Digit1(10),
+            Deep(Digit1(Node3(9, 8, 7)), Empty(), Digit1(Node2(6, 5))),
+            Digit1(4)
+          )
+        )
       }
     }
 
@@ -143,6 +269,40 @@ class SpecDeep extends AnyWordSpec with Matchers {
       }
     }
 
+    "accessing init" should {
+      "return None when no init exists" in {
+        when(mockedDigit.last) thenReturn None
+        val deep = Deep(Digit1(10), Empty(), mockedDigit)
+        
+        deep.init should be(None)
+      }
+
+      "return Some( Deep ) when init exists" in {
+        when(mockedDigit.last) thenReturn Some(Digit1(10))
+        when(mockedDigit.init) thenReturn Some(Digit1(10))
+        val deep = Deep(Digit1(10), Empty(), mockedDigit)
+      
+        deep.init should be(Some(Deep(Digit1(10), Empty(), Digit1(10))))
+      }
+    }
+
+    "accessing tail" should {
+      "return None when no init exists" in {
+        when(mockedDigit.head) thenReturn None
+        val deep = Deep(mockedDigit, Empty(), Digit1(10))
+        
+        deep.tail should be(None)
+      }
+
+      "return Some( Deep ) when init exists" in {
+        when(mockedDigit.head) thenReturn Some(Digit1(10))
+        when(mockedDigit.tail) thenReturn Some(Digit1(10))
+        val deep = Deep(mockedDigit, Empty(), Digit1(10))
+      
+        deep.tail should be(Some(Deep(Digit1(10), Empty(), Digit1(10))))
+      }
+    }
+
     "calling toString" should {
       "be presented right" in {
         deep.toString should be("Deep( Digit( 10 ), Empty(), Digit( 9 ) )")
@@ -153,8 +313,37 @@ class SpecDeep extends AnyWordSpec with Matchers {
       "return None when no head of prefix exists" in {
         when(mockedDigit.last) thenReturn None
         val deep: IDeep[Int] = Deep(mockedDigit, Empty(), mockedDigit)
-  
+
         deep.viewRight should be(None)
+      }
+
+      "return last of prefix and init of suffix when init is None" in {
+        when(mockedDigit.last) thenReturn Some(10)
+        when(mockedDigit.init) thenReturn None
+        when(mockedDigit.toTreeComponent) thenReturn Single(9)
+        val deep = Deep(mockedDigit, Empty(), mockedDigit)
+
+        deep.viewRight should be(Some(ViewRightCons(10, Single(9))))
+      }
+
+      "return last of prefix and init of suffix when init is Some" in {
+        when(mockedDigit.last) thenReturn Some(10)
+        when(mockedDigit.init) thenReturn Some(Digit1(10))
+        when(mockedDigit.toTreeComponent) thenReturn Single(9)
+        val deep = Deep(mockedDigit, Empty(), mockedDigit)
+
+        deep.viewRight should be(
+          Some(ViewRightCons(10, Deep(mockedDigit, Empty(), Digit1(10))))
+        )
+      }
+      
+      "return new Deep as init" in {
+        when(mockedDigit.last) thenReturn Some(10)
+        when(mockedDigit.init) thenReturn None
+        when(mockedDigit.toTreeComponent) thenReturn Single(9)
+        val deep = Deep(mockedDigit, Single(Node2(9, 8)), mockedDigit)
+
+        deep.viewRight should be(Some(ViewRightCons(10, Deep(mockedDigit, Empty(), Digit1(Node2(9, 8))))))
       }
     }
 
@@ -162,7 +351,7 @@ class SpecDeep extends AnyWordSpec with Matchers {
       "return None when no head of prefix exists" in {
         when(mockedDigit.head) thenReturn None
         val deep: IDeep[Int] = Deep(mockedDigit, Empty(), mockedDigit)
-  
+
         deep.viewLeft should be(None)
       }
 
@@ -171,7 +360,7 @@ class SpecDeep extends AnyWordSpec with Matchers {
         when(mockedDigit.tail) thenReturn None
         when(mockedDigit.toTreeComponent) thenReturn Single(9)
         val deep = Deep(mockedDigit, Empty(), mockedDigit)
-  
+
         deep.viewLeft should be(Some(ViewLeftCons(10, Single(9))))
       }
 
@@ -180,8 +369,19 @@ class SpecDeep extends AnyWordSpec with Matchers {
         when(mockedDigit.tail) thenReturn Some(Digit1(10))
         when(mockedDigit.toTreeComponent) thenReturn Single(9)
         val deep = Deep(mockedDigit, Empty(), mockedDigit)
-  
-        deep.viewLeft should be(Some(ViewLeftCons(10, Deep(Digit1(10), Empty(), mockedDigit))))
+
+        deep.viewLeft should be(
+          Some(ViewLeftCons(10, Deep(Digit1(10), Empty(), mockedDigit)))
+        )
+      }
+
+      "return new Deep as tail" in {
+        when(mockedDigit.head) thenReturn Some(10)
+        when(mockedDigit.tail) thenReturn None
+        when(mockedDigit.toTreeComponent) thenReturn Single(9)
+        val deep = Deep(mockedDigit, Single(Node2(9, 8)), mockedDigit)
+
+        deep.viewLeft should be(Some(ViewLeftCons(10, Deep(Digit1(Node2(9, 8)), Empty(), mockedDigit))))
       }
     }
   }

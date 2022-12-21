@@ -61,8 +61,8 @@ case class Deep[+A](
   override def last: Option[A] = suffix.last
 
   override def init: Option[ITreeComponent[A]] = viewRight match
-    case Some(viewRightRes: IViewRight[A]) => Some(viewRightRes.init)
     case None                              => None
+    case Some(viewRightRes: IViewRight[A]) => Some(viewRightRes.init)
 
   override def tail: Option[ITreeComponent[A]] = viewLeft match
     case None                            => None
