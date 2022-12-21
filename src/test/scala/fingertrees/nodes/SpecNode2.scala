@@ -14,6 +14,7 @@ import empty.IEmpty
 import fingertree.implFingerTree.ITreeComponent
 import deep.IDeep
 import node.implNode.Node3
+import digit.IDigit
 
 class SpecNode2 extends AnyWordSpec with Matchers {
 
@@ -53,7 +54,14 @@ class SpecNode2 extends AnyWordSpec with Matchers {
         node.size should be(4)
       }
 
-      "be 6 when 2 Node3 is stored" in {
+      "be 2 when 2 Digit1 are stored" in {
+        when(mockedDigit.size) thenReturn 1
+        val node: INode[IDigit[Int]] = Node2(mockedDigit, mockedDigit)
+
+        node.size should be(2)
+      }
+
+      "be 6 when 2 Node3 are stored" in {
         when(mockedNode.size) thenReturn 3
         val node: INode[INode[Int]] = Node2(mockedNode, mockedNode)
 
