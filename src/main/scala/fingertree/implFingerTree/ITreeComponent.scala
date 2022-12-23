@@ -18,3 +18,6 @@ trait ITreeComponent[+A]:
 
   def viewLeft: Option[IViewLeft[A]]
   def viewRight: Option[IViewRight[A]]
+
+  def toList: List[A]
+  def toString: String

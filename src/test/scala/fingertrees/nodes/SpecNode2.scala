@@ -75,8 +75,11 @@ class SpecNode2 extends AnyWordSpec with Matchers {
       }
     }
 
-
-
+    "calling toList" should {
+      "return entries as List" in {
+        node.toList should be (List(10, 9))
+      }
+    }
 
     "calling toString" should {
       "be presented right when only created" in {

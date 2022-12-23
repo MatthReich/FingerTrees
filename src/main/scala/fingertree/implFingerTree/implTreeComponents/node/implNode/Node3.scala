@@ -10,6 +10,8 @@ case class Node3[A](entry1: A, entry2: A, entry3: A) extends INode[A]:
 
   override def isEmpty: Boolean = false
 
+  override def toList: List[A] = entry1 :: entry2 :: entry3 :: Nil
+
   override def toString: String =
     s"Node( ${entry1.toString}, ${entry2.toString}, ${entry3.toString} )"
 

@@ -10,5 +10,3 @@ trait IDeep[+A] extends ITreeComponent[A]:
   def prefix: IDigit[A]
   def deep: ITreeComponent[INode[A]]
   def suffix: IDigit[A]
-
-  def toString: String

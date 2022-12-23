@@ -43,4 +43,6 @@ final case class FingerTree[A](treeHead: ITreeComponent[A] = Empty())
       case None       => None
       case Some(tail) => Some(this.copy(treeHead = tail))
 
+  override def toList: List[A] = treeHead.toList
+
   override def toString(): String = treeHead.toString

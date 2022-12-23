@@ -34,4 +34,6 @@ import fingertree.implFingerTree.FingerTree
 
   println(prepConcat.tail)
 
+  println(prepConcat.toList)
+
   println("finished")

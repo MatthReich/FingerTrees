@@ -49,6 +49,8 @@ case class Single[A](entry: A) extends ISingle[A] with ITreeComponent[A]:
 
   override def tail: Option[ITreeComponent[A]] = Some(Empty())
 
+  override def toList: List[A] = entry :: Nil
+
   override def toString: String = s"Single( ${entry.toString()} )"
 
   override def viewRight: Option[IViewRight[A]] = Some(

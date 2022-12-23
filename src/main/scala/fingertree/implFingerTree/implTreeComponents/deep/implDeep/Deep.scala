@@ -68,6 +68,8 @@ case class Deep[+A](
     case None                            => None
     case Some(viewLeftRes: IViewLeft[A]) => Some(viewLeftRes.tail)
 
+  override def toList: List[A] = prefix.toList ++: deep.toList.flatMap(a => a.toList) ++: suffix.toList ++: Nil
+
   override def toString: String =
     s"Deep( ${prefix.toString}, ${deep.toString}, ${suffix.toString} )"
 

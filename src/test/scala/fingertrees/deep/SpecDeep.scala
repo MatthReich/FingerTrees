@@ -303,6 +303,16 @@ class SpecDeep extends AnyWordSpec with Matchers {
       }
     }
 
+    "calling toList" should {
+      "return List of stored values deep down" in {
+        when(mockedDigit.toList) thenReturn List(10)
+        when(mockedSingle.toList) thenReturn List(Node2(9, 8))
+
+        val deep = Deep(mockedDigit, mockedSingle, mockedDigit)
+        deep.toList should be (List(10, 9, 8, 10))
+      }
+    }
+
     "calling toString" should {
       "be presented right" in {
         deep.toString should be("Deep( Digit( 10 ), Empty(), Digit( 9 ) )")

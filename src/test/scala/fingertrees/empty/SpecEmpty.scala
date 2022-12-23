@@ -79,6 +79,12 @@ class SpecEmpty extends AnyWordSpec with Matchers {
       }
     }
 
+    "calling toList" should {
+      "return Nil" in {
+        empty.toList should be (Nil)
+      }
+    }
+
     "calling toString" should {
       "be presented right" in {
         empty.toString should be("Empty()")

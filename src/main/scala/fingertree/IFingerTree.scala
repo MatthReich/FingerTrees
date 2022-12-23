@@ -16,4 +16,5 @@ trait IFingerTree[A]:
   def init: Option[IFingerTree[A]]
   def tail: Option[IFingerTree[A]]
 
+  def toList: List[A]
   def toString: String

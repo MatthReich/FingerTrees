@@ -18,6 +18,7 @@ import view.implView.implViewLeftCons.ViewLeftCons
 import org.mockito.Mockito.mock
 import org.mockito.Mockito.when
 import fingertree.implFingerTree.ITreeComponent
+import node.nodeImpl.Node2
 
 class SpecSingle extends AnyWordSpec with Matchers {
 
@@ -190,6 +191,12 @@ class SpecSingle extends AnyWordSpec with Matchers {
     "getting tail" should {
       "return Some( Empty )" in {
         single.tail should be(Some(Empty()))
+      }
+    }
+
+    "calling toList" should {
+      "return element as list" in {
+        single.toList should be(List(10))
       }
     }
 
