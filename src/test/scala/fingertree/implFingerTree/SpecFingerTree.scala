@@ -261,7 +261,8 @@ class SpecFingerTree
       "be presented right when only created" in {
         val stringRepresentation: String = fingerTree.toString
 
-        stringRepresentation should be("Empty()")
+        val expectedString: String = "Empty()"
+        stringRepresentation should be(expectedString)
       }
     }
   }
