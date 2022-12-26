@@ -1,10 +1,10 @@
 package fingertree.implFingerTree.implTreeComponents.views
 
+import fingertree.implFingerTree.ITreeComponent
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
-import view.implView.implViewLeftCons.ViewLeftCons
 import single.implSingle.Single
-import fingertree.implFingerTree.ITreeComponent
+import view.implView.implViewLeftCons.ViewLeftCons
 
 class SpecViewLeftCons extends AnyWordSpec with Matchers {
   "A ViewLeftCons" when {
@@ -15,23 +15,23 @@ class SpecViewLeftCons extends AnyWordSpec with Matchers {
       "return right head" in {
         val head: Int = viewLeftCons.head
 
-        head should be (10)
+        head should be(10)
       }
     }
 
     "accessing tail" should {
       "return right tail" in {
-        val tail: ITreeComponent[Int] = viewLeftCons.tail 
-        
-        tail should be (Single(10))
+        val tail: ITreeComponent[Int] = viewLeftCons.tail
+
+        tail should be(Single(10))
       }
     }
 
     "checking if its empty" should {
       "return false" in {
-        val isEmpty: Boolean = viewLeftCons.isEmpty 
-        
-        isEmpty should be (false)
+        val isEmpty: Boolean = viewLeftCons.isEmpty
+
+        isEmpty should be(false)
       }
     }
   }
