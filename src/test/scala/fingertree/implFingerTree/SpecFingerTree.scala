@@ -175,7 +175,7 @@ class SpecFingerTree
       "be Some( Empty ) when only Single is stored" in {
         val fingerTree: IFingerTree[Int] = FingerTree[Int]().append(10)
 
-        val tail: Option[IFingerTree[Int]] = fingerTree.append(10).tail
+        val tail: Option[IFingerTree[Int]] = fingerTree.tail
 
         tail match
           case None => fail("Init was None instead a Tree of Some(Empty)")
