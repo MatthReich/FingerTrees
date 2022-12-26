@@ -1,18 +1,18 @@
 package fingertree.implFingerTree
 
-import org.scalatest.matchers.should.Matchers
-import org.scalatest.wordspec.AnyWordSpec
+import digit.implDigit.Digit1
+import empty.IEmpty
+import empty.implEmpty.Empty
+import fingertree.IFingerTree
 import fingertree.implFingerTree.FingerTree
 import fingertree.implFingerTree.ITreeComponent
-import org.scalacheck.Gen
 import org.scalacheck.Arbitrary.arbitrary
+import org.scalacheck.Gen
+import org.scalatest.matchers.should.Matchers
+import org.scalatest.wordspec.AnyWordSpec
 import org.scalatestplus.scalacheck.ScalaCheckDrivenPropertyChecks
-import fingertree.IFingerTree
-import empty.implEmpty.Empty
 import single.ISingle
 import single.implSingle.Single
-import empty.IEmpty
-import digit.implDigit.Digit1
 
 class SpecFingerTree
     extends AnyWordSpec
@@ -31,12 +31,12 @@ class SpecFingerTree
         var fingerTree: IFingerTree[Int] = FingerTree()
         var count: Int = 0
 
-        fingerTree.size should be (count)
+        fingerTree.size should be(count)
         forAll(ints) { (toAppend: Int) =>
           count += 1
           fingerTree = fingerTree.append(toAppend)
 
-          fingerTree.size should be (count)
+          fingerTree.size should be(count)
         }
       }
 
@@ -44,12 +44,12 @@ class SpecFingerTree
         var fingerTree: IFingerTree[Int] = FingerTree()
         var count = 0
 
-        fingerTree.size should be (count)
+        fingerTree.size should be(count)
         forAll(ints) { (toAppend: Int) =>
           count += 1
           fingerTree = fingerTree.prepend(toAppend)
 
-          fingerTree.size should be (count)
+          fingerTree.size should be(count)
         }
       }
 
@@ -58,14 +58,14 @@ class SpecFingerTree
         var fingerTree: IFingerTree[Int] = FingerTree()
         var count = 0;
 
-        fingerTree.size should be (count)
+        fingerTree.size should be(count)
         forAll(ints) { (toAppend: Int) =>
           count += 1
           fingerTree =
             if (gen.sample.get == "prepend") then fingerTree.prepend(toAppend)
             else fingerTree.append(toAppend)
 
-          fingerTree.size should be (count)
+          fingerTree.size should be(count)
         }
       }
 
@@ -79,7 +79,7 @@ class SpecFingerTree
           count += 10
           fingerTree = fingerTree.concat(fingerTreeToConcat)
 
-          fingerTree.size should be (count)
+          fingerTree.size should be(count)
         }
       }
     }
@@ -88,7 +88,7 @@ class SpecFingerTree
       "be true when only created" in {
         val isEmpty: Boolean = fingerTree.isEmpty
 
-        isEmpty should be (true)
+        isEmpty should be(true)
       }
 
       "be false when element inside" in {
@@ -96,7 +96,7 @@ class SpecFingerTree
 
         val isEmpty: Boolean = fingerTree.isEmpty
 
-        isEmpty should be (false)
+        isEmpty should be(false)
       }
     }
 
@@ -104,7 +104,7 @@ class SpecFingerTree
       "return None when empty" in {
         val head: Option[Int] = fingerTree.head
 
-        head should be (None)
+        head should be(None)
       }
 
       "return Some when something is stored" in {
@@ -112,7 +112,7 @@ class SpecFingerTree
 
         val head: Option[Int] = fingerTree.head
 
-        head should be (Some(10))
+        head should be(Some(10))
       }
     }
 
@@ -120,7 +120,7 @@ class SpecFingerTree
       "return None when empty" in {
         val last: Option[Int] = fingerTree.last
 
-        last should be (None)
+        last should be(None)
       }
 
       "return Some when something is stored" in {
@@ -128,7 +128,7 @@ class SpecFingerTree
 
         val last: Option[Int] = fingerTree.append(10).last
 
-        last should be (Some(10))
+        last should be(Some(10))
       }
     }
 
@@ -136,7 +136,7 @@ class SpecFingerTree
       "be None when nothing is stored" in {
         val init: Option[IFingerTree[Int]] = fingerTree.init
 
-        init should be (None)
+        init should be(None)
       }
 
       "be Some( Empty ) when only Single is stored" in {
@@ -148,7 +148,7 @@ class SpecFingerTree
           case None => fail("Init was None instead a Tree of Some(Empty)")
           case Some(newTree) =>
             val expectedTree = FingerTree[Int](treeHead = Empty())
-            newTree should be (expectedTree)
+            newTree should be(expectedTree)
       }
 
       "be Some( Single ) when Deep with 2 elements is stored" in {
@@ -161,7 +161,7 @@ class SpecFingerTree
           case Some(newTree) =>
             val expectedTree: IFingerTree[Int] =
               FingerTree[Int](treeHead = Single[Int](10))
-            newTree should be (expectedTree)
+            newTree should be(expectedTree)
       }
     }
 
@@ -169,7 +169,7 @@ class SpecFingerTree
       "be None when nothing is stored" in {
         val tail: Option[IFingerTree[Int]] = fingerTree.tail
 
-        tail should be (None)
+        tail should be(None)
       }
 
       "be Some( Empty ) when only Single is stored" in {
@@ -181,7 +181,7 @@ class SpecFingerTree
           case None => fail("Init was None instead a Tree of Some(Empty)")
           case Some(newTree) =>
             val expectedTree = FingerTree[Int](treeHead = Empty())
-            newTree should be (expectedTree)
+            newTree should be(expectedTree)
       }
 
       "be Some( Single ) when Deep with 2 elements is stored" in {
@@ -193,7 +193,7 @@ class SpecFingerTree
           case None => fail("Init was None instead a Tree of Some(Empty)")
           case Some(newTree) =>
             val expectedTree = FingerTree[Int](treeHead = Single[Int](9))
-            newTree should be (expectedTree)
+            newTree should be(expectedTree)
       }
     }
 
@@ -202,12 +202,12 @@ class SpecFingerTree
         var fingerTree: IFingerTree[Int] = FingerTree()
         var list: List[Int] = Nil;
 
-        fingerTree.toList should be (list)
+        fingerTree.toList should be(list)
         forAll(ints) { (toAppend: Int) =>
           list = list :+ toAppend
           fingerTree = fingerTree.append(toAppend)
 
-          fingerTree.toList should be (list)
+          fingerTree.toList should be(list)
         }
       }
 
@@ -215,12 +215,12 @@ class SpecFingerTree
         var fingerTree: IFingerTree[Int] = FingerTree()
         var list: List[Int] = Nil;
 
-        fingerTree.toList should be (list)
+        fingerTree.toList should be(list)
         forAll(ints) { (toAppend: Int) =>
           list = toAppend +: list
           fingerTree = fingerTree.prepend(toAppend)
 
-          fingerTree.toList should be (list)
+          fingerTree.toList should be(list)
         }
       }
 
@@ -229,7 +229,7 @@ class SpecFingerTree
         var fingerTree: IFingerTree[Int] = FingerTree()
         var list: List[Int] = Nil;
 
-        fingerTree.toList should be (list)
+        fingerTree.toList should be(list)
         forAll(ints) { (toAppend: Int) =>
           fingerTree = if (gen.sample.get == "prepend") then
             list = toAppend +: list
@@ -238,7 +238,7 @@ class SpecFingerTree
             list = list :+ toAppend
             fingerTree.append(toAppend)
 
-          fingerTree.toList should be (list)
+          fingerTree.toList should be(list)
         }
       }
 
@@ -252,16 +252,16 @@ class SpecFingerTree
           list = list ::: List(0, 1, 2, 3, 4, 5, 6, 7, 8, 9);
           fingerTree = fingerTree.concat(fingerTreeToConcat)
 
-          fingerTree.toList should be (list)
+          fingerTree.toList should be(list)
         }
       }
     }
 
     "calling toString" should {
       "be presented right when only created" in {
-        val stringRepresentation: String = fingerTree.toString 
-        
-        stringRepresentation should be ("Empty()")
+        val stringRepresentation: String = fingerTree.toString
+
+        stringRepresentation should be("Empty()")
       }
     }
   }
