@@ -148,9 +148,7 @@ class SpecSingle extends AnyWordSpec with Matchers {
 
         val head: Option[IEmpty] = single.head
 
-        head match
-          case Some(_) => fail("Head was Some instead of None")
-          case None    => succeed
+        head should be(None)
       }
 
       "return head of Digit when Digit1 is stored" in {
@@ -206,9 +204,7 @@ class SpecSingle extends AnyWordSpec with Matchers {
 
         val last: Option[IEmpty] = single.last
 
-        last match
-          case Some(_) => fail("Last was None instead of Some")
-          case None    => succeed
+        last should be(None)
       }
 
       "return last of Digit when Digit1 is stored" in {
