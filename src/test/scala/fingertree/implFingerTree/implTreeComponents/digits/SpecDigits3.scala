@@ -1,4 +1,4 @@
-package fingertrees.digits
+package fingertree.implFingerTree.implTreeComponents.digits
 
 import deep.implDeep.Deep
 import digit.IDigit

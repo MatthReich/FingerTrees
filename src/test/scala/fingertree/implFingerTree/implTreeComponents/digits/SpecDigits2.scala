@@ -1,4 +1,4 @@
-package fingertrees.digits
+package fingertree.implFingerTree.implTreeComponents.digits
 
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec

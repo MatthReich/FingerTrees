@@ -1,4 +1,4 @@
-package fingertrees.nodes
+package fingertree.implFingerTree.implTreeComponents.nodes
 
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
