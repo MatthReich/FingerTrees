@@ -1,15 +1,18 @@
 package fingertree.implFingerTree.implTreeComponents.empty
 
-import org.scalatest.matchers.should.Matchers
-import org.scalatest.wordspec.AnyWordSpec
-import single.implSingle.Single
 import deep.implDeep.Deep
 import digit.implDigit.Digit1
-import empty.implEmpty.Empty
 import empty.IEmpty
-import org.mockito.Mockito.mock;
-import org.mockito.Mockito.when;
+import empty.implEmpty.Empty
+import fingertree.implFingerTree.ITreeComponent
+import org.mockito.Mockito.mock
+import org.mockito.Mockito.when
+import org.scalatest.matchers.should.Matchers
+import org.scalatest.wordspec.AnyWordSpec
 import single.ISingle
+import single.implSingle.Single
+import view.implView.IViewLeft
+import view.implView.IViewRight
 
 class SpecEmpty extends AnyWordSpec with Matchers {
 
@@ -19,87 +22,112 @@ class SpecEmpty extends AnyWordSpec with Matchers {
 
     "appending a new element" should {
       "return a Single" in {
-        val newEmpty = empty.:+(10)
+        val appended: ITreeComponent[Int] = empty :+ 10
 
-        newEmpty should be(Single(10))
+        val expectedTreeComponent: ITreeComponent[Int] = Single(10)
+        appended should be(expectedTreeComponent)
       }
     }
 
     "prepending a new element" should {
       "return a Single" in {
-        val newEmpty = empty.+:(10)
+        val prepended: ITreeComponent[Int] = 10 +: empty
 
-        newEmpty should be(Single(10))
+        val expectedTreeComponent: ITreeComponent[Int] = Single(10)
+        prepended should be(expectedTreeComponent)
       }
     }
 
-    "concating TreeComponents" should {
+    "concatenate TreeComponents" should {
       "return the given Tree" in {
         val singleToConcat: ISingle[Int] = Single[Int](10)
 
-        val concated = empty ++ singleToConcat
+        val concatenated = empty ++ singleToConcat
 
-        concated should be(Single(10))
+        val expectedTreeComponent: ITreeComponent[Int] = Single(10)
+        concatenated should be(expectedTreeComponent)
       }
     }
 
     "checking size" should {
       "give back 0" in {
-        empty.size should be(0)
+        val size: Int = empty.size
+
+        size should be(0)
       }
     }
 
     "checking if its empty" should {
       "be false" in {
-        empty.isEmpty should be(true)
+        val isEmpty: Boolean = empty.isEmpty
+
+        isEmpty should be(true)
       }
     }
 
     "accessing head" should {
       "return right head element" in {
-        empty.head should be(None)
+        val head: Option[Int] = empty.head
+
+        head should be(None)
       }
     }
 
     "accessing last" should {
       "return right last element" in {
-        empty.last should be(None)
+        val last: Option[Int] = empty.last
+
+        last should be(None)
       }
     }
 
     "getting init" should {
       "return None" in {
-        empty.init should be(None)
+        val init: Option[ITreeComponent[Int]] = empty.init
+
+        init should be(None)
       }
     }
 
     "getting tail" should {
       "return None" in {
-        empty.tail should be(None)
+        val tail: Option[ITreeComponent[Int]] = empty.tail
+
+        tail should be(None)
       }
     }
 
     "calling toList" should {
       "return Nil" in {
-        empty.toList should be (Nil)
+        val list: List[Int] = empty.toList
+
+        val expectedList: List[Int] = Nil
+        list should be(expectedList)
       }
     }
 
     "calling toString" should {
       "be presented right" in {
-        empty.toString should be("Empty()")
+        val stringRepresentation: String = empty.toString
+
+        val expectedString: String = "Empty()"
+        stringRepresentation should be(expectedString)
       }
     }
 
     "viewRight" should {
       "return None" in {
-        empty.viewRight should be(None)
+        val viewRight: Option[IViewRight[Int]] = empty.viewRight
+
+        viewRight should be(None)
       }
     }
 
     "viewLeft" should {
       "return None" in {
-        empty.viewLeft should be(None)
+        val viewLeft: Option[IViewLeft[Int]] = empty.viewLeft
+
+        viewLeft should be(None)
       }
     }
   }
