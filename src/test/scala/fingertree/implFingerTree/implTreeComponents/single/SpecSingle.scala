@@ -1,24 +1,27 @@
 package fingertree.implFingerTree.implTreeComponents.single
 
-import org.scalatest.matchers.should.Matchers
-import org.scalatest.wordspec.AnyWordSpec
-import single.implSingle.Single
-import deep.implDeep.Deep
-import digit.implDigit.Digit1
-import empty.implEmpty.Empty
-import single.ISingle
-import empty.IEmpty
-import digit.implDigit.Digit2
 import deep.IDeep
+import deep.implDeep.Deep
 import digit.IDigit
+import digit.implDigit.Digit1
+import digit.implDigit.Digit2
+import empty.IEmpty
+import empty.implEmpty.Empty
+import fingertree.IFingerTree
+import fingertree.implFingerTree.ITreeComponent
 import node.INode
 import node.implNode.Node3
-import view.implView.implViewRightCons.ViewRightCons
-import view.implView.implViewLeftCons.ViewLeftCons
+import node.nodeImpl.Node2
 import org.mockito.Mockito.mock
 import org.mockito.Mockito.when
-import fingertree.implFingerTree.ITreeComponent
-import node.nodeImpl.Node2
+import org.scalatest.matchers.should.Matchers
+import org.scalatest.wordspec.AnyWordSpec
+import single.ISingle
+import single.implSingle.Single
+import view.implView.IViewLeft
+import view.implView.IViewRight
+import view.implView.implViewLeftCons.ViewLeftCons
+import view.implView.implViewRightCons.ViewRightCons
 
 class SpecSingle extends AnyWordSpec with Matchers {
 
@@ -32,189 +35,280 @@ class SpecSingle extends AnyWordSpec with Matchers {
 
     "appending a new element" should {
       "return a Deep( Digit1 Empty Digit1 ) structure where the right Digit is the new entry" in {
-        val newSingle = single.:+(9)
+        val newSingle: ITreeComponent[Int] = single :+ 9
 
-        newSingle should be(Deep[Int](Digit1(10), Empty(), Digit1(9)))
+        val expectedDeep: IDeep[Int] = Deep[Int](Digit1(10), Empty(), Digit1(9))
+        newSingle should be(expectedDeep)
       }
     }
 
     "prepending a new element" should {
       "return a Deep( Digit1 Empty Digit1 ) structure where the left Digit is the new entry" in {
-        val newSingle = single.+:(9)
+        val newSingle: ITreeComponent[Int] = 9 +: single
 
-        newSingle should be(Deep[Int](Digit1(9), Empty(), Digit1(10)))
+        val expectedDeep: IDeep[Int] = Deep[Int](Digit1(9), Empty(), Digit1(10))
+        newSingle should be(expectedDeep)
       }
     }
 
-    "concating TreeComponents" should {
-      "return a Single when concating an Empty" in {
+    "concatenate TreeComponents" should {
+      "return a Single when concatenate an Empty" in {
         val emptyToConcat: IEmpty = Empty()
 
-        val concated = single ++ emptyToConcat
+        val concatenated = single ++ emptyToConcat
 
-        concated should be(Single(10))
+        val expectedSingle: ISingle[Int] = Single(10)
+        concatenated should be(expectedSingle)
       }
 
-      "return a Deep( Digit1 Empty Digit1 ) when concating a Single where the left Digit is the old Single entry" in {
+      "return a Deep( Digit1 Empty Digit1 ) when concatenate a Single where the left Digit is the old Single entry" in {
         val singleToConcat: ISingle[Int] = Single[Int](9)
 
-        val concated = single ++ singleToConcat
+        val concatenated = single ++ singleToConcat
 
-        concated should be(Deep(Digit1(10), Empty(), Digit1(9)))
+        val expectedDeep: IDeep[Int] = Deep(Digit1(10), Empty(), Digit1(9))
+        concatenated should be(expectedDeep)
       }
 
-      "return a Deep( Digit2 Empty Digit1 ) when concating a Deep where Digit2 has as first entry the old singe entry" in {
+      "return a Deep( Digit2 Empty Digit1 ) when concatenate a Deep where Digit2 has as first entry the old singe entry" in {
         val deepToConcat: IDeep[Int] = Deep(Digit1(9), Empty(), Digit1(8))
 
-        val concated = single ++ deepToConcat
+        val concatenated = single ++ deepToConcat
 
-        concated should be(Deep(Digit2(10, 9), Empty(), Digit1(8)))
+        val expectedDeep: IDeep[Int] = Deep(Digit2(10, 9), Empty(), Digit1(8))
+        concatenated should be(expectedDeep)
       }
     }
 
     "checking size" should {
-      "be 1 when a Value is stored" in {
-        single.size should be(1)
-      }
-
       "be 0 when an Empty is stored" in {
         when(mockedEmpty.size) thenReturn 0
         val single: ISingle[ITreeComponent[Nothing]] = Single(mockedEmpty)
 
-        single.size should be(0)
+        val size: Int = single.size
+
+        size should be(0)
+      }
+
+      "be 1 when a Value is stored" in {
+        val size: Int = single.size
+
+        size should be(1)
       }
 
       "be 1 when Digit1 is stored" in {
         when(mockedDigit.size) thenReturn 1
         val single: ISingle[IDigit[Int]] = Single(mockedDigit)
 
-        single.size should be(1)
+        val size: Int = single.size
+
+        size should be(1)
       }
 
       "be 2 when Deep( Digit1 Empty Digit1 ) is stored" in {
         when(mockedDeep.size) thenReturn 2
         val single: ISingle[ITreeComponent[Int]] = Single(mockedDeep)
 
-        single.size should be(2)
+        val size: Int = single.size
+
+        size should be(2)
       }
 
       "be 3 when Node3 is stored" in {
         when(mockedNode.size) thenReturn 3
         val single: ISingle[INode[Int]] = Single(mockedNode)
 
-        single.size should be(3)
+        val size: Int = single.size
+
+        size should be(3)
       }
     }
 
     "checking if its empty" should {
       "be false" in {
-        single.isEmpty should be(false)
+        val isEmpty: Boolean = single.isEmpty
+
+        isEmpty should be(false)
       }
     }
 
     "accessing head" should {
       "return own entry when a value is stored" in {
-        single.head should be(Some(10))
+        val head: Option[Int] = single.head
+
+        head match
+          case None => fail("Head was None instead of Some")
+          case Some(head) =>
+            head should be(10)
       }
 
       "return None when Empty is stored" in {
         when(mockedEmpty.head) thenReturn None
         val single: ISingle[IEmpty] = Single(mockedEmpty)
 
-        single.head should be(None)
+        val head: Option[IEmpty] = single.head
+
+        head match
+          case Some(_) => fail("Head was Some instead of None")
+          case None    => succeed
       }
 
       "return head of Digit when Digit1 is stored" in {
         when(mockedDigit.head) thenReturn Some(10)
         val single: ISingle[IDigit[Int]] = Single(mockedDigit)
 
-        single.head should be(Some(10))
+        val head: Option[_] = single.head
+
+        head match
+          case None => fail("Head was None instead of Some")
+          case Some(head) =>
+            head should be(10)
       }
 
       "return head of Deep when Deep( Digit1 Empty Digit1 ) is stored" in {
         when(mockedDeep.head) thenReturn Some(10)
         val single: ISingle[IDeep[Int]] = Single(mockedDeep)
 
-        single.head should be(Some(10))
+        val head: Option[_] = single.head
+
+        head match
+          case None => fail("Head was None instead of Some")
+          case Some(head) =>
+            head should be(10)
       }
 
       "return Node3 when Node3 is stored" in {
         val single: ISingle[INode[Int]] = Single(Node3(10, 9, 8))
 
         // @TODO was soll hier passieren? => Maybe None zurück geben
+        val head: Option[INode[Int]] = single.head
 
-        single.head should be(Some(Node3(10, 9, 8)))
+        head match
+          case None => fail("Head was None instead of Some")
+          case Some(head) =>
+            head should be(Node3(10, 9, 8))
       }
     }
 
     "accessing last" should {
       "return own entry when a value is stored" in {
-        single.last should be(Some(10))
+        val last: Option[Int] = single.last
+
+        last match
+          case None => fail("Last was None instead of Some")
+          case Some(last) =>
+            last should be(10)
       }
 
       "return None when Empty is stored" in {
         when(mockedEmpty.last) thenReturn None
         val single: ISingle[IEmpty] = Single(mockedEmpty)
 
-        single.last should be(None)
+        val last: Option[IEmpty] = single.last
+
+        last match
+          case Some(_) => fail("Last was None instead of Some")
+          case None    => succeed
       }
 
       "return last of Digit when Digit1 is stored" in {
         when(mockedDigit.last) thenReturn Some(10)
         val single: ISingle[IDigit[Int]] = Single(mockedDigit)
 
-        single.last should be(Some(10))
+        val last: Option[_] = single.last
+
+        last match
+          case None => fail("Last was None instead of Some")
+          case Some(last) =>
+            last should be(10)
       }
 
       "return last of Deep when Deep( Digit1 Empty Digit1 ) is stored" in {
         when(mockedDeep.last) thenReturn Some(9)
         val single: ISingle[IDeep[Int]] = Single(mockedDeep)
 
-        single.last should be(Some(9))
+        val last: Option[_] = single.last
+
+        last match
+          case None => fail("Last was None instead of Some")
+          case Some(last) =>
+            last should be(9)
       }
 
       "return Node3 when Node3 is stored" in {
         val single: ISingle[INode[Int]] = Single(Node3(10, 9, 8))
 
         // @TODO was soll hier passieren? => Maybe none ausgeben
+        val last: Option[INode[Int]] = single.last
 
-        single.head should be(Some(Node3(10, 9, 8)))
+        last match
+          case None => fail("Last was None instead of Some")
+          case Some(last) =>
+            last should be(Node3(10, 9, 8))
       }
     }
 
     "getting init" should {
       "return Some( Empty )" in {
-        single.init should be(Some(Empty()))
+        val init: Option[ITreeComponent[Int]] = single.init
+
+        init match
+          case None => fail("Init was None instead of Some")
+          case Some(init) =>
+            init should be(Empty())
       }
     }
 
     "getting tail" should {
       "return Some( Empty )" in {
-        single.tail should be(Some(Empty()))
+        val tail: Option[ITreeComponent[Int]] = single.tail
+
+        tail match
+          case None => fail("Tail was None instead of Some")
+          case Some(tail) =>
+            tail should be(Empty())
       }
     }
 
     "calling toList" should {
       "return element as list" in {
-        single.toList should be(List(10))
+        val list: List[Int] = single.toList
+
+        val expectedList: List[Int] = List(10)
+        list should be(expectedList)
       }
     }
 
     "calling toString" should {
       "be presented right" in {
-        single.toString should be("Single( 10 )")
+        val stringRepresentation: String = single.toString
+
+        val expectedString: String = "Single( 10 )"
+        stringRepresentation should be(expectedString)
       }
     }
 
     "viewRight" should {
       "return the own entry as last and empty as init" in {
-        single.viewRight should be(Some(ViewRightCons(10, Empty())))
+        val viewRight: Option[IViewRight[Int]] = single.viewRight
+
+        viewRight match
+          case None => fail("ViewRight was None instead of Some")
+          case Some(viewRight) =>
+            val expectedViewRight: IViewRight[Int] = ViewRightCons(10, Empty())
+            viewRight should be(expectedViewRight)
       }
     }
 
     "viewLeft" should {
       "return the own entry as head and empty as tail" in {
-        single.viewLeft should be(Some(ViewLeftCons(10, Empty())))
+        val viewLeft: Option[IViewLeft[Int]] = single.viewLeft
+
+        viewLeft match
+          case None => fail("ViewLeft was None instead of Some")
+          case Some(viewLeft) =>
+            val expectedViewLeft: IViewLeft[Int] = ViewLeftCons(10, Empty())
+            viewLeft should be(expectedViewLeft)
       }
     }
   }
