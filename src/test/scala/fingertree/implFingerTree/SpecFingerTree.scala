@@ -147,8 +147,8 @@ class SpecFingerTree
         init match
           case None => fail("Init was None instead a Tree of Some(Empty)")
           case Some(newTree) =>
-            val shouldBeTree = FingerTree[Int](treeHead = Empty())
-            newTree should be (shouldBeTree)
+            val expectedTree = FingerTree[Int](treeHead = Empty())
+            newTree should be (expectedTree)
       }
 
       "be Some( Single ) when Deep with 2 elements is stored" in {
@@ -159,9 +159,9 @@ class SpecFingerTree
         init match
           case None => fail("Init was None instead a Tree of Some(Empty)")
           case Some(newTree) =>
-            val shouldBeTree: IFingerTree[Int] =
+            val expectedTree: IFingerTree[Int] =
               FingerTree[Int](treeHead = Single[Int](10))
-            newTree should be (shouldBeTree)
+            newTree should be (expectedTree)
       }
     }
 
@@ -180,8 +180,8 @@ class SpecFingerTree
         tail match
           case None => fail("Init was None instead a Tree of Some(Empty)")
           case Some(newTree) =>
-            val shouldBeTree = FingerTree[Int](treeHead = Empty())
-            newTree should be (shouldBeTree)
+            val expectedTree = FingerTree[Int](treeHead = Empty())
+            newTree should be (expectedTree)
       }
 
       "be Some( Single ) when Deep with 2 elements is stored" in {
@@ -192,8 +192,8 @@ class SpecFingerTree
         tail match
           case None => fail("Init was None instead a Tree of Some(Empty)")
           case Some(newTree) =>
-            val shouldBeTree = FingerTree[Int](treeHead = Single[Int](9))
-            newTree should be (shouldBeTree)
+            val expectedTree = FingerTree[Int](treeHead = Single[Int](9))
+            newTree should be (expectedTree)
       }
     }
 
