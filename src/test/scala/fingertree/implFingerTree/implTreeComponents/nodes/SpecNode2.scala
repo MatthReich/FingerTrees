@@ -27,19 +27,20 @@ class SpecNode2 extends AnyWordSpec with Matchers {
     val mockedDeep = mock(classOf[Deep[Int]])
     val mockedNode = mock(classOf[Node3[Int]])
 
-     "checking size" should {
+    "checking size" should {
       "be 2 when only values are stored" in {
-        val size: Int = node.size 
-        
+        val size: Int = node.size
+
         size should be(2)
       }
 
       "be 0 when Emptys are stored" in {
         when(mockedEmpty.size) thenReturn 0
-        val node: INode[ITreeComponent[Nothing]] = Node2(mockedEmpty, mockedEmpty)
+        val node: INode[ITreeComponent[Nothing]] =
+          Node2(mockedEmpty, mockedEmpty)
 
-        val size: Int = node.size 
-        
+        val size: Int = node.size
+
         size should be(0)
       }
 
@@ -48,8 +49,8 @@ class SpecNode2 extends AnyWordSpec with Matchers {
         when(mockedSingle.size) thenReturn 1
         val node: INode[ITreeComponent[Int]] = Node2(mockedEmpty, mockedSingle)
 
-        val size: Int = node.size 
-        
+        val size: Int = node.size
+
         size should be(1)
       }
 
@@ -57,8 +58,8 @@ class SpecNode2 extends AnyWordSpec with Matchers {
         when(mockedDeep.size) thenReturn 2
         val node: INode[ITreeComponent[Int]] = Node2(mockedDeep, mockedDeep)
 
-        val size: Int = node.size 
-        
+        val size: Int = node.size
+
         size should be(4)
       }
 
@@ -66,8 +67,8 @@ class SpecNode2 extends AnyWordSpec with Matchers {
         when(mockedDigit.size) thenReturn 1
         val node: INode[IDigit[Int]] = Node2(mockedDigit, mockedDigit)
 
-        val size: Int = node.size 
-        
+        val size: Int = node.size
+
         size should be(2)
       }
 
@@ -75,8 +76,8 @@ class SpecNode2 extends AnyWordSpec with Matchers {
         when(mockedNode.size) thenReturn 3
         val node: INode[INode[Int]] = Node2(mockedNode, mockedNode)
 
-        val size: Int = node.size 
-        
+        val size: Int = node.size
+
         size should be(6)
       }
     }
@@ -94,7 +95,7 @@ class SpecNode2 extends AnyWordSpec with Matchers {
         val list: List[Int] = node.toList
 
         val expectedList: List[Int] = List(10, 9)
-        list should be (expectedList)
+        list should be(expectedList)
       }
     }
 
