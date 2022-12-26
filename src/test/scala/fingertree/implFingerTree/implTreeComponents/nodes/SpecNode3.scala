@@ -1,20 +1,20 @@
 package fingertree.implFingerTree.implTreeComponents.nodes
 
-import org.scalatest.matchers.should.Matchers
-import org.scalatest.wordspec.AnyWordSpec
+import deep.IDeep
+import deep.implDeep.Deep
+import digit.IDigit
+import digit.implDigit.Digit1
+import empty.IEmpty
+import empty.implEmpty.Empty
+import fingertree.implFingerTree.ITreeComponent
+import node.INode
 import node.implNode.Node3
+import node.nodeImpl.Node2
 import org.mockito.Mockito.mock
 import org.mockito.Mockito.when
-import empty.implEmpty.Empty
-import digit.implDigit.Digit1
+import org.scalatest.matchers.should.Matchers
+import org.scalatest.wordspec.AnyWordSpec
 import single.implSingle.Single
-import deep.implDeep.Deep
-import node.INode
-import empty.IEmpty
-import fingertree.implFingerTree.ITreeComponent
-import deep.IDeep
-import node.nodeImpl.Node2
-import digit.IDigit
 
 class SpecNode3 extends AnyWordSpec with Matchers {
 
@@ -26,70 +26,97 @@ class SpecNode3 extends AnyWordSpec with Matchers {
     val mockedSingle = mock(classOf[Single[Int]])
     val mockedDeep = mock(classOf[Deep[Int]])
     val mockedNode = mock(classOf[Node2[Int]])
-  
+
     "checking size" should {
       "be 3" in {
-        node.size should be(3)
+        val size: Int = node.size
+
+        size should be(3)
       }
     }
 
     "checking size" should {
       "be 3 when only values are stored" in {
-        node.size should be(3)
+        val size: Int = node.size
+
+        size should be(3)
       }
 
       "be 0 when Emptys are stored" in {
         when(mockedEmpty.size) thenReturn 0
-        val node: INode[ITreeComponent[Nothing]] = Node3(mockedEmpty, mockedEmpty, mockedEmpty)
+        val node: INode[ITreeComponent[Nothing]] =
+          Node3(mockedEmpty, mockedEmpty, mockedEmpty)
 
-        node.size should be(0)
+        val size: Int = node.size
+
+        size should be(0)
       }
 
       "be 2 when Empty and 2 Single are stored" in {
         when(mockedEmpty.size) thenReturn 0
         when(mockedSingle.size) thenReturn 1
-        val node: INode[ITreeComponent[Int]] = Node3(mockedSingle, mockedEmpty, mockedSingle)
+        val node: INode[ITreeComponent[Int]] =
+          Node3(mockedSingle, mockedEmpty, mockedSingle)
 
-        node.size should be(2)
+        val size: Int = node.size
+
+        size should be(2)
       }
 
       "be 6 when 3 Deep( Digit1 Empty Digit1 ) are stored" in {
         when(mockedDeep.size) thenReturn 2
-        val node: INode[ITreeComponent[Int]] = Node3(mockedDeep, mockedDeep, mockedDeep)
+        val node: INode[ITreeComponent[Int]] =
+          Node3(mockedDeep, mockedDeep, mockedDeep)
 
-        node.size should be(6)
+        val size: Int = node.size
+
+        size should be(6)
       }
 
       "be 3 when 3 Digit1 are stored" in {
         when(mockedDigit.size) thenReturn 1
-        val node: INode[IDigit[Int]] = Node3(mockedDigit, mockedDigit, mockedDigit)
+        val node: INode[IDigit[Int]] =
+          Node3(mockedDigit, mockedDigit, mockedDigit)
 
-        node.size should be(3)
+        val size: Int = node.size
+
+        size should be(3)
       }
 
       "be 6 when 3 Node2 is stored" in {
         when(mockedNode.size) thenReturn 2
         val node: INode[INode[Int]] = Node3(mockedNode, mockedNode, mockedNode)
 
-        node.size should be(6)
+        val size: Int = node.size
+
+        size should be(6)
       }
     }
 
     "checking if its empty" should {
       "be false" in {
-        node.isEmpty should be(false)
+        val isEmpty: Boolean = node.isEmpty
+
+        isEmpty should be(false)
       }
     }
 
     "calling toList" should {
       "return entries as List" in {
-        node.toList should be (List(10, 9, 8))
+        val list: List[Int] = node.toList
+
+        val expectedList: List[Int] = List(10, 9, 8)
+
+        list should be(expectedList)
       }
     }
 
     "calling toString" should {
       "be presented right when only created" in {
-        node.toString should be("Node( 10, 9, 8 )")
+        val stringRepresentation: String = node.toString
+
+        val expectedString: String = "Node( 10, 9, 8 )"
+        stringRepresentation should be(expectedString)
       }
     }
   }
