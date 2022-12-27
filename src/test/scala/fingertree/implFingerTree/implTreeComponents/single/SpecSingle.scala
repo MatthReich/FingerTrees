@@ -174,18 +174,6 @@ class SpecSingle extends AnyWordSpec with Matchers {
           case Some(head) =>
             head should be(10)
       }
-
-      "return Node3 when Node3 is stored" in {
-        val single: ISingle[INode[Int]] = Single(Node3(10, 9, 8))
-
-        // @TODO was soll hier passieren? => Maybe None zurück geben
-        val head: Option[INode[Int]] = single.head
-
-        head match
-          case None => fail("Head was None instead of Some")
-          case Some(head) =>
-            head should be(Node3(10, 9, 8))
-      }
     }
 
     "accessing last" should {
@@ -229,18 +217,6 @@ class SpecSingle extends AnyWordSpec with Matchers {
           case None => fail("Last was None instead of Some")
           case Some(last) =>
             last should be(9)
-      }
-
-      "return Node3 when Node3 is stored" in {
-        val single: ISingle[INode[Int]] = Single(Node3(10, 9, 8))
-
-        // @TODO was soll hier passieren? => Maybe none ausgeben
-        val last: Option[INode[Int]] = single.last
-
-        last match
-          case None => fail("Last was None instead of Some")
-          case Some(last) =>
-            last should be(Node3(10, 9, 8))
       }
     }
 
