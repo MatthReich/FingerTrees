@@ -16,4 +16,4 @@ lazy val root = project
     )
   )
 
-coverageExcludedPackages := "<empty>;Main.scala"
+coverageExcludedPackages := "<empty>;Main.*;"
