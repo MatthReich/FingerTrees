@@ -15,5 +15,3 @@ lazy val root = project
       "org.scalatestplus" %% "scalacheck-1-17" % "3.2.14.0" % "test"
     )
   )
-
-coverageExcludedPackages := "<empty>;Main.*;"
