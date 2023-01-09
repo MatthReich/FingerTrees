@@ -77,7 +77,7 @@ Zuletzt ist es auch Möglich, den Baum als Liste, über `toList`, zurückzubekom
 val seqParamFingerTreeAsList: List[Int] = seqParamFingerTree.toList
 ```
 
-In dem im Projekt enthaltenen [Worksheet](https://github.com/MatthReich/FingerTrees/blob/master/src/main/scala/fingertree/Worsheet.worksheet.sc) sind diese Operationen nochmals aufgeführt und selbst testbar, ohne eine Main-Klasse zu definieren.
+In dem im Projekt enthaltenen [Worksheet](https://github.com/MatthReich/FingerTrees/blob/master/src/main/scala/fingertree/Worksheet.worksheet.sc) sind diese Operationen nochmals aufgeführt und selbst testbar, ohne eine Main-Klasse zu definieren.
 
 ## Implementierung
 
