@@ -2,14 +2,34 @@
 
 [![Build Status](https://app.travis-ci.com/MatthReich/FingerTrees.svg?branch=master)](https://app.travis-ci.com/MatthReich/FingerTrees) [![Coverage Status](https://coveralls.io/repos/github/MatthReich/FingerTrees/badge.svg?branch=master)](https://coveralls.io/github/MatthReich/FingerTrees?branch=master)
 
+Dieses Projekt entstand im Zuge des Seminars aus dem Informatik Master (INFM) der Hochschule Offenburg. Dabei war es die Aufgabe, einen FingerTree zu implementieren, wobei nur Basisoperationen unterstützt werden sollen und nicht alle möglichen Operationen. Im Folgenden wird auf die Struktur, Benutzung und Implementierung bezüglich dieses Seminars eingegangen.
+
 ## Allgemein
 
 FingerTrees sind eine effiziente funktionale Datenstruktur. Sie sind eine spezielle Art von binären Baumstrukturen, die dazu dienen, Sequenzen von Elementen zu speichern und schnellen Zugriff auf diese Elemente zu ermöglichen 
 
-Unter einer funktionalen Datenstruktur versteht man eine Datenstruktur, die in einem funktionalen Programmierparadigma implementiert wurde. Im Gegensatz zu imperativen Datenstrukturen, die mithilfe von Anweisungen verändert werden, werden funktionale Datenstrukturen durch die Rückgabe neuer Datenstrukturen von Funktionen verändert. Dies bedeutet, dass funktionale Datenstrukturen nicht mutierbar sind und keine Seiteneffekte haben. Die Daten, welche nach der Veränderung gleich bleiben, werden dabei nicht kopiert, sondern über Referenzen mehrfach verwendet.
+Dabei versteht man unter einer funktionalen Datenstruktur eine Datenstruktur, die in einem funktionalen Programmierparadigma implementiert wurde. Im Gegensatz zu imperativen Datenstrukturen, die mithilfe von Anweisungen verändert werden, werden funktionale Datenstrukturen durch die Rückgabe neuer Datenstrukturen von Funktionen verändert. Dies bedeutet, dass funktionale Datenstrukturen nicht mutierbar sind und keine Seiteneffekte haben. Die Daten, welche nach der Veränderung gleich bleiben, werden dabei nicht kopiert, sondern über Referenzen mehrfach verwendet.
 
-Dabei besteht ein FingerTree aus 5 Komponenten: `Empty`, `Single`, `Deep`, `Digit` und `Node`.
+Die Effizienz dieser Datenstruktur soll vor allem in dem vorne und hinten Anfügen von Elementen (O(log n), bis zu O(1)), dem Zusammenführen von zwei FingerTrees (O(log n)) und auch dem Zugriff auf das erste bzw. letzte Element (O(1)) gewährleistet sein.
 
+Bei der Implementierung wurde Bezug auf das Paper von [Ralf Hinze und Ross Paterson](https://www.staff.city.ac.uk/~ross/papers/FingerTree.pdf) genommen.
+
+## Struktur
+
+Eine Übersicht der Struktur des Projekts, um die wichtigsten Dateien für das Seminar zu finden, wird folgend gegeben.
+
+```
+.
+├── documents 
+│   └── FingerTrees.pptx                        # Präsentation über FingerTrees       
+├── src 
+│   ├── main/scala/fingertree/
+│   │   ├── Worksheet.worksheet.sc              # Worksheet um FingerTree manuell auszuprobieren
+│   │   └── ...                                 # Implementierung der Datenstruktur FingerTrees
+│   └── test/scala/fingertree/implFingerTree/
+│       └── ...                                 # Die Tests für FingerTrees                
+└── README.md                                   # Die mit abzugebende textuelle Erklärung
+```
 
 ## Benutzung
 
@@ -57,7 +77,38 @@ Zuletzt ist es auch Möglich, den Baum als Liste, über `toList`, zurückzubekom
 val seqParamFingerTreeAsList: List[Int] = seqParamFingerTree.toList
 ```
 
+In dem im Projekt enthaltenen [Worksheet](https://github.com/MatthReich/FingerTrees/blob/master/src/main/scala/fingertree/Worsheet.worksheet.sc) sind diese Operationen nochmals aufgeführt und selbst testbar, ohne eine Main-Klasse zu definieren.
+
 ## Implementierung
+
+Folgend wird auf die Implementierung eingegangen, was die wesentlichen Punkte des Codes erläutert.
+
+### Struktur
+
+Die Struktur der Implementierung des FingerTrees und der einzelnen Komponenten ist wie folgt:
+
+```
+├── ...    
+├── src/main/scala/fingertree/ 
+│   ├── implFingerTree
+│   │   ├── implTreeComponents
+│   │   │   ├── deep                    # Implementierung von der Komponente Deep
+│   │   │   │   └── ...
+│   │   │   ├── digit                   # Implementierung von der Komponente Digit
+│   │   │   │   └── ...
+│   │   │   ├── empty                   # Implementierung von der Komponente Empty
+│   │   │   │   └── ...
+│   │   │   ├── node                    # Implementierung von der Komponente Node
+│   │   │   │   └── ... 
+│   │   │   ├── single                  # Implementierung von der Komponente Single
+│   │   │   │   └── ...
+│   │   │   └── view                    # Implementierung von der Hilfskomponente View, welche für init bzw tail benötigt wird
+│   │   │       └── ... 
+│   │   ├── FingerTree.scala            # Die Hauptimplementierung des FingerTrees, welche auf die Komponenten zugreift
+│   │   └── ITreeComponent.scala            
+│   └── IFingerTree.scala               # Interface der FingerTrees, welches alle möglichen Operationen beinhaltet                    
+└── ...
+```
 
 ### Generics
 
@@ -73,6 +124,23 @@ Unter `+A` versteht man ...
 Die Verwendung von `B >: A` bedeutet, ...
 > wird ergänzt
 
+### append, prepend
+> wird ergänzt
+
+### concat
+> wird ergänzt
+
+### head, last
+> wird ergänzt
+
+### init, tail
+> wird ergänzt
+
+### size, isEmpty, toList
+> wird ergänzt
+
+### toString
+> wird ergänzt
 
 ## Quellen
 
