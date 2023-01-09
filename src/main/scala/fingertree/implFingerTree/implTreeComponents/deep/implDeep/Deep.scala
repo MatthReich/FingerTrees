@@ -27,24 +27,22 @@ case class Deep[+A](
 ) extends IDeep[A],
       ITreeComponent[A]:
   override def :+[B >: A](newEntry: B): ITreeComponent[B] =
-    suffix match {
+    suffix match
       case Digit4(entry1, entry2, entry3, entry4) =>
         val newDeep = deep.:+[INode[A]](Node3(entry1, entry2, entry3))
         val newSuffix = Digit2(entry4, newEntry)
-        Deep(prefix, newDeep, newSuffix)
+        this.copy(deep = newDeep, suffix = newSuffix)
       case partialDigit =>
-        Deep(prefix, deep, partialDigit :+ newEntry)
-    }
+        this.copy(suffix = partialDigit :+ newEntry)
 
   override def +:[B >: A](newEntry: B): ITreeComponent[B] =
-    prefix match {
+    prefix match
       case Digit4(entry1, entry2, entry3, entry4) =>
         val newPrefix = Digit2(newEntry, entry1)
         val newDeep = deep.+:[INode[A]](Node3(entry2, entry3, entry4))
-        Deep(newPrefix, newDeep, suffix)
+        this.copy(prefix = newPrefix, deep = newDeep)
       case partialDigits =>
-        Deep(newEntry +: partialDigits, deep, suffix)
-    }
+        this.copy(prefix = newEntry +: partialDigits)
 
   override def ++[B >: A](treeToConcat: ITreeComponent[B]): ITreeComponent[B] =
     treeToConcat match
@@ -106,7 +104,7 @@ case class Deep[+A](
       concatList: List[A],
       right: ITreeComponent[A]
   ): ITreeComponent[A] =
-    (left, right) match {
+    (left, right) match
       case (Empty(), _) => concatList.foldRight(right)((a, b) => a +: b)
       case (_, Empty()) => concatList.foldLeft(left)((b, a) => b :+ a)
       case (Single(entry), _) =>
@@ -115,12 +113,11 @@ case class Deep[+A](
         concatList.foldLeft(left)((b, a) => b :+ a) :+ entry
       case (leftDeep @ Deep(_, _, _), rightDeep @ Deep(_, _, _)) =>
         concatDeep[A](leftDeep, concatList, rightDeep)
-    }
 
   private def createNodeCombinations[A](
       entriesAsList: List[A]
   ): List[INode[A]] =
-    (entriesAsList: @unchecked) match {
+    (entriesAsList: @unchecked) match
       case entry1 :: entry2 :: Nil => Node2(entry1, entry2) :: Nil
       case entry1 :: entry2 :: entry3 :: Nil =>
         Node3(entry1, entry2, entry3) :: Nil
@@ -128,7 +125,7 @@ case class Deep[+A](
         Node2(entry1, entry2) :: Node2(entry3, entry4) :: Nil
       case entry1 :: entry2 :: entry3 :: tail =>
         Node3(entry1, entry2, entry3) :: createNodeCombinations(tail)
-    }
+
 
   private def deepRight[A](
       prefix: IDigit[A],
