@@ -4,7 +4,6 @@ import fingertree.IFingerTree
 import node.INode
 import empty.IEmpty
 import empty.implEmpty.Empty
-import single.ISingle
 import single.implSingle.Single
 import deep.IDeep
 import deep.implDeep.Deep

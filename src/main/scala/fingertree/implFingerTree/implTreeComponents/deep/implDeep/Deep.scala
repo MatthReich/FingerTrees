@@ -118,14 +118,14 @@ case class Deep[+A](
       entriesAsList: List[A]
   ): List[INode[A]] =
     (entriesAsList: @unchecked) match
-      case entry1 :: entry2 :: Nil => Node2(entry1, entry2) :: Nil
+      case entry1 :: entry2 :: Nil =>
+        Node2(entry1, entry2) :: Nil
       case entry1 :: entry2 :: entry3 :: Nil =>
         Node3(entry1, entry2, entry3) :: Nil
       case entry1 :: entry2 :: entry3 :: entry4 :: Nil =>
         Node2(entry1, entry2) :: Node2(entry3, entry4) :: Nil
       case entry1 :: entry2 :: entry3 :: tail =>
         Node3(entry1, entry2, entry3) :: createNodeCombinations(tail)
-
 
   private def deepRight[A](
       prefix: IDigit[A],
