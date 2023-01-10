@@ -18,17 +18,9 @@ case class Digit2[A](entry1: A, entry2: A) extends IDigit[A]:
 
   override def isEmpty: Boolean = false
 
-  override def head: Option[A] =
-    entry1 match
-      case component: ITreeComponent[A] @unchecked => component.head
-      case digit: IDigit[A] @unchecked             => digit.head
-      case _                                       => Some(entry1)
+  override def head: Option[A] = Some(entry1)
 
-  override def last: Option[A] =
-    entry2 match
-      case component: ITreeComponent[A] @unchecked => component.last
-      case digit: IDigit[A] @unchecked             => digit.last
-      case _                                       => Some(entry2)
+  override def last: Option[A] = Some(entry2)
 
   override def init: Option[IDigit[A]] = Some(Digit1(entry1))
 

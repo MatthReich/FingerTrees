@@ -103,44 +103,8 @@ class SpecDigits2 extends AnyWordSpec with Matchers {
     }
 
     "accessing head" should {
-      "return None when 2 Empty are stored" in {
-        when(mockedEmpty.head) thenReturn None
-        val digit: IDigit[ITreeComponent[Int]] =
-          Digit2(mockedEmpty, mockedEmpty)
-
-        val head: Option[_] = digit.head
-
-        head should be(None)
-      }
-
-      "return own head when values are stored" in {
+      "return first element which is stored" in {
         val head: Option[Int] = digit.head
-
-        head match
-          case None => fail("Head was None instead of Some")
-          case Some(head) =>
-            head should be(10)
-      }
-
-      "return head of first Digit when 2 Digit1 are stored" in {
-        when(mockedDigit.head) thenReturn Some(10)
-        val digit: IDigit[IDigit[Int]] = Digit2(mockedDigit, mockedDigit)
-
-        val head: Option[_] = digit.head
-
-        head match
-          case None => fail("Head was None instead of Some")
-          case Some(head) =>
-            head should be(10)
-      }
-
-      "return head of Deep when Deep( Digit1 Empty Digit1 ) and Single are stored" in {
-        when(mockedDeep.head) thenReturn Some(10)
-        when(mockedSingle.head) thenReturn Some(9)
-        val digit: IDigit[ITreeComponent[Int]] =
-          Digit2(mockedDeep, mockedSingle)
-
-        val head: Option[_] = digit.head
 
         head match
           case None => fail("Head was None instead of Some")
@@ -150,43 +114,8 @@ class SpecDigits2 extends AnyWordSpec with Matchers {
     }
 
     "accessing last" should {
-      "return None when 2 Empty are stored" in {
-        when(mockedEmpty.last) thenReturn None
-        val digit: IDigit[ITreeComponent[Int]] =
-          Digit2(mockedEmpty, mockedEmpty)
-
-        val last: Option[_] = digit.last
-
-        last should be(None)
-      }
-
-      "return own entry when only values are stored" in {
+      "return last element which is stored" in {
         val last: Option[Int] = digit.last
-
-        last match
-          case None => fail("Last was None instead of Some")
-          case Some(last) =>
-            last should be(9)
-      }
-
-      "return last of Digit when 2 Digit1 are stored" in {
-        when(mockedDigit.last) thenReturn Some(10)
-        val digit: IDigit[IDigit[Int]] = Digit2(Digit1(9), mockedDigit)
-
-        val last: Option[_] = digit.last
-
-        last match
-          case None => fail("Last was None instead of Some")
-          case Some(last) =>
-            last should be(10)
-      }
-
-      "return last of Deep when 2 Deep( Digit1 Empty Digit1 ) are stored" in {
-        when(mockedDeep.last) thenReturn Some(9)
-        val digit: IDigit[ITreeComponent[Int]] =
-          Digit2(Deep(Digit1(11), Empty(), Digit1(10)), mockedDeep)
-
-        val last: Option[_] = digit.last
 
         last match
           case None => fail("Last was None instead of Some")
