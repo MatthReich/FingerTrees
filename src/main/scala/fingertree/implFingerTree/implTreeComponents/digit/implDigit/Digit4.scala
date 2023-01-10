@@ -30,17 +30,9 @@ case class Digit4[A](entry1: A, entry2: A, entry3: A, entry4: A)
 
   override def isEmpty: Boolean = false
 
-  override def head: Option[A] =
-    entry1 match
-      case component: ITreeComponent[A] @unchecked => component.head
-      case digit: IDigit[A] @unchecked             => digit.head
-      case _                                       => Some(entry1)
+  override def head: Option[A] = Some(entry1)
 
-  override def last: Option[A] =
-    entry4 match
-      case component: ITreeComponent[A] @unchecked => component.last
-      case digit: IDigit[A] @unchecked             => digit.last
-      case _                                       => Some(entry4)
+  override def last: Option[A] = Some(entry4)
 
   override def init: Option[IDigit[A]] = Some(Digit3(entry1, entry2, entry3))
 
