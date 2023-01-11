@@ -107,12 +107,31 @@ class SpecFingerTree
         head should be(None)
       }
 
-      "return Some when something is stored" in {
+      "return Some when something is stored in Single" in {
         val fingerTree: IFingerTree[Int] = FingerTree[Int]().append(10)
 
         val head: Option[Int] = fingerTree.head
 
         head should be(Some(10))
+      }
+
+      "return right Some while mixing append and prepend" in {
+        val gen: Gen[String] = Gen.oneOf("prepend", "append")
+        var fingerTree: IFingerTree[Int] = FingerTree()
+        var head: Option[Int] = None
+
+        fingerTree.head should be(head)
+        forAll(ints) { (toAppend: Int) =>
+          fingerTree =
+            if (gen.sample.get == "prepend") then 
+              head = Some(toAppend)
+              fingerTree.prepend(toAppend)
+            else 
+              if head.isEmpty then head = Some(toAppend)
+              fingerTree.append(toAppend)
+
+          fingerTree.head should be(head)
+        }
       }
     }
 
@@ -126,9 +145,28 @@ class SpecFingerTree
       "return Some when something is stored" in {
         val fingerTree: IFingerTree[Int] = FingerTree[Int]().append(10)
 
-        val last: Option[Int] = fingerTree.append(10).last
+        val last: Option[Int] = fingerTree.last
 
         last should be(Some(10))
+      }
+
+      "return right Some while mixing append and prepend" in {
+        val gen: Gen[String] = Gen.oneOf("prepend", "append")
+        var fingerTree: IFingerTree[Int] = FingerTree()
+        var last: Option[Int] = None
+
+        fingerTree.head should be(last)
+        forAll(ints) { (toAppend: Int) =>
+          fingerTree =
+            if (gen.sample.get == "prepend") then 
+              if last.isEmpty then last = Some(toAppend)
+              fingerTree.prepend(toAppend)
+            else 
+              last = Some(toAppend)
+              fingerTree.append(toAppend)
+
+          fingerTree.last should be(last)
+        }
       }
     }
 
