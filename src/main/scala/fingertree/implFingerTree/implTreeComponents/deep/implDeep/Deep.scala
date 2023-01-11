@@ -1,19 +1,16 @@
 package deep.implDeep
 
 import deep.IDeep
-import empty.IEmpty
-import single.ISingle
-import node.INode
-import node.nodeImpl.Node2
-import node.implNode.Node3
-import empty.implEmpty.Empty
-import single.implSingle.Single
 import digit.IDigit
 import digit.implDigit.Digit1
 import digit.implDigit.Digit2
-import digit.implDigit.Digit3
 import digit.implDigit.Digit4
+import empty.implEmpty.Empty
 import fingertree.implFingerTree.ITreeComponent
+import node.INode
+import node.implNode.Node3
+import node.nodeImpl.Node2
+import single.implSingle.Single
 import view.IView
 import view.implView.IViewLeft
 import view.implView.IViewRight
