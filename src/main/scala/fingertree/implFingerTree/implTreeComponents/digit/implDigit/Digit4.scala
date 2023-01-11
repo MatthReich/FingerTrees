@@ -1,15 +1,11 @@
 package digit.implDigit
 
-import digit.IDigit
-import deep.IDeep
 import deep.implDeep.Deep
-import single.implSingle.Single
-import node.implNode.Node3
+import digit.IDigit
 import empty.implEmpty.Empty
-import single.ISingle
-import empty.IEmpty
-import node.INode
 import fingertree.implFingerTree.ITreeComponent
+import node.INode
+import single.implSingle.Single
 
 case class Digit4[A](entry1: A, entry2: A, entry3: A, entry4: A)
     extends IDigit[A]:
@@ -24,9 +20,7 @@ case class Digit4[A](entry1: A, entry2: A, entry3: A, entry4: A)
     )
 
   override def size: Int =
-    measureSize(entry1) + measureSize(entry2) + measureSize(
-      entry3
-    ) + measureSize(entry4)
+    measureSize(entry1) + measureSize(entry2) + measureSize(entry3) + measureSize(entry4)
 
   override def isEmpty: Boolean = false
 

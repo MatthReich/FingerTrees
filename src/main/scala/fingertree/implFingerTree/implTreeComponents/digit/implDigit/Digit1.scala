@@ -1,10 +1,9 @@
 package digit.implDigit
 
-import digit.IDigit
-import deep.IDeep
 import deep.implDeep.Deep
-import node.INode
+import digit.IDigit
 import fingertree.implFingerTree.ITreeComponent
+import node.INode
 import single.implSingle.Single
 
 case class Digit1[A](entry: A) extends IDigit[A]:

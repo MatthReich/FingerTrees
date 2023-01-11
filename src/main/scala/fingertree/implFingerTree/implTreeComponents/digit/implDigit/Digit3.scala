@@ -1,11 +1,10 @@
 package digit.implDigit
 
-import digit.IDigit
-import deep.IDeep
 import deep.implDeep.Deep
-import node.INode
-import fingertree.implFingerTree.ITreeComponent
+import digit.IDigit
 import empty.implEmpty.Empty
+import fingertree.implFingerTree.ITreeComponent
+import node.INode
 
 case class Digit3[A](entry1: A, entry2: A, entry3: A) extends IDigit[A]:
   override def :+[B >: A](newEntry: B): IDigit[B] =
