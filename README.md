@@ -53,7 +53,7 @@ Wenn man zwei FingerTrees miteinander kombinieren möchte, ist dies über die Fu
 val concatenatedFingerTree = nParamFingerTree concat seqParamFingerTree
 ```
 
-`head`, `last`, `init` als auch `tail` geben jeweils ein `Option[_]` des Wertes raus, um ein einfacheres Handling zu ermöglichen.
+`head`, `last`, `init` als auch `tail` geben jeweils ein `Option` des Wertes raus, um ein einfacheres Handling zu ermöglichen.
 
 ```scala
 val head: Option[Int] = nParamFingerTree.head
@@ -198,21 +198,102 @@ Dabei wird die Liste auf Anzahl Elemente überprüft. Die `::` Notation ist in d
 
 ### head, last
 
-Bei einem leeren Baum wird als erstes bzw. letztes Element `None` zurückgegeben, da keins existiert. Im Falle von nur einem gespeicherten Element, wird dieses als `head` oder `last` gesehen. Um bei einem `Deep` an das erste Element zu kommen, wird von diesem auf das Präfix `head` aufgerufen, welches dann das erste Element des gespeicherten `Digit` liefert. Wenn das letzte Element gefragt ist, wird auf dem Suffix `last` gefragt und das letzte Element des `Digit` zurück gegeben.
+Bei einem leeren Baum wird als erstes bzw. letztes Element `None` zurückgegeben, da keins existiert. Im Falle von nur einem gespeicherten Element wird dieses als `head` oder `last` gesehen. Um bei einem `Deep` an das erste Element zu kommen, wird von diesem auf das Präfix `head` aufgerufen, welches dann das erste Element des gespeicherten `Digit` liefert. Wenn das letzte Element gefragt ist, wird auf dem Suffix `last` gefragt und das letzte Element des `Digit` zurückgegeben.
 
 ### init, tail
 
-Wie auch bei `head`bzw. `last` wird bei einem leeren Baum `None` zurückgegeben.
+Wie auch bei `head` bzw. `last` wird bei einem leeren Baum `None` zurückgegeben. Bei einem `Single` erhält man ein `Empty`. Im Falle eines `Deep` wird bei `init` über eine `View` alles rechts des deep angeschaut, also das Suffix.
 
-> wird ergänzt
+```scala
+override def viewRight: Option[IViewRight[A]] =
+  suffix.last match
+    case None => None
+    case Some(last) =>
+      Some(ViewRightCons(last, deepRight(prefix, deep, suffix.init)))
+```
 
-### size, isEmpty, toList
+Dafür wird ein Hilfsdatentyp `ViewRightCons` benutzt, welcher das letzte Element, sowie das geforderte `init` enthält. Das `deepRight` erstellt dabei das `init`.
 
-> wird ergänzt
+```scala
+private def deepRight[A](
+    prefix: IDigit[A],
+    deep: ITreeComponent[INode[A]],
+    suffix: Option[IDigit[A]]
+): ITreeComponent[A] =
+  suffix match
+    case None =>
+      deep.viewRight match
+        case Some(_ @ViewRightCons[A](newSuffix, newDeep)) =>
+          Deep(prefix, newDeep, Digit1(newSuffix))
+        case _ => prefix.toTreeComponent
+    case Some(newSuffix) => Deep(prefix, deep, newSuffix)
+```
+
+Wenn das Suffix des deep größer als ein `Digit1` ist, kann aus das `Digit` ein `init` erzeugt werden, in dem das letzte Element weggelassen wird. Dann kann daraus einfach ein neuer FingerTree erzeugt werden, in dem nur das Suffix mit dem neuen Suffix ersetzt wird. Falls jedoch ein `Digit1` im Suffix gespeichert ist, wird eine Ebene weiter dieselbe Logik ausgeführt. Das bedeutet, dass dort dann das neue Suffix und das neue deep erzeugt werden. Falls jedoch in der darauffolgenden Ebene kein neues `ViewRightCons` erzeugt werden kann, zum Beispiel weil ein `Empty` darin gespeichert ist, dann wird das Prefix zu einer `TreeComponent` gemacht. Im Falle einer `Digit4` sieht das wie Folgt aus.
+
+```scala
+override def toTreeComponent: ITreeComponent[A] =
+  Deep(Digit2(entry1, entry2), Empty(), Digit2(entry3, entry4))
+```
+
+Dabei wird aus den Einträgen ein `Deep` erzeugt, welches jeweils ein `Digit2` im Prefix und Suffix speichert.
+
+Für den `tail` besteht dieselbe Logik, wie hinter `init`, jedoch mit spiegelverkehrter Logik, also einer `ViewLeft`.
+
+### size
+
+Um an die Größe des FingerTrees zu kommen, also der `size`, wird auf jedes gespeicherte Element die `size`-Funktion aufgerufen. Dabei wird in einem `Empty` wird als `size` 0 zurückgegeben. Bei einem `Single`, `Digit` oder `Node` werden die einzelnen Elemente darin auf ihre `size` abgefragt und anschließend summiert. Folgend ein Beispiel aus `Digit2`.
+
+```scala
+override def size: Int = measureSize(entry1) + measureSize(entry2)
+
+private def measureSize(entry: A): Int =
+  entry match
+    case component: ITreeComponent[A] @unchecked => component.size
+    case digit: IDigit[A] @unchecked             => digit.size
+    case node: INode[A] @unchecked               => node.size
+    case _                                       => 1
+```
+
+Für die Berechnung der `size` wird die private `measureSize`-Funktion aufgerufen, welche überprüft ob eine Komponente darin gespeichert ist. Falls ja, wird die `size` dieser genommen, falls nein ist die `size` des Elements 1.
+
+In einem `Deep` wird nur die Summe aus dem Prefix, deep und Suffix gebildet.
+
+```scala
+override def size: Int = prefix.size + deep.size + suffix.size
+```
+
+### isEmpty
+
+Die Logik der Abfrage, ob der FingerTree leer ist, ist simple gehalten. Ein `Empty` gibt in diesem Fall `true` zurück, jede andere Komponente ein `false`.
+
+### toList
+
+Das `toList` erzeugt eine Liste aller Elemente. Dabei gibt jede Komponente, ausgenommen das `Deep`, ihre Elemente als Lsite zurück. Folgend ein Beispiel aus `Node3`.
+
+```scala
+override def toList: List[A] = entry1 :: entry2 :: entry3 :: Nil
+```
+
+Im `Deep` wird dann, ähnlich wie bei der `size`, die Liste zusammengebaut. 
+
+```scala
+override def toList: List[A] = 
+  prefix.toList ++: deep.toList.flatMap(a => a.toList) ++: suffix.toList ++: Nil
+```
+
+Dabei wird dann die Liste zusammengebaut, in dem die Liste des Prefix mit `++:`, was die Kurzschreibweise für `prependedAll` ist, an die Liste des gespeicherten deeps und daran dann das des Suffix angehängt wird. Da die Liste des deep auch über mehrere Ebenen gehen kann, wird mit `flatMap` dies aufgelöst.
 
 ### toString
 
-> wird ergänzt
+Das `toString` ruft ebenfalls sich selbst auf die gespeicherten Elemente auf. 
+
+```scala
+override def toString: String =
+  s"Deep( ${prefix.toString}, ${deep.toString}, ${suffix.toString} )"
+```
+
+Dabei wird der String Interpolator `s` benutzt, um den String übersichtlich und einfach zu erstellen. Mit `${}` können dann die Werte der Variablen eingefügt werden. 
 
 ## Quellen
 
