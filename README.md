@@ -139,7 +139,7 @@ Falls es ein `Digit4` ist, wird ein neues `Deep` erzeugt, welches die ersten dre
 
 ### concat
 
-Um den Text einfacher zu halten wird von FingerTree A, auf welchen FingerTree B verschmolzen wird gesprochen. Wenn A leer ist, wird einfach B zurückgegeben. Wenn A nur ein Element speichert, wird die root-Komponente von B mit `prepend` an dieses Element angefügt. Wenn A ein Deep ist wird nun dort geschaut ob B ein `Empty` ist. Wenn ja wird A zurück gegeben. Bei einem `Single` wird B an A mit `append` angefügt. Die eigentliche Komplexität des Verschmelzens passiert, wenn A und B beide `Deep` sind. Dabei wird eine Hilfsmethode `concatDeep` aufgerufen, welche eine Liste entgegen nimmt und die beiden FingerTrees.
+Um den Text einfacher zu halten wird von FingerTree A, auf welchen FingerTree B verschmolzen wird gesprochen. Wenn A leer ist, wird einfach B zurückgegeben. Wenn A nur ein Element speichert, wird die root-Komponente von B mit `prepend` an dieses Element angefügt. Falls A ein Deep ist, wird nun dort geschaut ob B ein `Empty` ist. Wenn ja, wird A zurückgegeben. Bei einem `Single` wird B an A mit `append` angefügt. Die eigentliche Komplexität des Verschmelzens passiert, wenn A und B beide `Deep` sind. Dabei wird eine Hilfsmethode `concatDeep` aufgerufen, welche eine Liste entgegennimmt und die beiden FingerTrees.
 
 ```scala
 private def concatDeep[A](
@@ -159,7 +159,7 @@ private def concatDeep[A](
   Deep(newPrefix, newDeep, newSuffix)
 ```
 
-> wird ergänzt
+Dabei ist zu erkennen, dass von A das Präfix und von B das Suffix genommen wird. Das neue deep wird durch `concatNewDeep` bestimmt. Dabei wird außerdem das Suffix aus A, das Präfix von B und der aktuellen Liste, welche Anfangs leer ist, aber mit der Tiefe des FingerTree größer wird, zu einer Liste von `Node` in `createNodeCombinations` erstellt. Zuerst wird das `concatNewDeep` betrachtet.
 
 ```scala
 private def concatNewDeep[A](
@@ -178,7 +178,7 @@ private def concatNewDeep[A](
       concatDeep[A](leftDeep, concatList, rightDeep)
 ```
 
-> wird ergänzt
+Hier ist zu erkennen, dass, solange nicht eine Hälfte des deep ein `Empty` oder `Single` ist, dies beiden deeps erneut an das `concatDeep` übergeben werden, wodurch das `concar` eine Ebene weiter unten berechnet wird. Wenn jedoch ein `Empty` oder `Single` enthalten sind, dann werden, wie zuvor schon beschrieben, diese Elemente einfach mit `append` oder `prepend` zusammen geführt. In diesem Fall mit der Besonderheit, dass es eine Liste von Elementen ist, welche zuerst noch mit `foldRight` oder `foldLeft`, also ob das verbleibende deep rechts oder links der Liste von `Node` angefügt werden soll. Dabei ist auch zu erkennen, dass die fold-Funktionen zwei Parameterlisten übergeben bekommen. Das ist vor allem Notwendig für die Typinferenz. Genaueres kann in der [Scala-Dokumentation](https://docs.scala-lang.org/tour/multiple-parameter-lists.html) gelesen werden. Die Liste von `Node` wird wie Folgt erstellt.
 
 ```scala
 private def createNodeCombinations[A](
@@ -194,13 +194,15 @@ private def createNodeCombinations[A](
       Node3(entry1, entry2, entry3) :: createNodeCombinations(tail)
 ```
 
-> wird ergänzt
+Dabei wird die Liste auf Anzahl Elemente überprüft. Die `::` Notation ist in diesem Fall einfach Schreibweise der Trennung der Elemente. Da es sich um eine einfach verkettete Liste handelt, wird am Ende die Liste durch ein `Nil` beendet. Genaueres in der [Scala-Dokumentation](https://docs.scala-lang.org/overviews/scala-book/list-class.html). Falls nun zwei Elemente in der Liste sind, kann ein `Node2` erzeugt werden. Bei drei Elementen ein `Node3` und vier können zwei `Node2` erzeugt werden. Wenn jedoch mehr als vier Elemente enthalten sind, dann wird ein `Node3` aus den ersten drei Elementen erzeugt und nochmals `createNodeCombinations` aufgerufen, solange bis es maximal noch vier Elemente hat.
 
 ### head, last
 
 Bei einem leeren Baum wird als erstes bzw. letztes Element `None` zurückgegeben, da keins existiert. Im Falle von nur einem gespeicherten Element, wird dieses als `head` oder `last` gesehen. Um bei einem `Deep` an das erste Element zu kommen, wird von diesem auf das Präfix `head` aufgerufen, welches dann das erste Element des gespeicherten `Digit` liefert. Wenn das letzte Element gefragt ist, wird auf dem Suffix `last` gefragt und das letzte Element des `Digit` zurück gegeben.
 
 ### init, tail
+
+Wie auch bei `head`bzw. `last` wird bei einem leeren Baum `None` zurückgegeben.
 
 > wird ergänzt
 
@@ -210,7 +212,7 @@ Bei einem leeren Baum wird als erstes bzw. letztes Element `None` zurückgegeben
 
 ### toString
 
-Das `toString` 
+> wird ergänzt
 
 ## Quellen
 
