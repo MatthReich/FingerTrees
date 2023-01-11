@@ -2,13 +2,13 @@
 
 [![Build Status](https://app.travis-ci.com/MatthReich/FingerTrees.svg?branch=master)](https://app.travis-ci.com/MatthReich/FingerTrees) [![Coverage Status](https://coveralls.io/repos/github/MatthReich/FingerTrees/badge.svg?branch=master)](https://coveralls.io/github/MatthReich/FingerTrees?branch=master)
 
-Dieses Projekt entstand im Zuge des Seminars aus dem Informatik Master (INFM) der Hochschule Offenburg. Dabei war es die Aufgabe, einen FingerTree zu implementieren, wobei nur Basisoperationen unterstützt werden sollen und nicht alle möglichen Operationen. Im Folgenden wird auf die Struktur, Benutzung und Implementierung bezüglich dieses Seminars eingegangen.
+Dieses Projekt entstand im Zuge des Seminars aus dem Informatik-Master (INFM) der Hochschule Offenburg. Dabei war es die Aufgabe, einen FingerTree zu implementieren, wobei nur Basisoperationen unterstützt werden sollen und nicht alle möglichen Operationen. Im Folgenden wird auf die Struktur, Benutzung und Implementierung bezüglich dieses Seminars eingegangen.
 
 ## Allgemein
 
-FingerTrees sind eine effiziente funktionale Datenstruktur. Sie sind eine spezielle Art von binären Baumstrukturen, die dazu dienen, Sequenzen von Elementen zu speichern und schnellen Zugriff auf diese Elemente zu ermöglichen
+FingerTrees sind eine effiziente, funktionale Datenstruktur. Sie sind eine spezielle Art von binären Baumstrukturen, die dazu dienen, Sequenzen von Elementen zu speichern und schnellen Zugriff auf diese Elemente zu ermöglichen.
 
-Dabei versteht man unter einer funktionalen Datenstruktur eine Datenstruktur, die in einem funktionalen Programmierparadigma implementiert wurde. Im Gegensatz zu imperativen Datenstrukturen, die mithilfe von Anweisungen verändert werden, werden funktionale Datenstrukturen durch die Rückgabe neuer Datenstrukturen von Funktionen verändert. Dies bedeutet, dass funktionale Datenstrukturen nicht mutierbar sind und keine Seiteneffekte haben. Die Daten, welche nach der Veränderung gleich bleiben, werden dabei nicht kopiert, sondern über Referenzen mehrfach verwendet.
+Dabei versteht man unter einer funktionalen Datenstruktur eine Datenstruktur, die in einem funktionalen Programmierparadigma implementiert wurde. Im Gegensatz zu imperativen Datenstrukturen, die mithilfe von Anweisungen verändert werden, werden funktionale Datenstrukturen durch die Rückgabe neuer Datenstrukturen von Funktionen verändert. Dies bedeutet, dass funktionale Datenstrukturen nicht mutiert werden können und keine Seiteneffekte haben. Die Daten, welche nach der Veränderung gleich bleiben, werden dabei nicht kopiert, sondern über Referenzen mehrfach verwendet.
 
 Die Effizienz dieser Datenstruktur soll vor allem in dem vorne und hinten Anfügen von Elementen (O(log n), bis zu O(1)), dem Zusammenführen von zwei FingerTrees (O(log n)) und auch dem Zugriff auf das erste bzw. letzte Element (O(1)) gewährleistet sein.
 
@@ -33,7 +33,7 @@ Eine Übersicht der Struktur des Projekts, um die wichtigsten Dateien für das S
 
 ## Benutzung
 
-Einen FingerTree erzeugt man wie folgt:
+Einen FingerTree erzeugt man wie folgend dargestellt.
 
 ```scala
 val intFingerTree: FingerTree[Int]  = FingerTree[Int]()
@@ -53,7 +53,7 @@ Wenn man zwei FingerTrees miteinander kombinieren möchte, ist dies über die Fu
 val concatenatedFingerTree = nParamFingerTree concat seqParamFingerTree
 ```
 
-`head`, `last`, `init` als auch `tail` geben jeweils ein `Option` des Wertes raus, um ein einfacheres Handling zu ermöglichen.
+`head`, `last`, `init` als auch `tail` geben jeweils ein `Option` des Wertes zurück, um ein einfacheres Handling zu ermöglichen.
 
 ```scala
 val head: Option[Int] = nParamFingerTree.head
@@ -68,13 +68,13 @@ Auch ist es möglich, die `size` des FingerTree ausgeben zu lassen.
 val size: Int = seqParamFingerTree.size
 ```
 
-Für die Überprüfung, ob der Baum `empty` ist, wird `isEmpty` benutzt.
+Für die Überprüfung, ob der Baum leer ist, wird `isEmpty` benutzt.
 
 ```scala
 val isFingerTreeEmpty: Boolean = intFingerTree.isEmpty
 ```
 
-Zuletzt ist es auch Möglich, den Baum als Liste, über `toList`, zurückzubekommen.
+Zuletzt ist es auch möglich, den Baum als Liste, über `toList`, zurückzubekommen.
 
 ```scala
 val seqParamFingerTreeAsList: List[Int] = seqParamFingerTree.toList
@@ -88,7 +88,7 @@ Folgend wird auf die Implementierung eingegangen, was die wesentlichen Punkte de
 
 ### Struktur
 
-Die Struktur der Implementierung des FingerTrees und der einzelnen Komponenten ist wie folgt:
+Die Struktur der Implementierung des FingerTrees und der einzelnen Komponenten ist in der folgenden Darstellung.
 
 ```
 ├── ...
@@ -115,15 +115,15 @@ Die Struktur der Implementierung des FingerTrees und der einzelnen Komponenten i
 
 ### Allgemeine Syntax
 
-Im Zuge der Implementierung kommen Generics, für die Typenunabhängigkeit, zum Einsatz. Dabei steht `A` oder `B`, typisch nach der [Dokumentation von Scala](https://docs.scala-lang.org/scala3/book/types-generics.html), für den Typparameter. Der Typ bei zum Beispiel Listen wird generell in `[]` angefügt, also wäre eine Liste vom Typ `A` `List[A]`.
+Im Zuge der Implementierung kommen generische Typen, für die Typenunabhängigkeit, zum Einsatz. Dabei steht `A` oder `B`, typisch nach der [Dokumentation von Scala](https://docs.scala-lang.org/scala3/book/types-generics.html), für den Typparameter. Der Typ bei zum Beispiel Listen wird generell in `[]` angefügt, also wäre eine Liste vom Typ `A` `List[A]`.
 
-Mit `A*` symbolisiert man `varargs`, also eine variable Anzahl von Argumenten. Dabei kann man diese auf unterschiedliche Art und Weisen nutzen. So kann man einfach mehrere Argumente der Funktion `def f(args: A*)` übergeben, wie zum Beispiel `f(1, 2, 3, 4)`. Es ist aber auch Möglich eine Sequenz `val seq = Seq(1, 2, 3, 4)` an die Funktion zu übergeben `f(seq: _*)`.
+Mit `A*` symbolisiert man `varargs`, also eine variable Anzahl von Argumenten. Dabei kann man diese auf unterschiedliche Art und Weisen nutzen. So kann man einfach mehrere Argumente der Funktion `def f(args: A*)` übergeben, wie zum Beispiel `f(1, 2, 3, 4)`. Es ist aber auch möglich eine Sequenz `val seq = Seq(1, 2, 3, 4)` an die Funktion zu übergeben `f(seq: _*)`.
 
-Unter `+A` versteht man Kovarianz. Die Verwendung von `B >: A` ermöglicht eine lower bound zu nutzen. Dabei wird in diesem Fall festgelegt, dass `B` ein Supertype von `A` sein muss. Der Vollständigkeit wegen wird noch `-A` erwähnt, was für die Kontravarianz steht, aber nicht verwendet wird.
+Unter `+A` versteht man Kovarianz. Die Verwendung von `B >: A` ermöglicht eine `lower bound` zu nutzen. Dabei wird in diesem Fall festgelegt, dass `B` ein Supertype von `A` sein muss. Der Vollständigkeit wegen wird noch `-A` erwähnt, was für die Kontravarianz steht, aber nicht verwendet wird.
 
 ### append, prepend
 
-Wenn ein Element dem FingerTree hinzugefügt wird, wird dies auf die root-Komponente `treeHead` weitergegeben. Dabei wird im Falle eines `Empty` ein `Single` erzeugt und im Falle eines `Single` ein `Deep`. Jenachdem ob `append` oder `prepend` benutzt wird, mit dem neuen Element als Suffix oder Präfix des Deeps. Im `Deep` wird im Falle des `append` das Suffix betrachtet, ob es ein `Digit4` speichert. Dies ist in dem Folgenden Codeabschnitt zu erkennen.
+Wenn ein Element dem FingerTree hinzugefügt wird, wird dies auf die root-Komponente `treeHead` weitergegeben. Dabei wird im Falle eines `Empty` ein `Single` erzeugt und im Falle eines `Single` ein `Deep`. Jenachdem ob `append` oder `prepend` benutzt wird, mit dem neuen Element als Suffix oder Präfix des Deeps. Im `Deep` wird im Falle des `append` das Suffix betrachtet, ob es ein `Digit4` speichert. Dies ist in dem folgenden Codeabschnitt zu erkennen.
 
 ```scala
 suffix match
@@ -135,11 +135,11 @@ suffix match
     this.copy(suffix = partialDigit :+ newEntry)
 ```
 
-Falls es ein `Digit4` ist, wird ein neues `Deep` erzeugt, welches die ersten drei Elemente des `Digit4` als `Node3` der nächsten Ebene (deep) weitergibt. Das Suffix beinhaltet ein `Digit2` welches das letzte Element des `Digit4` und den neuen Eintrag beinhaltet. Anschließend wird eine Kopie von sich selbst mit den beiden neu erzeugten Elementen zurück gegeben. Falls kein `Digit4` gespeichert war, wird einfach das `Digit` um das neue Element erweitert. Für `prepend` funktioniert das ganze genau gleich, nur Spiegelverkehrt.
+Falls es ein `Digit4` ist, wird ein neues `Deep` erzeugt, welches die ersten drei Elemente des `Digit4` als `Node3` der nächsten Ebene (deep) weitergibt. Das Suffix beinhaltet ein `Digit2` welches das letzte Element des `Digit4` und den neuen Eintrag beinhaltet. Anschließend wird eine Kopie von sich selbst mit den beiden neu erzeugten Elementen zurückgegeben. Falls kein `Digit4` gespeichert war, wird einfach das `Digit` um das neue Element erweitert. Für `prepend` funktioniert das ganze genau gleich, nur spiegelverkehrt.
 
 ### concat
 
-Um den Text einfacher zu halten wird von FingerTree A, auf welchen FingerTree B verschmolzen wird gesprochen. Wenn A leer ist, wird einfach B zurückgegeben. Wenn A nur ein Element speichert, wird die root-Komponente von B mit `prepend` an dieses Element angefügt. Falls A ein Deep ist, wird nun dort geschaut ob B ein `Empty` ist. Wenn ja, wird A zurückgegeben. Bei einem `Single` wird B an A mit `append` angefügt. Die eigentliche Komplexität des Verschmelzens passiert, wenn A und B beide `Deep` sind. Dabei wird eine Hilfsmethode `concatDeep` aufgerufen, welche eine Liste entgegennimmt und die beiden FingerTrees.
+Um den Text einfacher zu halten wird von FingerTree A, auf welchen FingerTree B verschmolzen wird gesprochen. Wenn A leer ist, wird einfach B zurückgegeben. Wenn A nur ein Element speichert, wird die Root-Komponente von B mit `prepend` an dieses Element angefügt. Falls A ein Deep ist, wird nun dort geschaut, ob B ein `Empty` ist. Wenn ja, wird A zurückgegeben. Bei einem `Single` wird B an A mit `append` angefügt. Die eigentliche Komplexität des Verschmelzens passiert, wenn A und B beide `Deep` sind. Dabei wird eine Hilfsmethode `concatDeep` aufgerufen, welche eine Liste entgegennimmt und die beiden FingerTrees.
 
 ```scala
 private def concatDeep[A](
@@ -180,7 +180,7 @@ private def concatNewDeep[A](
       concatDeep[A](leftDeep, concatList, rightDeep)
 ```
 
-Hier ist zu erkennen, dass, solange nicht eine Hälfte des deep ein `Empty` oder `Single` ist, dies beiden deeps erneut an das `concatDeep` übergeben werden, wodurch das `concar` eine Ebene weiter unten berechnet wird. Wenn jedoch ein `Empty` oder `Single` enthalten sind, dann werden, wie zuvor schon beschrieben, diese Elemente einfach mit `append` oder `prepend` zusammen geführt. In diesem Fall mit der Besonderheit, dass es eine Liste von Elementen ist, welche zuerst noch mit `foldRight` oder `foldLeft`, also ob das verbleibende deep rechts oder links der Liste von `Node` angefügt werden soll. Dabei ist auch zu erkennen, dass die fold-Funktionen zwei Parameterlisten übergeben bekommen. Das ist vor allem Notwendig für die Typinferenz. Genaueres kann in der [Scala-Dokumentation](https://docs.scala-lang.org/tour/multiple-parameter-lists.html) gelesen werden. Die Liste von `Node` wird wie Folgt erstellt.
+Hier ist zu erkennen, dass, solange nicht eine Hälfte des deep ein `Empty` oder `Single` ist, dies beiden deeps erneut an das `concatDeep` übergeben werden, wodurch das `concar` eine Ebene weiter unten berechnet wird. Wenn jedoch ein `Empty` oder `Single` enthalten sind, dann werden, wie zuvor schon beschrieben, diese Elemente einfach mit `append` oder `prepend` zusammen geführt. In diesem Fall mit der Besonderheit, dass es eine Liste von Elementen ist, welche zuerst noch mit `foldRight` oder `foldLeft`, also ob das verbleibende deep rechts oder links der Liste von `Node` angefügt werden soll. Dabei ist auch zu erkennen, dass die fold-Funktionen zwei Parameterlisten übergeben bekommen. Das ist vor allem notwendig für die Typinferenz. Genaueres kann in der [Scala-Dokumentation](https://docs.scala-lang.org/tour/multiple-parameter-lists.html) gelesen werden. Die Liste von `Node` wird wie Folgt erstellt.
 
 ```scala
 private def createNodeCombinations[A](
@@ -196,7 +196,7 @@ private def createNodeCombinations[A](
       Node3(entry1, entry2, entry3) :: createNodeCombinations(tail)
 ```
 
-Dabei wird die Liste auf Anzahl Elemente überprüft. Die `::` Notation ist in diesem Fall einfach Schreibweise der Trennung der Elemente. Da es sich um eine einfach verkettete Liste handelt, wird am Ende die Liste durch ein `Nil` beendet. Genaueres in der [Scala-Dokumentation](https://docs.scala-lang.org/overviews/scala-book/list-class.html). Das `@unchecked` ist nur für den Compiler um die Checks zu deaktivieren, da in diesem Fall dies nicht Möglich ist, aber auch nicht dieses Problem dauerhaft angezeigt werden soll. Falls nun zwei Elemente in der Liste sind, kann ein `Node2` erzeugt werden. Bei drei Elementen ein `Node3` und vier können zwei `Node2` erzeugt werden. Wenn jedoch mehr als vier Elemente enthalten sind, dann wird ein `Node3` aus den ersten drei Elementen erzeugt und nochmals `createNodeCombinations` aufgerufen, solange bis es maximal noch vier Elemente hat.
+Dabei wird die Liste auf Anzahl Elemente überprüft. Die `::` Notation ist in diesem Fall einfach Schreibweise der Trennung der Elemente. Da es sich um eine einfach verkettete Liste handelt, wird am Ende die Liste durch ein `Nil` beendet. Genaueres in der [Scala-Dokumentation](https://docs.scala-lang.org/overviews/scala-book/list-class.html). Das `@unchecked` ist nur für den Compiler um die Checks zu deaktivieren, da in diesem Fall dies nicht möglich ist, aber auch nicht dieses Problem dauerhaft angezeigt werden soll. Falls nun zwei Elemente in der Liste sind, kann ein `Node2` erzeugt werden. Bei drei Elementen ein `Node3` und vier können zwei `Node2` erzeugt werden. Wenn jedoch mehr als vier Elemente enthalten sind, dann wird ein `Node3` aus den ersten drei Elementen erzeugt und nochmals `createNodeCombinations` aufgerufen, solange bis es maximal noch vier Elemente hat.
 
 ### head, last
 
@@ -225,20 +225,20 @@ private def deepRight[A](
   suffix match
     case None =>
       deep.viewRight match
-        case Some(_ @ViewRightCons[A](newSuffix, newDeep)) =>
+        case Some(ViewRightCons[A](newSuffix, newDeep)) =>
           Deep(prefix, newDeep, Digit1(newSuffix))
         case _ => prefix.toTreeComponent
     case Some(newSuffix) => Deep(prefix, deep, newSuffix)
 ```
 
-Wenn das Suffix des deep größer als ein `Digit1` ist, kann aus das `Digit` ein `init` erzeugt werden, in dem das letzte Element weggelassen wird. Dann kann daraus einfach ein neuer FingerTree erzeugt werden, in dem nur das Suffix mit dem neuen Suffix ersetzt wird. Falls jedoch ein `Digit1` im Suffix gespeichert ist, wird eine Ebene weiter dieselbe Logik ausgeführt. Das bedeutet, dass dort dann das neue Suffix und das neue deep erzeugt werden. Falls jedoch in der darauffolgenden Ebene kein neues `ViewRightCons` erzeugt werden kann, zum Beispiel weil ein `Empty` darin gespeichert ist, dann wird das Prefix zu einer `TreeComponent` gemacht. Im Falle einer `Digit4` sieht das wie Folgt aus.
+Wenn das Suffix des deep größer als ein `Digit1` ist, kann aus das `Digit` ein `init` erzeugt werden, in dem das letzte Element weggelassen wird. Dann kann daraus einfach ein neuer FingerTree erzeugt werden, in dem nur das Suffix mit dem neuen Suffix ersetzt wird. Falls jedoch ein `Digit1` im Suffix gespeichert ist, wird eine Ebene weiter dieselbe Logik ausgeführt. Das bedeutet, dass dort dann das neue Suffix und das neue deep erzeugt werden. Falls jedoch in der darauffolgenden Ebene kein neues `ViewRightCons` erzeugt werden kann, zum Beispiel weil ein `Empty` darin gespeichert ist, dann wird das Prefix zu einer `TreeComponent` gemacht. Im Falle einer `Digit4` sieht das wie folgt aus.
 
 ```scala
 override def toTreeComponent: ITreeComponent[A] =
   Deep(Digit2(entry1, entry2), Empty(), Digit2(entry3, entry4))
 ```
 
-Dabei wird aus den Einträgen ein `Deep` erzeugt, welches jeweils ein `Digit2` im Prefix und Suffix speichert.
+Dabei wird aus den Einträgen ein `Deep` erzeugt, welches jeweils ein `Digit2` im Präfix und Suffix speichert.
 
 Für den `tail` besteht dieselbe Logik, wie hinter `init`, jedoch mit spiegelverkehrter Logik, also einer `ViewLeft`.
 
@@ -257,9 +257,9 @@ private def measureSize(entry: A): Int =
     case _                                       => 1
 ```
 
-Für die Berechnung der `size` wird die private `measureSize`-Funktion aufgerufen, welche überprüft ob eine Komponente darin gespeichert ist. Falls ja, wird die `size` dieser genommen, falls nein ist die `size` des Elements 1.
+Für die Berechnung der `size` wird die private `measureSize`-Funktion aufgerufen, welche überprüft, ob eine Komponente darin gespeichert ist. Falls ja, wird die `size` dieser genommen, falls nein ist die `size` des Elements 1.
 
-In einem `Deep` wird nur die Summe aus dem Prefix, deep und Suffix gebildet.
+In einem `Deep` wird nur die Summe aus dem Präfix, deep und Suffix gebildet.
 
 ```scala
 override def size: Int = prefix.size + deep.size + suffix.size
@@ -271,7 +271,7 @@ Die Logik der Abfrage, ob der FingerTree leer ist, ist simple gehalten. Ein `Emp
 
 ### toList
 
-Das `toList` erzeugt eine Liste aller Elemente. Dabei gibt jede Komponente, ausgenommen das `Deep`, ihre Elemente als Lsite zurück. Folgend ein Beispiel aus `Node3`.
+Das `toList` erzeugt eine Liste aller Elemente. Dabei gibt jede Komponente, ausgenommen das `Deep`, ihre Elemente als Liste zurück. Folgend ein Beispiel aus `Node3`.
 
 ```scala
 override def toList: List[A] = entry1 :: entry2 :: entry3 :: Nil
@@ -284,7 +284,7 @@ override def toList: List[A] =
   prefix.toList ++: deep.toList.flatMap(a => a.toList) ++: suffix.toList ++: Nil
 ```
 
-Dabei wird dann die Liste zusammengebaut, in dem die Liste des Prefix mit `++:`, was die Kurzschreibweise für `prependedAll` ist, an die Liste des gespeicherten deeps und daran dann das des Suffix angehängt wird. Da die Liste des deep auch über mehrere Ebenen gehen kann, wird mit `flatMap` dies aufgelöst.
+Dabei wird dann die Liste zusammengebaut, in dem die Liste des Prefix mit `++:`, was die Kurzschreibweise für `prependedAll` ist, an die Liste des gespeicherten deeps und daran dann das des Suffixes angehängt wird. Da die Liste des deep auch über mehrere Ebenen gehen kann, wird mit `flatMap` dies aufgelöst.
 
 ### toString
 
