@@ -1,8 +1,8 @@
 package node.implNode
 
-import node.INode
-import fingertree.implFingerTree.ITreeComponent
 import digit.IDigit
+import fingertree.implFingerTree.ITreeComponent
+import node.INode
 
 case class Node3[A](entry1: A, entry2: A, entry3: A) extends INode[A]:
   override def size: Int =
