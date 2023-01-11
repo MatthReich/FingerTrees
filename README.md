@@ -168,13 +168,15 @@ private def concatNewDeep[A](
     right: ITreeComponent[A]
 ): ITreeComponent[A] =
   (left, right) match
-    case (Empty(), _) => concatList.foldRight(right)((a, b) => a +: b)
-    case (_, Empty()) => concatList.foldLeft(left)((b, a) => b :+ a)
+    case (Empty(), _) => 
+      concatList.foldRight(right)((a, b) => a +: b)
+    case (_, Empty()) => 
+      concatList.foldLeft(left)((b, a) => b :+ a)
     case (Single(entry), _) =>
       entry +: concatList.foldRight(right)((a, b) => a +: b)
     case (_, Single(entry)) =>
       concatList.foldLeft(left)((b, a) => b :+ a) :+ entry
-    case (leftDeep @ Deep(_, _, _), rightDeep @ Deep(_, _, _)) =>
+    case (leftDeep: IDeep[A], rightDeep: IDeep[A]) =>
       concatDeep[A](leftDeep, concatList, rightDeep)
 ```
 
@@ -194,7 +196,7 @@ private def createNodeCombinations[A](
       Node3(entry1, entry2, entry3) :: createNodeCombinations(tail)
 ```
 
-Dabei wird die Liste auf Anzahl Elemente überprüft. Die `::` Notation ist in diesem Fall einfach Schreibweise der Trennung der Elemente. Da es sich um eine einfach verkettete Liste handelt, wird am Ende die Liste durch ein `Nil` beendet. Genaueres in der [Scala-Dokumentation](https://docs.scala-lang.org/overviews/scala-book/list-class.html). Falls nun zwei Elemente in der Liste sind, kann ein `Node2` erzeugt werden. Bei drei Elementen ein `Node3` und vier können zwei `Node2` erzeugt werden. Wenn jedoch mehr als vier Elemente enthalten sind, dann wird ein `Node3` aus den ersten drei Elementen erzeugt und nochmals `createNodeCombinations` aufgerufen, solange bis es maximal noch vier Elemente hat.
+Dabei wird die Liste auf Anzahl Elemente überprüft. Die `::` Notation ist in diesem Fall einfach Schreibweise der Trennung der Elemente. Da es sich um eine einfach verkettete Liste handelt, wird am Ende die Liste durch ein `Nil` beendet. Genaueres in der [Scala-Dokumentation](https://docs.scala-lang.org/overviews/scala-book/list-class.html). Das `@unchecked` ist nur für den Compiler um die Checks zu deaktivieren, da in diesem Fall dies nicht Möglich ist, aber auch nicht dieses Problem dauerhaft angezeigt werden soll. Falls nun zwei Elemente in der Liste sind, kann ein `Node2` erzeugt werden. Bei drei Elementen ein `Node3` und vier können zwei `Node2` erzeugt werden. Wenn jedoch mehr als vier Elemente enthalten sind, dann wird ein `Node3` aus den ersten drei Elementen erzeugt und nochmals `createNodeCombinations` aufgerufen, solange bis es maximal noch vier Elemente hat.
 
 ### head, last
 

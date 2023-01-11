@@ -26,7 +26,7 @@ case class Deep[+A](
   override def :+[B >: A](newEntry: B): ITreeComponent[B] =
     suffix match
       case Digit4(entry1, entry2, entry3, entry4) =>
-        val newDeep = deep.:+[INode[A]](Node3(entry1, entry2, entry3))
+        val newDeep = deep :+ Node3(entry1, entry2, entry3)
         val newSuffix = Digit2(entry4, newEntry)
         this.copy(deep = newDeep, suffix = newSuffix)
       case partialDigit =>
@@ -36,7 +36,7 @@ case class Deep[+A](
     prefix match
       case Digit4(entry1, entry2, entry3, entry4) =>
         val newPrefix = Digit2(newEntry, entry1)
-        val newDeep = deep.+:[INode[A]](Node3(entry2, entry3, entry4))
+        val newDeep = Node3(entry2, entry3, entry4) +: deep
         this.copy(prefix = newPrefix, deep = newDeep)
       case partialDigits =>
         this.copy(prefix = newEntry +: partialDigits)
@@ -63,7 +63,7 @@ case class Deep[+A](
     case None                            => None
     case Some(viewLeftRes: IViewLeft[A]) => Some(viewLeftRes.tail)
 
-  override def toList: List[A] = 
+  override def toList: List[A] =
     prefix.toList ++: deep.toList.flatMap(a => a.toList) ++: suffix.toList ++: Nil
 
   override def toString: String =
@@ -103,8 +103,10 @@ case class Deep[+A](
       right: ITreeComponent[A]
   ): ITreeComponent[A] =
     (left, right) match
-      case (Empty(), _) => concatList.foldRight(right)((a, b) => a +: b)
-      case (_, Empty()) => concatList.foldLeft(left)((b, a) => b :+ a)
+      case (Empty(), _) => 
+        concatList.foldRight(right)((a, b) => a +: b)
+      case (_, Empty()) => 
+        concatList.foldLeft(left)((b, a) => b :+ a)
       case (Single(entry), _) =>
         entry +: concatList.foldRight(right)((a, b) => a +: b)
       case (_, Single(entry)) =>
