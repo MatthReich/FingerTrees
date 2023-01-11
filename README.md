@@ -293,7 +293,7 @@ override def toString: String =
   s"Deep( ${prefix.toString}, ${deep.toString}, ${suffix.toString} )"
 ```
 
-Dabei wird der String Interpolator `s` benutzt, um den String übersichtlich und einfach zu erstellen. Mit `${}` können dann die Werte der Variablen eingefügt werden. 
+Dabei wird der [String Interpolator](https://docs.scala-lang.org/overviews/core/string-interpolation.html) `s` benutzt, um den String übersichtlich und einfach zu erstellen. Mit `${}` können dann die Werte der Variablen eingefügt werden. 
 
 ## Quellen
 
