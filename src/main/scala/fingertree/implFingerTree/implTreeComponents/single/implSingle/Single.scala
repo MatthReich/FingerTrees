@@ -1,13 +1,12 @@
 package single.implSingle
 
-import single.ISingle
-import empty.implEmpty.Empty
-import deep.IDeep
 import deep.implDeep.Deep
 import digit.IDigit
 import digit.implDigit.Digit1
-import node.INode
+import empty.implEmpty.Empty
 import fingertree.implFingerTree.ITreeComponent
+import node.INode
+import single.ISingle
 import view.IView
 import view.implView.IViewLeft
 import view.implView.IViewRight
@@ -45,10 +44,8 @@ case class Single[A](entry: A) extends ISingle[A] with ITreeComponent[A]:
 
   override def toString: String = s"Single( ${entry.toString()} )"
 
-  override def viewRight: Option[IViewRight[A]] = Some(
-    ViewRightCons(entry, Empty())
-  )
+  override def viewRight: Option[IViewRight[A]] =
+    Some(ViewRightCons(entry, Empty()))
 
-  override def viewLeft: Option[IViewLeft[A]] = Some(
-    ViewLeftCons(entry, Empty())
-  )
+  override def viewLeft: Option[IViewLeft[A]] =
+    Some(ViewLeftCons(entry, Empty()))
