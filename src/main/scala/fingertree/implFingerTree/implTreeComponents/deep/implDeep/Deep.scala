@@ -46,9 +46,9 @@ case class Deep[+A](
 
   override def ++[B >: A](treeToConcat: ITreeComponent[B]): ITreeComponent[B] =
     treeToConcat match
-      case Empty()                 => this
-      case Single(entry)           => this :+ entry
-      case newDeep @ Deep(_, _, _) => concatDeep[B](this, Nil, newDeep)
+      case Empty()           => this
+      case Single(entry)     => this :+ entry
+      case newDeep: IDeep[B] => concatDeep[B](this, Nil, newDeep)
 
   override def size: Int = prefix.size + deep.size + suffix.size
 
@@ -66,7 +66,8 @@ case class Deep[+A](
     case None                            => None
     case Some(viewLeftRes: IViewLeft[A]) => Some(viewLeftRes.tail)
 
-  override def toList: List[A] = prefix.toList ++: deep.toList.flatMap(a => a.toList) ++: suffix.toList ++: Nil
+  override def toList: List[A] = 
+    prefix.toList ++: deep.toList.flatMap(a => a.toList) ++: suffix.toList ++: Nil
 
   override def toString: String =
     s"Deep( ${prefix.toString}, ${deep.toString}, ${suffix.toString} )"
@@ -111,7 +112,7 @@ case class Deep[+A](
         entry +: concatList.foldRight(right)((a, b) => a +: b)
       case (_, Single(entry)) =>
         concatList.foldLeft(left)((b, a) => b :+ a) :+ entry
-      case (leftDeep @ Deep(_, _, _), rightDeep @ Deep(_, _, _)) =>
+      case (leftDeep: IDeep[A], rightDeep: IDeep[A]) =>
         concatDeep[A](leftDeep, concatList, rightDeep)
 
   private def createNodeCombinations[A](
@@ -135,7 +136,7 @@ case class Deep[+A](
     suffix match
       case None =>
         deep.viewRight match
-          case Some(_ @ViewRightCons[A](newSuffix, newDeep)) =>
+          case Some(ViewRightCons[A](newSuffix, newDeep)) =>
             Deep(prefix, newDeep, Digit1(newSuffix))
           case _ => prefix.toTreeComponent
       case Some(newSuffix) => Deep(prefix, deep, newSuffix)
@@ -148,7 +149,7 @@ case class Deep[+A](
     prefix match
       case None =>
         deep.viewLeft match
-          case Some(_ @ViewLeftCons[A](newPrefix, newDeep)) =>
+          case Some(ViewLeftCons[A](newPrefix, newDeep)) =>
             Deep(Digit1(newPrefix), newDeep, suffix)
           case _ => suffix.toTreeComponent
       case Some(newPrefix) => Deep(newPrefix, deep, suffix)
