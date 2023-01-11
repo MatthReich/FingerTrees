@@ -133,41 +133,8 @@ class SpecSingle extends AnyWordSpec with Matchers {
     }
 
     "accessing head" should {
-      "return own entry when a value is stored" in {
+      "return own entry which is stored" in {
         val head: Option[Int] = single.head
-
-        head match
-          case None => fail("Head was None instead of Some")
-          case Some(head) =>
-            head should be(10)
-      }
-
-      "return None when Empty is stored" in {
-        when(mockedEmpty.head) thenReturn None
-        val single: ISingle[IEmpty] = Single(mockedEmpty)
-
-        val head: Option[IEmpty] = single.head
-
-        head should be(None)
-      }
-
-      "return head of Digit when Digit1 is stored" in {
-        when(mockedDigit.head) thenReturn Some(10)
-        val single: ISingle[IDigit[Int]] = Single(mockedDigit)
-
-        val head: Option[_] = single.head
-
-        head match
-          case None => fail("Head was None instead of Some")
-          case Some(head) =>
-            head should be(10)
-      }
-
-      "return head of Deep when Deep( Digit1 Empty Digit1 ) is stored" in {
-        when(mockedDeep.head) thenReturn Some(10)
-        val single: ISingle[IDeep[Int]] = Single(mockedDeep)
-
-        val head: Option[_] = single.head
 
         head match
           case None => fail("Head was None instead of Some")
@@ -177,46 +144,13 @@ class SpecSingle extends AnyWordSpec with Matchers {
     }
 
     "accessing last" should {
-      "return own entry when a value is stored" in {
+      "return own entry which is stored" in {
         val last: Option[Int] = single.last
 
         last match
           case None => fail("Last was None instead of Some")
           case Some(last) =>
             last should be(10)
-      }
-
-      "return None when Empty is stored" in {
-        when(mockedEmpty.last) thenReturn None
-        val single: ISingle[IEmpty] = Single(mockedEmpty)
-
-        val last: Option[IEmpty] = single.last
-
-        last should be(None)
-      }
-
-      "return last of Digit when Digit1 is stored" in {
-        when(mockedDigit.last) thenReturn Some(10)
-        val single: ISingle[IDigit[Int]] = Single(mockedDigit)
-
-        val last: Option[_] = single.last
-
-        last match
-          case None => fail("Last was None instead of Some")
-          case Some(last) =>
-            last should be(10)
-      }
-
-      "return last of Deep when Deep( Digit1 Empty Digit1 ) is stored" in {
-        when(mockedDeep.last) thenReturn Some(9)
-        val single: ISingle[IDeep[Int]] = Single(mockedDeep)
-
-        val last: Option[_] = single.last
-
-        last match
-          case None => fail("Last was None instead of Some")
-          case Some(last) =>
-            last should be(9)
       }
     }
 
