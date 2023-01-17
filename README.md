@@ -1,6 +1,9 @@
 # FingerTrees
 
-[![Build Status](https://app.travis-ci.com/MatthReich/FingerTrees.svg?branch=master)](https://app.travis-ci.com/MatthReich/FingerTrees) [![Coverage Status](https://coveralls.io/repos/github/MatthReich/FingerTrees/badge.svg?branch=master)](https://coveralls.io/github/MatthReich/FingerTrees?branch=master)
+[![Build Status](https://app.travis-ci.com/MatthReich/FingerTrees.svg?branch=master)](https://app.travis-ci.com/MatthReich/FingerTrees)
+[![Coverage Status](https://coveralls.io/repos/github/MatthReich/FingerTrees/badge.svg?branch=master)](https://coveralls.io/github/MatthReich/FingerTrees?branch=master)
+[![MIT License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
+
 
 Dieses Projekt entstand im Zuge des Seminars aus dem Informatik-Master (INFM) der Hochschule Offenburg. Dabei war es die Aufgabe, einen FingerTree zu implementieren, wobei nur Basisoperationen unterstützt werden sollen und nicht alle möglichen Operationen. Im Folgenden wird auf die Struktur, Benutzung und Implementierung bezüglich dieses Seminars eingegangen.
 
