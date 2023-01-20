@@ -1,4 +1,4 @@
-# FingerTrees
+# [FingerTrees](https://github.com/MatthReich/FingerTrees)
 
 [![Build Status](https://app.travis-ci.com/MatthReich/FingerTrees.svg?branch=master)](https://app.travis-ci.com/MatthReich/FingerTrees)
 [![Coverage Status](https://coveralls.io/repos/github/MatthReich/FingerTrees/badge.svg?branch=master)](https://coveralls.io/github/MatthReich/FingerTrees?branch=master)
