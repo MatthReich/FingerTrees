@@ -29,7 +29,7 @@ Eine Übersicht der Struktur des Projekts, um die wichtigsten Dateien für das S
 │   ├── main/scala/fingertree/
 │   │   ├── Worksheet.worksheet.sc              # Worksheet um FingerTree manuell auszuprobieren
 │   │   └── ...                                 # Implementierung der Datenstruktur FingerTrees
-│   └── test/scala/fingertree/implFingerTree/
+│   └── test/scala/fingertree/
 │       └── ...                                 # Die Tests für FingerTrees
 └── README.md                                   # Die mit abzugebende textuelle Erklärung
 ```
@@ -39,7 +39,7 @@ Eine Übersicht der Struktur des Projekts, um die wichtigsten Dateien für das S
 Einen FingerTree erzeugt man wie folgend dargestellt.
 
 ```scala
-val intFingerTree: FingerTree[Int]  = FingerTree[Int]()
+val intFingerTree: FingerTree[Int] = FingerTree[Int]()
 ```
 
 Möchte man Elemente hinzufügen, so ist dies über `append` oder `prepend` möglich. Dabei kann 1 Argument, n Argumente oder eine Sequenz übergeben werden.
@@ -118,7 +118,7 @@ Die Struktur der Implementierung des FingerTrees und der einzelnen Komponenten i
 
 ### Allgemeine Syntax
 
-Im Zuge der Implementierung kommen generische Typen, für die Typenunabhängigkeit, zum Einsatz. Dabei steht `A` oder `B`, typisch nach der [Dokumentation von Scala](https://docs.scala-lang.org/scala3/book/types-generics.html), für den Typparameter. Der Typ bei zum Beispiel Listen wird generell in `[]` angefügt, also wäre eine Liste vom Typ `A` `List[A]`.
+Im Zuge der Implementierung kommen generische Typen, für die Typenunabhängigkeit, zum Einsatz. Dabei steht `A` oder `B`, typisch nach der [Dokumentation von Scala](https://docs.scala-lang.org/scala3/book/types-generics.html), für den Typparameter. Der Typ, bei zum Beispiel Listen, wird generell in `[]` angefügt, also würde eine Liste vom Typ `A` als `List[A]` dargestellt werden.
 
 Mit `A*` symbolisiert man `varargs`, also eine variable Anzahl von Argumenten. Dabei kann man diese auf unterschiedliche Art und Weisen nutzen. So kann man einfach mehrere Argumente der Funktion `def f(args: A*)` übergeben, wie zum Beispiel `f(1, 2, 3, 4)`. Es ist aber auch möglich eine Sequenz `val seq = Seq(1, 2, 3, 4)` an die Funktion zu übergeben `f(seq: _*)`.
 
@@ -131,7 +131,7 @@ Wenn ein Element dem FingerTree hinzugefügt wird, wird dies auf die root-Kompon
 ```scala
 suffix match
   case Digit4(entry1, entry2, entry3, entry4) =>
-    val newDeep = deep.:+[INode[A]](Node3(entry1, entry2, entry3))
+    val newDeep = deep :+ Node3(entry1, entry2, entry3)
     val newSuffix = Digit2(entry4, newEntry)
     this.copy(deep = newDeep, suffix = newSuffix)
   case partialDigit =>
@@ -142,7 +142,7 @@ Falls es ein `Digit4` ist, wird ein neues `Deep` erzeugt, welches die ersten dre
 
 ### concat
 
-Um den Text einfacher zu halten wird von FingerTree A, auf welchen FingerTree B verschmolzen wird gesprochen. Wenn A leer ist, wird einfach B zurückgegeben. Wenn A nur ein Element speichert, wird die Root-Komponente von B mit `prepend` an dieses Element angefügt. Falls A ein Deep ist, wird nun dort geschaut, ob B ein `Empty` ist. Wenn ja, wird A zurückgegeben. Bei einem `Single` wird B an A mit `append` angefügt. Die eigentliche Komplexität des Verschmelzens passiert, wenn A und B beide `Deep` sind. Dabei wird eine Hilfsmethode `concatDeep` aufgerufen, welche eine Liste entgegennimmt und die beiden FingerTrees.
+Um den Text einfacher zu halten wird von FingerTree A, auf welchen FingerTree B verschmolzen wird, gesprochen. Wenn A leer ist, wird einfach B zurückgegeben. Wenn A nur ein Element speichert, wird die Root-Komponente von B mit `prepend` an dieses Element angefügt. Falls A ein Deep ist, wird nun dort geschaut, ob B ein `Empty` ist. Wenn ja, wird A zurückgegeben. Bei einem `Single` wird B an A mit `append` angefügt. Die eigentliche Komplexität des Verschmelzens passiert, wenn A und B beide `Deep` sind. Dabei wird eine Hilfsmethode `concatDeep` aufgerufen, welche eine Liste entgegennimmt und die beiden FingerTrees.
 
 ```scala
 private def concatDeep[A](
@@ -183,7 +183,7 @@ private def concatNewDeep[A](
       concatDeep[A](leftDeep, concatList, rightDeep)
 ```
 
-Hier ist zu erkennen, dass, solange nicht eine Hälfte des deep ein `Empty` oder `Single` ist, dies beiden deeps erneut an das `concatDeep` übergeben werden, wodurch das `concar` eine Ebene weiter unten berechnet wird. Wenn jedoch ein `Empty` oder `Single` enthalten sind, dann werden, wie zuvor schon beschrieben, diese Elemente einfach mit `append` oder `prepend` zusammen geführt. In diesem Fall mit der Besonderheit, dass es eine Liste von Elementen ist, welche zuerst noch mit `foldRight` oder `foldLeft`, also ob das verbleibende deep rechts oder links der Liste von `Node` angefügt werden soll. Dabei ist auch zu erkennen, dass die fold-Funktionen zwei Parameterlisten übergeben bekommen. Das ist vor allem notwendig für die Typinferenz. Genaueres kann in der [Scala-Dokumentation](https://docs.scala-lang.org/tour/multiple-parameter-lists.html) gelesen werden. Die Liste von `Node` wird wie Folgt erstellt.
+Hier ist zu erkennen, dass, solange nicht das `Deep` von A oder B ein `Empty` oder `Single` ist, beide `Deep`s erneut an das `concatDeep` übergeben werden, wodurch das `concat` eine Ebene weiter unten berechnet wird. Wenn jedoch ein `Empty` oder `Single` enthalten ist, dann werden, wie zuvor schon beschrieben, diese Elemente einfach mit `append` oder `prepend` zusammen geführt. In diesem Fall mit der Besonderheit, dass es eine Liste von Elementen ist, welche zuerst noch mit `foldRight` oder `foldLeft`, also ob das verbleibende `Deep` rechts oder links der Liste von `Node` angefügt werden soll. Dabei ist auch zu erkennen, dass die `fold`-Funktionen zwei Parameterlisten übergeben bekommen. Das ist vor allem notwendig für die Typinferenz. Genaueres kann in der [Scala-Dokumentation](https://docs.scala-lang.org/tour/multiple-parameter-lists.html) gelesen werden. Die Liste von `Node` wird wie Folgt erstellt.
 
 ```scala
 private def createNodeCombinations[A](
@@ -199,7 +199,7 @@ private def createNodeCombinations[A](
       Node3(entry1, entry2, entry3) :: createNodeCombinations(tail)
 ```
 
-Dabei wird die Liste auf Anzahl Elemente überprüft. Die `::` Notation ist in diesem Fall einfach Schreibweise der Trennung der Elemente. Da es sich um eine einfach verkettete Liste handelt, wird am Ende die Liste durch ein `Nil` beendet. Genaueres in der [Scala-Dokumentation](https://docs.scala-lang.org/overviews/scala-book/list-class.html). Das `@unchecked` ist nur für den Compiler um die Checks zu deaktivieren, da in diesem Fall dies nicht möglich ist, aber auch nicht dieses Problem dauerhaft angezeigt werden soll. Falls nun zwei Elemente in der Liste sind, kann ein `Node2` erzeugt werden. Bei drei Elementen ein `Node3` und vier können zwei `Node2` erzeugt werden. Wenn jedoch mehr als vier Elemente enthalten sind, dann wird ein `Node3` aus den ersten drei Elementen erzeugt und nochmals `createNodeCombinations` aufgerufen, solange bis es maximal noch vier Elemente hat.
+Dabei wird die Liste auf Anzahl Elemente überprüft. Die `::` Notation ist in diesem Fall eine Alternativschreibweise für `prepended`. Da es sich um eine einfach verkettete Liste handelt, wird am Ende die Liste durch ein `Nil` beendet. Genaueres in der [Scala-Dokumentation](https://docs.scala-lang.org/overviews/scala-book/list-class.html). Das `@unchecked` deaktiviert die Checks des Compilers, da aufgrund von Generics es von diesem nicht möglich ist den Typ des Eintrags der Liste zu prüfen. Es ist nicht notwendig `@unchecked` zu verwenden, aber es ist eine Bequemlichkeit beim Implementieren. Falls nun zwei Elemente in der Liste sind, kann ein `Node2` erzeugt werden. Bei drei Elementen ein `Node3` und aus vier Elementen können zwei `Node2` erzeugt werden. Wenn jedoch mehr als vier Elemente enthalten sind, dann wird ein `Node3` aus den ersten drei Elementen erzeugt und nochmals `createNodeCombinations` aufgerufen, solange, bis der Rest der Liste maximal vier Elemente hat.
 
 ### head, last
 
@@ -207,7 +207,7 @@ Bei einem leeren Baum wird als erstes bzw. letztes Element `None` zurückgegeben
 
 ### init, tail
 
-Wie auch bei `head` bzw. `last` wird bei einem leeren Baum `None` zurückgegeben. Bei einem `Single` erhält man ein `Empty`. Im Falle eines `Deep` wird bei `init` über eine `View` alles rechts des deep angeschaut, also das Suffix.
+Wie auch bei `head` bzw. `last`, wird bei einem leeren Baum `None` zurückgegeben. Bei einem `Single` erhält man ein `Empty`. Im Falle eines `Deep` wird bei `init` über eine `View` von hinten, bildlich gesehen rechts, des `Deep` der neue Baum aufgebaut.
 
 ```scala
 override def viewRight: Option[IViewRight[A]] =
@@ -234,7 +234,7 @@ private def deepRight[A](
     case Some(newSuffix) => Deep(prefix, deep, newSuffix)
 ```
 
-Wenn das Suffix des deep größer als ein `Digit1` ist, kann aus das `Digit` ein `init` erzeugt werden, in dem das letzte Element weggelassen wird. Dann kann daraus einfach ein neuer FingerTree erzeugt werden, in dem nur das Suffix mit dem neuen Suffix ersetzt wird. Falls jedoch ein `Digit1` im Suffix gespeichert ist, wird eine Ebene weiter dieselbe Logik ausgeführt. Das bedeutet, dass dort dann das neue Suffix und das neue deep erzeugt werden. Falls jedoch in der darauffolgenden Ebene kein neues `ViewRightCons` erzeugt werden kann, zum Beispiel weil ein `Empty` darin gespeichert ist, dann wird das Prefix zu einer `TreeComponent` gemacht. Im Falle einer `Digit4` sieht das wie folgt aus.
+Wenn das Suffix des `Deep` größer als ein `Digit1` ist, kann aus dem `Digit` ein `init` erzeugt werden, in dem das letzte Element weggelassen wird. Dann kann daraus einfach ein neuer FingerTree erzeugt werden, in dem nur das Suffix mit dem neuen Suffix ersetzt wird. Falls jedoch ein `Digit1` im Suffix gespeichert ist, wird eine Ebene tiefer dieselbe Logik ausgeführt. Das bedeutet, dass dort dann das neue Suffix und das neue `Deep` erzeugt werden. Falls jedoch in der darauffolgenden Ebene kein neues `ViewRightCons` erzeugt werden kann, zum Beispiel weil ein `Empty` darin gespeichert ist, dann wird das Präfix zu einer `TreeComponent` gemacht. Im Falle einer `Digit4` sieht das wie folgt aus.
 
 ```scala
 override def toTreeComponent: ITreeComponent[A] =
@@ -247,7 +247,7 @@ Für den `tail` besteht dieselbe Logik, wie hinter `init`, jedoch mit spiegelver
 
 ### size
 
-Um an die Größe des FingerTrees zu kommen, also der `size`, wird auf jedes gespeicherte Element die `size`-Funktion aufgerufen. Dabei wird in einem `Empty` wird als `size` 0 zurückgegeben. Bei einem `Single`, `Digit` oder `Node` werden die einzelnen Elemente darin auf ihre `size` abgefragt und anschließend summiert. Folgend ein Beispiel aus `Digit2`.
+Um an die Größe des FingerTrees zu kommen, also der `size`, wird auf jedes gespeicherte Element die `size`-Funktion aufgerufen. Dabei wird in einem `Empty` als `size` 0 zurückgegeben. Bei einem `Single`, `Digit` oder `Node` werden die einzelnen Elemente darin auf ihre `size` abgefragt und anschließend summiert. Folgend ein Beispiel aus `Digit2`.
 
 ```scala
 override def size: Int = measureSize(entry1) + measureSize(entry2)
@@ -262,7 +262,7 @@ private def measureSize(entry: A): Int =
 
 Für die Berechnung der `size` wird die private `measureSize`-Funktion aufgerufen, welche überprüft, ob eine Komponente darin gespeichert ist. Falls ja, wird die `size` dieser genommen, falls nein ist die `size` des Elements 1.
 
-In einem `Deep` wird nur die Summe aus dem Präfix, deep und Suffix gebildet.
+In einem `Deep` wird nur die Summe aus dem Präfix, `Deep` und Suffix gebildet.
 
 ```scala
 override def size: Int = prefix.size + deep.size + suffix.size
@@ -287,11 +287,11 @@ override def toList: List[A] =
   prefix.toList ++: deep.toList.flatMap(a => a.toList) ++: suffix.toList ++: Nil
 ```
 
-Dabei wird dann die Liste zusammengebaut, in dem die Liste des Prefix mit `++:`, was die Kurzschreibweise für `prependedAll` ist, an die Liste des gespeicherten deeps und daran dann das des Suffixes angehängt wird. Da die Liste des deep auch über mehrere Ebenen gehen kann, wird mit `flatMap` dies aufgelöst.
+Dabei wird dann die Liste zusammengebaut, in dem die Liste des Präfix mit `++:`, was die Kurzschreibweise für `prependedAll` ist, an die Liste des gespeicherten `Deep`s und daran dann das des Suffixes angehängt wird. Da die Liste des `Deep` auch über mehrere Ebenen gehen kann, wird mit `flatMap` dies aufgelöst.
 
 ### toString
 
-Das `toString` ruft ebenfalls sich selbst auf die gespeicherten Elemente auf. 
+Das `toString` ruft sich, wie `toList`, selbst auf die gespeicherten Elemente auf. 
 
 ```scala
 override def toString: String =
